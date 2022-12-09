@@ -29,36 +29,50 @@ class AppThemeData {
   static final Color _lightFocusColor = Colors.black.withOpacity(0.12);
   static final Color _darkFocusColor = Colors.white.withOpacity(0.12);
 
-  static ThemeData lightThemeData =
-      themeData(lightColorScheme, _lightFocusColor);
-  static ThemeData darkThemeData = themeData(darkColorScheme, _darkFocusColor);
+  static ThemeData lightThemeData = ThemeData(
+    colorSchemeSeed: Color(0xff0f5dfb),
+    brightness: Brightness.light,
+    useMaterial3: true,
+    // textTheme: _textTheme,
+  );
+  static ThemeData darkThemeData = ThemeData(
+    colorSchemeSeed: Color(0xff0f5dfb),
+    brightness: Brightness.dark,
+    useMaterial3: true,
+    fontFamily: 'open sans',
+    // textTheme: _textTheme,
+  );
 
-  static ThemeData themeData(ColorScheme colorScheme, Color focusColor) {
-    return ThemeData(
-      colorScheme: colorScheme,
-      textTheme: _textTheme,
-      // Matches manifest.json colors and background color.
-      primaryColor: Color.fromARGB(255, 0, 42, 252),
-      appBarTheme: AppBarTheme(
-        backgroundColor: colorScheme.background,
-        elevation: 0,
-        iconTheme: IconThemeData(color: colorScheme.primary),
-      ),
-      iconTheme: IconThemeData(color: colorScheme.onPrimary),
-      canvasColor: colorScheme.background,
-      scaffoldBackgroundColor: colorScheme.background,
-      highlightColor: Colors.transparent,
-      focusColor: focusColor,
-      snackBarTheme: SnackBarThemeData(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Color.alphaBlend(
-          _lightFillColor.withOpacity(0.80),
-          _darkFillColor,
-        ),
-        contentTextStyle: _textTheme.subtitle1!.apply(color: _darkFillColor),
-      ),
-    );
-  }
+  // static ThemeData lightThemeData =
+  //     themeData(lightColorScheme, _lightFocusColor);
+  // static ThemeData darkThemeData = themeData(darkColorScheme, _darkFocusColor);
+
+  // static ThemeData themeData(ColorScheme colorScheme, Color focusColor) {
+  //   return ThemeData(
+  //     colorScheme: colorScheme,
+  //     textTheme: _textTheme,
+  //     // Matches manifest.json colors and background color.
+  //     primaryColor: Color.fromARGB(255, 0, 42, 252),
+  //     appBarTheme: AppBarTheme(
+  //       backgroundColor: colorScheme.background,
+  //       elevation: 0,
+  //       iconTheme: IconThemeData(color: colorScheme.primary),
+  //     ),
+  //     iconTheme: IconThemeData(color: colorScheme.onPrimary),
+  //     canvasColor: colorScheme.background,
+  //     scaffoldBackgroundColor: colorScheme.background,
+  //     highlightColor: Colors.transparent,
+  //     focusColor: focusColor,
+  //     snackBarTheme: SnackBarThemeData(
+  //       behavior: SnackBarBehavior.floating,
+  //       backgroundColor: Color.alphaBlend(
+  //         _lightFillColor.withOpacity(0.80),
+  //         _darkFillColor,
+  //       ),
+  //       contentTextStyle: _textTheme.subtitle1!.apply(color: _darkFillColor),
+  //     ),
+  //   );
+  // }
 
   static const ColorScheme lightColorScheme = ColorScheme(
     primary: Color(0xff0c5ef9),

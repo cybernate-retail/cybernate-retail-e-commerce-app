@@ -9,6 +9,7 @@ import 'package:cybernate_retail_mobile/stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/stores/theme/theme.dart';
 import 'package:cybernate_retail_mobile/ui/home/home.dart';
 import 'package:cybernate_retail_mobile/ui/introduction/introduction.dart';
+import 'package:cybernate_retail_mobile/ui/profile/otp.dart';
 import 'package:cybernate_retail_mobile/ui/profile/profile.dart';
 import 'package:cybernate_retail_mobile/ui/splash/splash.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
             theme: _themeStore.darkMode
                 ? AppThemeData.darkThemeData
                 : AppThemeData.lightThemeData,
-            home: const SplashLogo(),
+            home: const OtpScreen(),
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),

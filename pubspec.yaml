@@ -73,7 +73,10 @@ dependencies:
   flutter_launcher_icons: ^0.11.0
   sentry_flutter: ^6.16.1
   google_fonts: ^3.0.1
-  # flutter_screenutil: ^5.6.0
+  flutter_screenutil: ^5.6.0
+  flutter_keyboard_visibility: ^5.4.0
+  getwidget: ^3.0.1
+  pinput: ^2.2.16
 
 dev_dependencies:
   flutter_test:

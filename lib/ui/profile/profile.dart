@@ -2,10 +2,18 @@ import 'package:cybernate_retail_mobile/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/models/profile_model.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/stores/profile/profile.dart';
+import 'package:cybernate_retail_mobile/ui/profile/forms/form_phone_widget.dart';
+import 'package:cybernate_retail_mobile/ui/profile/forms/form_name_widget.dart';
+import 'package:cybernate_retail_mobile/ui/user_agreement/user_agreement.dart';
 import 'package:cybernate_retail_mobile/utils/utils.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:getwidget/colors/gf_color.dart';
+import 'package:getwidget/components/toast/gf_toast.dart';
+import 'package:getwidget/position/gf_toast_position.dart';
 
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
@@ -26,11 +34,15 @@ class _ProfileInputState extends State<ProfileScreen> {
   late ProfileStore _profileStore;
 
   SubmitState _submitState = SubmitState.NOTTOUCHED;
-  final TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _nameTextEditingController =
+      TextEditingController();
+  final TextEditingController _phoneTextEditingController =
+      TextEditingController();
   // ignore: unused_field
   SMITrigger? _trigFailure;
   SMITrigger? _trigSuccess;
   final _userNameKey = GlobalKey<FormBuilderState>();
+  bool keyboardVisible = false;
 
   @override
   void didChangeDependencies() {
@@ -41,12 +53,17 @@ class _ProfileInputState extends State<ProfileScreen> {
   @override
   void dispose() {
     super.dispose();
-    _textEditingController.dispose();
+    _nameTextEditingController.dispose();
+    _phoneTextEditingController.dispose();
   }
 
   @override
   void initState() {
     super.initState();
+    KeyboardVisibilityController().onChange.listen((bool visible) {
+      keyboardVisible = visible;
+      setState(() {});
+    });
   }
 
   void _onRiveInit(Artboard artboard) {
@@ -58,6 +75,11 @@ class _ProfileInputState extends State<ProfileScreen> {
     _trigSuccess = controller.findInput<bool>('trigSuccess') as SMITrigger;
     _trigFailure = controller.findInput<bool>('trigFail') as SMITrigger;
     // controller.dispose();
+  }
+
+  void onFormInputChange() {
+    _isHandsUp?.change(false);
+    _isChecking?.change(true);
   }
 
   Widget _bottomNavigationButtonLoader() {
@@ -74,53 +96,20 @@ class _ProfileInputState extends State<ProfileScreen> {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.8,
       child: FormBuilder(
-        key: _userNameKey,
-        child: FormBuilderTextField(
-          name: 'name',
-          controller: _textEditingController,
-          onChanged: (value) {
-            _isHandsUp?.change(false);
-            _isChecking?.change(true);
-          },
-          cursorColor: Colors.black,
-          textAlign: TextAlign.center,
-          textCapitalization: TextCapitalization.sentences,
-          decoration: InputDecoration(
-            focusedBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                borderSide: BorderSide(color: Colors.black)),
-            prefixIcon: const Icon(
-              Icons.person,
-              color: Colors.black12,
-            ),
-            suffixIcon: IconButton(
-              icon: const Icon(
-                Icons.close,
-                color: Colors.black,
+          key: _userNameKey,
+          child: Column(
+            children: [
+              FormNameFieldWidget(
+                textEditingController: _nameTextEditingController,
+                onChanged: onFormInputChange,
               ),
-              onPressed: () {
-                _textEditingController.clear();
-              },
-            ),
-            labelText: "Your name",
-            labelStyle: const TextStyle(
-              color: Colors.black12,
-            ),
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
+              Utils.verticalSpace(1),
+              FormPhoneFieldWidget(
+                textEditingController: _phoneTextEditingController,
+                onChanged: onFormInputChange,
               ),
-            ),
-          ),
-          validator: FormBuilderValidators.compose([
-            FormBuilderValidators.required(),
-            FormBuilderValidators.maxLength(50),
-            FormBuilderValidators.minLength(3),
-          ]),
-        ),
-      ),
+            ],
+          )),
     );
   }
 
@@ -143,99 +132,47 @@ class _ProfileInputState extends State<ProfileScreen> {
           horizontal: MediaQuery.of(context).size.width * 0.05),
       child: RichText(
         textAlign: TextAlign.start,
-        text: const TextSpan(
-          text: "Let's",
+        text: TextSpan(
+          text: "Let's Go",
           style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
+            color: Theme.of(context).primaryColor,
+            fontSize: Theme.of(context).textTheme.headline4?.fontSize,
           ),
-          children: [
-            TextSpan(
-              text: "\nGet Started!",
-              style: TextStyle(
-                color: Colors.blueAccent,
-              ),
-            ),
-          ],
         ),
       ),
     );
   }
 
-  Widget _userAgreement() {
-    return RichText(
-      text: TextSpan(
-        text: "   By continuing you agree to our\n",
-        style: const TextStyle(color: Colors.black),
-        children: [
-          WidgetSpan(
-            child: TextButton(
-              onPressed: () {},
-              style: TextButton.styleFrom(
-                fixedSize: const Size.fromHeight(5),
-              ),
-              child: const Text(
-                "Terms of use",
-                style: TextStyle(fontSize: 10),
-              ),
-            ),
-          ),
-          WidgetSpan(
-            child: SizedBox(
-              width: 10,
-              child: TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  fixedSize: const Size.fromHeight(5),
-                ),
-                child: const Text(
-                  "&",
-                  style: TextStyle(fontSize: 10),
-                ),
-              ),
-            ),
-          ),
-          WidgetSpan(
-            child: TextButton(
-              onPressed: () {},
-              style: TextButton.styleFrom(
-                fixedSize: const Size.fromHeight(5),
-              ),
-              child: const Text(
-                "    Privacy Policy",
-                style: TextStyle(fontSize: 10),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
   onContinueButtonPressed() async {
-    setState(() {
-      _submitState = SubmitState.STARTED;
-    });
-
     var navigator = Navigator.of(context);
     if (_userNameKey.currentState!.validate()) {
+      setState(() {
+        _submitState = SubmitState.STARTED;
+      });
       _trigSuccess?.fire();
       _userNameKey.currentState!.save();
       String username = _userNameKey.currentState!.value["name"].toString();
 
+      String phone = _userNameKey.currentState!.value["phone"].toString();
+
       await _profileStore.setProfileData(ProfileModel(name: username));
 
-      await Future.delayed(const Duration(seconds: 3));
+      await Future.delayed(const Duration(seconds: 1));
 
       setState(() {
         _submitState = SubmitState.DONE;
       });
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Created profile successfully"),
-      ));
+      GFToast.showToast("OTP sent Successfully", context,
+          toastPosition: GFToastPosition.TOP,
+          textStyle: const TextStyle(fontSize: 16, color: GFColors.DARK),
+          backgroundColor: GFColors.LIGHT,
+          trailing: const Icon(
+            Icons.done,
+            color: GFColors.SUCCESS,
+          ));
 
-      navigator.popAndPushNamed(Routes.home);
+      navigator.popAndPushNamed(Routes.otp);
     } else {
       _isHandsUp?.change(true);
     }
@@ -245,6 +182,7 @@ class _ProfileInputState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Utils.logoWidget(),
         backgroundColor: const Color(0xFFd6e2ea),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(10),
@@ -256,35 +194,49 @@ class _ProfileInputState extends State<ProfileScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
-            flex: 4,
+            flex: 5,
             child: _animatedLoginScreen(),
           ),
-          Expanded(
-            flex: 2,
-            child: _getStartedText(),
+          Utils.verticalSpace(2),
+          Visibility(
+            visible: !keyboardVisible,
+            child: Expanded(
+              flex: 1,
+              child: _getStartedText(),
+            ),
           ),
           Expanded(
-            flex: 2,
+            flex: 4,
             child: _profileInputForm(),
           ),
-          Expanded(
-            flex: 1,
-            child: _userAgreement(),
-          )
+          Visibility(
+            visible: !keyboardVisible,
+            child: Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 35.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  child: Utils.neumorphicActionButtonWithIcon(
+                    context,
+                    "Get Started ",
+                    iconData: Icons.double_arrow_rounded,
+                    onClick: onContinueButtonPressed,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Visibility(
+            visible: !keyboardVisible,
+            child: const Padding(
+              padding: EdgeInsets.only(bottom: 20.0),
+              child: UserAgreement(),
+            ),
+          ),
         ],
       ),
-      // bottomNavigationBar: _submitState == SubmitState.DONE
-      //     ? Utils.bottomNavigationBarButton(
-      //         context,
-      //         "Done ",
-      //         buttonColor: Colors.green,
-      //         iconData: Icons.done,
-      //         bgColor: const Color(0xFFd6e2ea),
-      //       )
-      //     : Utils.bottomNavigationBarButton(context, "Get OTP ",
-      //         iconData: Icons.arrow_forward_ios,
-      //         bgColor: const Color(0xFFd6e2ea),
-      //         onClick: onContinueButtonPressed),
     );
   }
 }

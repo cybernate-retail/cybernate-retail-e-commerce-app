@@ -1,9 +1,22 @@
+import 'package:cybernate_retail_mobile/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/constants/constants.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:uuid/uuid.dart';
 
 class Utils {
   Utils._();
+
+  static Widget verticalSpace(double value) {
+    return SizedBox(
+      height: 8 * value,
+    );
+  }
+
+  static Widget horizontalSpace(double value) {
+    return SizedBox(
+      height: 8 * value,
+    );
+  }
 
   static String getNewUuid() {
     return const Uuid().v1();
@@ -28,50 +41,63 @@ class Utils {
     return 'Evening';
   }
 
-  static Widget bottomNavigationBarButton(
+  static void emptyFunction() {}
+
+  static Widget elevatedButton(String text, {onPressed = emptyFunction}) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      child: Text(text),
+    );
+  }
+
+  static Widget logoWidget() {
+    return SizedBox(
+      child: Center(
+        child: Image.asset(
+          AssetsDb.logo,
+          fit: BoxFit.cover,
+          width: 150,
+        ),
+      ),
+    );
+  }
+
+  static Widget neumorphicActionButtonWithIcon(
     BuildContext context,
     String buttonText, {
     Color buttonColor = const Color(0xff0f5dfb),
     IconData? iconData,
-    onClick = VoidCallback,
-    bgColor = Colors.white,
+    onClick = emptyFunction,
   }) {
-    return Container(
-      color: bgColor,
-      child: NeumorphicButton(
-        onPressed: () {
-          onClick();
-        },
-        margin: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.15,
-          right: MediaQuery.of(context).size.width * 0.15,
-          bottom: MediaQuery.of(context).size.width * 0.04,
-        ),
-        padding: const EdgeInsets.all(18),
-        style: NeumorphicStyle(
-            depth: Constants.neumorphicDepth,
-            intensity: Constants.neumorphicIntensity,
-            surfaceIntensity: Constants.neumorphicSurfaceIntensity,
-            color: buttonColor,
-            boxShape: NeumorphicBoxShape.roundRect(
-              BorderRadius.circular(10),
-            )),
+    return NeumorphicButton(
+      onPressed: () {
+        onClick();
+      },
+      style: NeumorphicStyle(
+          depth: Constants.neumorphicDepth,
+          intensity: Constants.neumorphicIntensity,
+          surfaceIntensity: Constants.neumorphicSurfaceIntensity,
+          color: buttonColor,
+          boxShape: NeumorphicBoxShape.roundRect(
+            BorderRadius.circular(10),
+          )),
+      child: Center(
         child: RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
             children: [
               TextSpan(
-                text: buttonText,
-                style: const TextStyle(
-                  fontSize: 22,
-                ),
-              ),
+                  text: buttonText,
+                  style: TextStyle(
+                    color: Theme.of(context).secondaryHeaderColor,
+                    fontSize: Theme.of(context).textTheme.titleLarge?.fontSize,
+                  )),
               if (iconData != null)
                 WidgetSpan(
                     child: Icon(
                   iconData,
                   color: Colors.white,
-                  size: 22,
+                  size: 20,
                 ))
             ],
           ),

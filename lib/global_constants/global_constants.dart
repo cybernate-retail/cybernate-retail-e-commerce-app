@@ -3,7 +3,7 @@ enum TreatmentStage { oP, inProgress, done }
 class GlobalConstants {
   GlobalConstants._();
 
-  static const double neumorphicDepth = 8;
-  static const double neumorphicIntensity = 1;
-  static const double neumorphicSurfaceIntensity = 10;
+  static const double neumorphicDepth = 5;
+  static const double neumorphicIntensity = 0.5;
+  static const double neumorphicSurfaceIntensity = 5;
 }

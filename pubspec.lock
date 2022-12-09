@@ -328,6 +328,48 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.7.0"
+  flutter_keyboard_visibility:
+    dependency: "direct main"
+    description:
+      name: flutter_keyboard_visibility
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.4.0"
+  flutter_keyboard_visibility_linux:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  flutter_keyboard_visibility_macos:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  flutter_keyboard_visibility_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  flutter_keyboard_visibility_web:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  flutter_keyboard_visibility_windows:
+    dependency: transitive
+    description:
+      name: flutter_keyboard_visibility_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -375,6 +417,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.7"
+  flutter_screenutil:
+    dependency: "direct main"
+    description:
+      name: flutter_screenutil
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.6.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -427,6 +476,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.2.0"
+  getwidget:
+    dependency: "direct main"
+    description:
+      name: getwidget
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1"
   glob:
     dependency: transitive
     description:
@@ -777,6 +833,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.1.0"
+  pinput:
+    dependency: "direct main"
+    description:
+      name: pinput
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.16"
   platform:
     dependency: transitive
     description:
@@ -950,6 +1013,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smart_auth:
+    dependency: transitive
+    description:
+      name: smart_auth
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.6"
   source_gen:
     dependency: transitive
     description:

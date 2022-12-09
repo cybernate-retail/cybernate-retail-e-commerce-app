@@ -39,15 +39,17 @@ class _SplashLogoState extends State<SplashLogo> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
+    return Scaffold(
+      backgroundColor: Color.fromARGB(255, 60, 0, 134),
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Lottie.asset(
             AssetsDb.appSplashLogo,
-            width: 300,
           ),
-          Text("Localdepo")
+          Text(
+            "Localdepo",
+          )
         ],
       ),
     );
