@@ -1,0 +1,34 @@
+# import './ImageFragment.graphql'
+fragment ProductCardFragment on Product {
+  id
+  slug
+  name
+  translation(languageCode: $locale) {
+    id
+    name
+  }
+  thumbnail {
+    ...ImageFragment
+  }
+  category {
+    id
+    name
+    translation(languageCode: $locale) {
+      id
+      name
+    }
+  }
+  media {
+    url
+    alt
+    type
+  }
+  attributes {
+    attribute {
+      slug
+    }
+    values {
+      name
+    }
+  }
+}

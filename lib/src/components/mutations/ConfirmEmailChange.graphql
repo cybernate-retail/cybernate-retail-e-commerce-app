@@ -1,0 +1,13 @@
+
+#import '../fragments/AccountErrorFragment.graphql'
+#import '../fragments/UserDetailsFragment.graphql' 
+  mutation confirmEmailChange($channel: String!, $token: String!) {
+    confirmEmailChange(channel: $channel, token: $token) {
+      errors {
+        ...AccountErrorFragment
+      }
+      user {
+        ...UserDetailsFragment
+      }
+    }
+  }

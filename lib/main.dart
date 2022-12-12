@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
             theme: _themeStore.darkMode
                 ? AppThemeData.darkThemeData
                 : AppThemeData.lightThemeData,
-            home: const OtpScreen(),
+            home: const ProfileScreen(),
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),

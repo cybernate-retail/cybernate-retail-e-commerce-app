@@ -1,0 +1,34 @@
+# import '../fragments/PriceFragment.graphql'
+# import '../fragments/ImageFragment.graphql'
+query OrderDetailsQuery($token: UUID!) {
+  orderByToken(token: $token) {
+    id
+    number
+    shippingPrice {
+      gross {
+        ...PriceFragment
+      }
+    }
+    created
+    lines {
+      id
+      thumbnail {
+        ...ImageFragment
+      }
+      totalPrice {
+        gross {
+          ...PriceFragment
+        }
+      }
+      productName
+      variantName
+      quantity
+    }
+    total {
+      gross {
+        ...PriceFragment
+      }
+    }
+    statusDisplay
+  }
+}

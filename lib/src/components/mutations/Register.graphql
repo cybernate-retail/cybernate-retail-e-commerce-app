@@ -1,0 +1,9 @@
+#import '../fragments/AccountErrorFragment.graphql'
+  mutation Register($input: AccountRegisterInput!) {
+    accountRegister(input: $input) {
+      errors {
+        ...AccountErrorFragment
+      }
+      requiresConfirmation
+    }
+  }

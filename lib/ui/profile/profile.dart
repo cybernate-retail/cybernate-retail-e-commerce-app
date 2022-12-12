@@ -1,16 +1,17 @@
 import 'package:cybernate_retail_mobile/assets_db/assets_db.dart';
+import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/models/profile_model.dart';
+import 'package:cybernate_retail_mobile/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/ui/profile/forms/form_phone_widget.dart';
 import 'package:cybernate_retail_mobile/ui/profile/forms/form_name_widget.dart';
 import 'package:cybernate_retail_mobile/ui/user_agreement/user_agreement.dart';
+import 'package:cybernate_retail_mobile/utils/toast/inapp_toast.dart';
 import 'package:cybernate_retail_mobile/utils/utils.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:getwidget/colors/gf_color.dart';
 import 'package:getwidget/components/toast/gf_toast.dart';
 import 'package:getwidget/position/gf_toast_position.dart';
@@ -19,7 +20,6 @@ import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 
 // ignore: constant_identifier_names
-enum SubmitState { NOTTOUCHED, STARTED, DONE }
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -34,16 +34,16 @@ class _ProfileInputState extends State<ProfileScreen> {
   late ProfileStore _profileStore;
 
   SubmitState _submitState = SubmitState.NOTTOUCHED;
-  final TextEditingController _nameTextEditingController =
-      TextEditingController();
-  final TextEditingController _phoneTextEditingController =
-      TextEditingController();
+
   // ignore: unused_field
   SMITrigger? _trigFailure;
   SMITrigger? _trigSuccess;
   final _userNameKey = GlobalKey<FormBuilderState>();
   bool keyboardVisible = false;
-
+  final TextEditingController _nameTextEditingController =
+      TextEditingController();
+  final TextEditingController _phoneTextEditingController =
+      TextEditingController();
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -163,14 +163,7 @@ class _ProfileInputState extends State<ProfileScreen> {
         _submitState = SubmitState.DONE;
       });
       // ignore: use_build_context_synchronously
-      GFToast.showToast("OTP sent Successfully", context,
-          toastPosition: GFToastPosition.TOP,
-          textStyle: const TextStyle(fontSize: 16, color: GFColors.DARK),
-          backgroundColor: GFColors.LIGHT,
-          trailing: const Icon(
-            Icons.done,
-            color: GFColors.SUCCESS,
-          ));
+      InAppToast.otpSendSuccess(context);
 
       navigator.popAndPushNamed(Routes.otp);
     } else {
@@ -182,7 +175,7 @@ class _ProfileInputState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Utils.logoWidget(),
+        // title: Utils.logoWidget(),
         backgroundColor: const Color(0xFFd6e2ea),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(10),

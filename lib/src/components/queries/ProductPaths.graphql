@@ -1,0 +1,13 @@
+# import '../fragments/PageInfoFragment.graphql'
+query ProductPaths($after: String, $channel: String!) {
+  products(first: 100, channel: $channel, after: $after) {
+    pageInfo {
+      ...PageInfoFragment
+    }
+    edges {
+      node {
+        slug
+      }
+    }
+  }
+}

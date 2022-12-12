@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "build-types": "graphql-codegen --config codegen.yml",
+    "download-schema": "graphql-codegen --config codegen-introspection.yml"
+  },
+  "devDependencies": {
+    "@graphql-codegen/flutter-freezed": "^2.11.2",
+    "@graphql-codegen/cli": "1.21.5",
+    "@graphql-codegen/introspection": "^1.18.2",
+    "@graphql-codegen/typescript": "^1.22.3",
+    "@graphql-codegen/typescript-apollo-client-helpers": "^1.1.9",
+    "@graphql-codegen/typescript-operations": "^1.18.2"
+  }
+}

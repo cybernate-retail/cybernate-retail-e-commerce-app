@@ -1,0 +1,17 @@
+#import '../fragments/AccountErrorFragment.graphql'
+#import '../fragments/UserDetailsFragment.graphql' 
+#import '../fragments/AddressFragment.graphql'
+
+  mutation updateAccountAddress($input: AddressInput!, $id: ID!) {
+    accountAddressUpdate(input: $input, id: $id) {
+      address {
+        ...AddressFragment
+      }
+      errors {
+        ...AccountErrorFragment
+      }
+      user {
+        ...UserDetailsFragment
+      }
+    }
+  }

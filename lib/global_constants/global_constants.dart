@@ -1,5 +1,7 @@
 enum TreatmentStage { oP, inProgress, done }
 
+enum SubmitState { NOTTOUCHED, STARTED, ERROR, DONE }
+
 class GlobalConstants {
   GlobalConstants._();
 

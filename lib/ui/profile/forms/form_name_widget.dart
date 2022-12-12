@@ -22,6 +22,8 @@ class FormNameFieldWidget extends StatelessWidget {
       textAlign: TextAlign.center,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
         focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),

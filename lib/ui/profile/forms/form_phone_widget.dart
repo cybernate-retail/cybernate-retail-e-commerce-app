@@ -33,6 +33,8 @@ class FormPhoneFieldWidget extends StatelessWidget {
         FilteringTextInputFormatter.digitsOnly,
       ],
       decoration: InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
         focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(10),
