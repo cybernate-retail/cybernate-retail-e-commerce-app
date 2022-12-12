@@ -1,10 +1,18 @@
 import 'package:cybernate_retail_mobile/data/database_encryption/encryption.dart';
 import 'package:cybernate_retail_mobile/data/localdb/constants/db_constants.dart';
+import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
 import "package:path/path.dart" show join;
 import 'package:path_provider/path_provider.dart';
+import 'package:gql_http_link/gql_http_link.dart';
+import 'package:ferry/ferry.dart';
+import 'package:ferry_hive_store/ferry_hive_store.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart'
+    show possibleTypesMap;
 
 abstract class LocalModule {
   /// A singleton preference provider.
@@ -41,5 +49,24 @@ abstract class LocalModule {
 
     // Return database instance
     return database;
+  }
+
+  static Future<Client> initClient() async {
+    await Hive.initFlutter();
+
+    final box = await Hive.openBox("graphql");
+
+    final store = HiveStore(box);
+
+    final cache = Cache(store: store, possibleTypes: possibleTypesMap);
+
+    final link = HttpLink(GlobalConstants.appUrl);
+
+    final client = Client(
+      link: link,
+      cache: cache,
+    );
+
+    return client;
   }
 }
