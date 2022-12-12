@@ -58,6 +58,7 @@ dependencies:
   build_runner: ^2.3.2
   hive_flutter: ^1.1.0
   ferry_hive_store: ^0.4.5
+  hive: ^2.2.3
 
 dev_dependencies:
   flutter_test:
