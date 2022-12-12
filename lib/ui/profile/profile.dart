@@ -12,10 +12,6 @@ import 'package:cybernate_retail_mobile/utils/utils.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:getwidget/colors/gf_color.dart';
-import 'package:getwidget/components/toast/gf_toast.dart';
-import 'package:getwidget/position/gf_toast_position.dart';
-
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 
