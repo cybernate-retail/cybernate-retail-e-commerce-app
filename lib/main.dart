@@ -1,11 +1,13 @@
 import 'dart:async';
+import 'package:cybernate_retail_mobile/data/remote_repository.dart';
 import 'package:cybernate_retail_mobile/data/repository.dart';
-import 'package:cybernate_retail_mobile/dependency_injection/components/services.dart';
+import 'package:cybernate_retail_mobile/dependency_injection/services.dart';
 import 'package:cybernate_retail_mobile/global_theme/apptheme.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/stores/introduction/introduction.dart';
 import 'package:cybernate_retail_mobile/stores/language/language.dart';
 import 'package:cybernate_retail_mobile/stores/profile/profile.dart';
+import 'package:cybernate_retail_mobile/stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/stores/theme/theme.dart';
 import 'package:cybernate_retail_mobile/ui/home/home.dart';
 import 'package:cybernate_retail_mobile/ui/introduction/introduction.dart';
@@ -45,6 +47,8 @@ class MyApp extends StatelessWidget {
   final ThemeStore _themeStore = ThemeStore(getIt<Repository>());
   final LanguageStore _languageStore = LanguageStore(getIt<Repository>());
   final ProfileStore _profileStore = ProfileStore(getIt<Repository>());
+  final TestingStore _testingStore =
+      TestingStore(getIt<RemoteRepository>(), getIt<Repository>());
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -53,6 +57,7 @@ class MyApp extends StatelessWidget {
         Provider(create: (_) => _themeStore),
         Provider(create: (_) => _languageStore),
         Provider(create: (_) => _profileStore),
+        Provider(create: (_) => _testingStore),
       ],
       child: Observer(
         name: 'global-observer',
