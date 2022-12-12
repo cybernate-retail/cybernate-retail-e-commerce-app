@@ -1,3 +1,4 @@
+import 'package:cybernate_retail_mobile/data/localdb/profile/profile_datasource.dart';
 import 'package:cybernate_retail_mobile/data/repository.dart';
 import 'package:cybernate_retail_mobile/data/shared_prefs/sharedpref_helper.dart';
 import 'package:cybernate_retail_mobile/dependency_injection/modules/localmodule.dart';
@@ -18,8 +19,11 @@ Future<void> setupLocator() async {
   getIt.registerSingleton(
       SharedPreferenceHelper(await getIt.getAsync<SharedPreferences>()));
 
+  getIt.registerSingleton(ProfileDataSource(await getIt.getAsync<Database>()));
+
   getIt.registerSingleton(Repository(
     getIt<SharedPreferenceHelper>(),
+    getIt<ProfileDataSource>(),
   ));
 
   //Stores

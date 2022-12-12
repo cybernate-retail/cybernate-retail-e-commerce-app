@@ -1,0 +1,14 @@
+#import '../fragments/AccountErrorFragment.graphql'
+#import '../fragments/UserBaseFragment.graphql' 
+  mutation LoginWithoutDetails($email: String!, $password: String!) {
+    tokenCreate(email: $email, password: $password) {
+      csrfToken
+      token
+      errors {
+        ...AccountErrorFragment
+      }
+      user {
+        ...UserBaseFragment
+      }
+    }
+  }

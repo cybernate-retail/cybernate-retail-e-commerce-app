@@ -1,0 +1,13 @@
+# import '../fragments/PageInfoFragment.graphql'
+query CollectionPaths($after: String, $channel: String!) {
+  collections(first: 20, channel: $channel, after: $after) {
+    pageInfo {
+      ...PageInfoFragment
+    }
+    edges {
+      node {
+        slug
+      }
+    }
+  }
+}

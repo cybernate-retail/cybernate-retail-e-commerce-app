@@ -1,0 +1,8 @@
+#import '../fragments/AccountErrorFragment.graphql'
+  mutation accountRequestDeletion($channel: String!, $redirectUrl: String!) {
+    accountRequestDeletion(channel: $channel, redirectUrl: $redirectUrl) {
+      errors {
+        ...AccountErrorFragment
+      }
+    }
+  }

@@ -1,0 +1,6 @@
+# import '../fragments/CheckoutDetailsFragment.graphql'
+query CheckoutByToken($checkoutToken: UUID!, $locale: LanguageCodeEnum!) {
+  checkout(token: $checkoutToken) {
+    ...CheckoutDetailsFragment
+  }
+}

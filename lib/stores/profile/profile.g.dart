@@ -16,11 +16,52 @@ mixin _$ProfileStore on _ProfileStore, Store {
           () => super.profileInputDone,
           name: '_ProfileStore.profileInputDone'))
       .value;
+  Computed<ProfileModel?>? _$profileComputed;
+
+  @override
+  ProfileModel? get profile =>
+      (_$profileComputed ??= Computed<ProfileModel?>(() => super.profile,
+              name: '_ProfileStore.profile'))
+          .value;
+
+  late final _$_profileModelAtom =
+      Atom(name: '_ProfileStore._profileModel', context: context);
+
+  @override
+  ProfileModel? get _profileModel {
+    _$_profileModelAtom.reportRead();
+    return super._profileModel;
+  }
+
+  @override
+  set _profileModel(ProfileModel? value) {
+    _$_profileModelAtom.reportWrite(value, super._profileModel, () {
+      super._profileModel = value;
+    });
+  }
+
+  late final _$getProfileDataAsyncAction =
+      AsyncAction('_ProfileStore.getProfileData', context: context);
+
+  @override
+  Future<ProfileModel?> getProfileData() {
+    return _$getProfileDataAsyncAction.run(() => super.getProfileData());
+  }
+
+  late final _$setProfileDataAsyncAction =
+      AsyncAction('_ProfileStore.setProfileData', context: context);
+
+  @override
+  Future<void> setProfileData(ProfileModel profileModel) {
+    return _$setProfileDataAsyncAction
+        .run(() => super.setProfileData(profileModel));
+  }
 
   @override
   String toString() {
     return '''
-profileInputDone: ${profileInputDone}
+profileInputDone: ${profileInputDone},
+profile: ${profile}
     ''';
   }
 }

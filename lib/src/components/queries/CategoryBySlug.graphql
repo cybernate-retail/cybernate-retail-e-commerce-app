@@ -1,0 +1,6 @@
+# import '../fragments/CategoryDetailsFragment.graphql'
+query CategoryBySlug($slug: String!, $locale: LanguageCodeEnum!) {
+  category(slug: $slug) {
+    ...CategoryDetailsFragment
+  }
+}

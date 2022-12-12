@@ -1,0 +1,12 @@
+#import '../fragments/AccountErrorFragment.graphql'
+#import '../fragments/UserDetailsFragment.graphql'
+  mutation accountUpdate($input: AccountInput!) {
+    accountUpdate(input: $input) {
+      errors {
+        ...AccountErrorFragment
+      }
+      user {
+        ...UserDetailsFragment
+      }
+    }
+  }

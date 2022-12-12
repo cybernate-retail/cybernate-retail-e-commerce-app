@@ -1,10 +1,13 @@
+import 'package:cybernate_retail_mobile/data/localdb/profile/profile_datasource.dart';
 import 'package:cybernate_retail_mobile/data/shared_prefs/sharedpref_helper.dart';
+import 'package:cybernate_retail_mobile/models/profile_model.dart';
 
 class Repository {
   final SharedPreferenceHelper _sharedPreferenceHelper;
-
+  final ProfileDataSource _profileDataSource;
   Repository(
     this._sharedPreferenceHelper,
+    this._profileDataSource,
   );
 
   //Introduction screen functions
@@ -40,5 +43,17 @@ class Repository {
   //Profile Store
   bool? get getProfileInputDone {
     return _sharedPreferenceHelper.getProfileInputDone();
+  }
+
+  Future<bool> setProfileInputDone(bool value) {
+    return _sharedPreferenceHelper.setProfileInputDone(value);
+  }
+
+  Future<ProfileModel?> getProfileData() {
+    return _profileDataSource.getProfileData();
+  }
+
+  Future<dynamic> setProfileData(ProfileModel profileModel) {
+    return _profileDataSource.setProfileData(profileModel);
   }
 }

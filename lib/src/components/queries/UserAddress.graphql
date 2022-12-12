@@ -1,0 +1,8 @@
+# import '../fragments/AddressDetailsFragment.graphql'
+query CurrentUserAddresses {
+  me {
+    addresses {
+      ...AddressDetailsFragment
+    }
+  }
+}

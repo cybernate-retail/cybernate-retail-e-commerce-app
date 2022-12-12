@@ -1,0 +1,17 @@
+# import '../fragments/CheckoutDetailsFragment.graphql'
+mutation CheckoutBillingAddressUpdate(
+  $token: UUID!
+  $address: AddressInput!
+  $locale: LanguageCodeEnum!
+) {
+  checkoutBillingAddressUpdate(billingAddress: $address, token: $token) {
+    checkout {
+      ...CheckoutDetailsFragment
+    }
+    errors {
+      field
+      message
+      code
+    }
+  }
+}

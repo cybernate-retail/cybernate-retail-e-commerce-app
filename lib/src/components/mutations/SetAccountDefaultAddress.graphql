@@ -1,0 +1,12 @@
+#import '../fragments/AccountErrorFragment.graphql'
+#import '../fragments/UserDetailsFragment.graphql'
+  mutation setAccountDefaultAddress($id: ID!, $type: AddressTypeEnum!) {
+    accountSetDefaultAddress(id: $id, type: $type) {
+      errors {
+        ...AccountErrorFragment
+      }
+      user {
+        ...UserDetailsFragment
+      }
+    }
+  }
