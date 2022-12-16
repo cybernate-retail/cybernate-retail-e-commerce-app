@@ -1,12 +1,16 @@
+import 'package:cybernate_retail_mobile/data/database_encryption/encryption/secure_sharedprefs/secure_sharedprefs_helper.dart';
 import 'package:cybernate_retail_mobile/data/localdb/profile/profile_datasource.dart';
 import 'package:cybernate_retail_mobile/data/shared_prefs/sharedpref_helper.dart';
-import 'package:cybernate_retail_mobile/models/profile_model.dart';
+import 'package:cybernate_retail_mobile/models/profile.dart';
+import 'package:cybernate_retail_mobile/models/tokens.dart';
 
 class Repository {
   final SharedPreferenceHelper _sharedPreferenceHelper;
+  final SecureSharedPreferencesHelper _secureSharedPreferencesHelper;
   final ProfileDataSource _profileDataSource;
   Repository(
     this._sharedPreferenceHelper,
+    this._secureSharedPreferencesHelper,
     this._profileDataSource,
   );
 
@@ -55,5 +59,13 @@ class Repository {
 
   Future<dynamic> setProfileData(ProfileModel profileModel) {
     return _profileDataSource.setProfileData(profileModel);
+  }
+
+  Future<TokenModel?> getTokens() {
+    return _secureSharedPreferencesHelper.getTokens();
+  }
+
+  Future<dynamic> setTokens(TokenModel tokens) {
+    return _secureSharedPreferencesHelper.setTokens(tokens);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:cybernate_retail_mobile/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
-import 'package:cybernate_retail_mobile/models/profile_model.dart';
+import 'package:cybernate_retail_mobile/models/profile.dart';
 import 'package:cybernate_retail_mobile/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/stores/profile/profile.dart';
@@ -129,10 +129,11 @@ class _ProfileInputState extends State<ProfileScreen> {
       child: RichText(
         textAlign: TextAlign.start,
         text: TextSpan(
-          text: "Let's Go",
+          text: "Signup/Signin",
           style: TextStyle(
             color: Theme.of(context).primaryColor,
-            fontSize: Theme.of(context).textTheme.headline4?.fontSize,
+            fontWeight: FontWeight.w500,
+            fontSize: Theme.of(context).textTheme.headline5?.fontSize,
           ),
         ),
       ),
@@ -151,7 +152,8 @@ class _ProfileInputState extends State<ProfileScreen> {
 
       String phone = _userNameKey.currentState!.value["phone"].toString();
 
-      await _profileStore.setProfileData(ProfileModel(name: username));
+      await _profileStore
+          .setProfileData(ProfileModel(name: username, phoneNumber: phone));
 
       await Future.delayed(const Duration(seconds: 1));
 

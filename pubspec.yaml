@@ -60,12 +60,13 @@ dependencies:
   ferry_hive_store: ^0.4.5
   hive: ^2.2.3
   ferry_flutter: ^0.6.2
+  json_serializable: ^6.5.4
+  flutter_secure_storage: ^7.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  json_serializable: ^6.0.0
   ferry_generator: ^0.6.1
   
 flutter:

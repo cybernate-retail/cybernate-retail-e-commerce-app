@@ -1,6 +1,7 @@
 import 'package:cybernate_retail_mobile/data/database_encryption/encryption.dart';
 import 'package:cybernate_retail_mobile/data/localdb/constants/db_constants.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';

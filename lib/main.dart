@@ -9,7 +9,7 @@ import 'package:cybernate_retail_mobile/stores/language/language.dart';
 import 'package:cybernate_retail_mobile/stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/stores/theme/theme.dart';
-import 'package:cybernate_retail_mobile/ui/testing/testing.dart';
+import 'package:cybernate_retail_mobile/ui/profile/profile.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
             theme: _themeStore.darkMode
                 ? AppThemeData.darkThemeData
                 : AppThemeData.lightThemeData,
-            home: const TestingScreen(),
+            home: const ProfileScreen(),
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),

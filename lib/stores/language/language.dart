@@ -13,10 +13,10 @@ abstract class _LanguageStore with Store {
   _LanguageStore(this._repository);
 
   // supported languages
-  List<Language> supportedLanguages = [
-    Language(code: 'US', locale: 'en', language: 'English'),
-    Language(code: 'DK', locale: 'da', language: 'Danish'),
-    Language(code: 'ES', locale: 'es', language: 'España'),
+  List<LanguageModel> supportedLanguages = [
+    LanguageModel(code: 'US', locale: 'en', language: 'English'),
+    LanguageModel(code: 'DK', locale: 'da', language: 'Danish'),
+    LanguageModel(code: 'ES', locale: 'es', language: 'España'),
   ];
 
   // store variables:-----------------------------------------------------------

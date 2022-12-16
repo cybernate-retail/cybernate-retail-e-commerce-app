@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cybernate_retail_mobile/models/profile_model.dart';
+import 'package:cybernate_retail_mobile/models/profile.dart';
 import 'package:sembast/sembast.dart';
 
 class ProfileDataSource {

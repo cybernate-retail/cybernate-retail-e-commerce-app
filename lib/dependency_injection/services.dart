@@ -1,3 +1,4 @@
+import 'package:cybernate_retail_mobile/data/database_encryption/encryption/secure_sharedprefs/secure_sharedprefs_helper.dart';
 import 'package:cybernate_retail_mobile/data/localdb/profile/profile_datasource.dart';
 import 'package:cybernate_retail_mobile/data/remote_repository.dart';
 import 'package:cybernate_retail_mobile/data/remotedb/product/product_datasource.dart';
@@ -10,6 +11,7 @@ import 'package:cybernate_retail_mobile/stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/stores/theme/theme.dart';
 // ignore: library_prefixes
 import 'package:ferry/ferry.dart' as Ferry;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sembast/sembast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +22,7 @@ Future<void> setupLocator() async {
   getIt.registerSingletonAsync<Database>(() => LocalModule.provideDatabase());
   getIt.registerSingletonAsync<SharedPreferences>(
       () => LocalModule.provideSharedPreferences());
+  getIt.registerSingleton<FlutterSecureStorage>(const FlutterSecureStorage());
   getIt.registerSingletonAsync<Ferry.Client>(() => LocalModule.initClient());
 
   // ---------------------Local------------------------------------------------//
@@ -30,6 +33,7 @@ Future<void> setupLocator() async {
 
   getIt.registerSingleton(Repository(
     getIt<SharedPreferenceHelper>(),
+    getIt<SecureSharedPreferencesHelper>(),
     getIt<ProfileDataSource>(),
   ));
 

@@ -1,5 +1,4 @@
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
-import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/ProductCollection.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/ProductCollection.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/ProductCollection.var.gql.dart';
@@ -33,7 +32,7 @@ class _TestingScreenState extends State<TestingScreen> {
             (b) => b
               ..vars.first = 10
               ..vars.channel = GlobalConstants.defaultChannel
-              ..vars.locale = GLanguageCodeEnum.EN_US,
+              ..vars.locale = GlobalConstants.defaultLanguage,
           ),
           builder: (
             BuildContext context,
@@ -43,6 +42,11 @@ class _TestingScreenState extends State<TestingScreen> {
           ) {
             if (response == null || response.loading) {
               return const Center(child: CircularProgressIndicator());
+            }
+            if (response.data == null) {
+              return Center(
+                child: ErrorWidget("Error"),
+              );
             }
 
             final products = response.data?.products?.edges.first.toString();

@@ -21,34 +21,36 @@ class FormNameFieldWidget extends StatelessWidget {
       cursorColor: Colors.black,
       textAlign: TextAlign.center,
       textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         fillColor: Colors.white,
         filled: true,
-        focusedBorder: const OutlineInputBorder(
+        focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),
             ),
             borderSide: BorderSide(color: Colors.black)),
         prefixIcon: Icon(
           Icons.person,
-          color: Theme.of(context).primaryColor,
+          color: Colors.grey,
         ),
-        // suffixIcon: IconButton(
-        //   icon: const Icon(
-        //     Icons.close,
-        //     color: Colors.black12,
-        //   ),
-        //   onPressed: () {
-        //     textEditingController.clear();
-        //   },
-        // ),
         labelText: "Your name",
-        labelStyle: const TextStyle(
+        labelStyle: TextStyle(
           color: Colors.black26,
         ),
-        border: const OutlineInputBorder(
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(10),
+          ),
+          borderSide: BorderSide(
+            color: Colors.white,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+          borderSide: BorderSide(
+            color: Colors.red,
           ),
         ),
       ),

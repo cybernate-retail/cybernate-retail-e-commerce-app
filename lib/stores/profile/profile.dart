@@ -1,6 +1,6 @@
 import 'package:cybernate_retail_mobile/data/repository.dart';
 import 'package:mobx/mobx.dart';
-import 'package:cybernate_retail_mobile/models/profile_model.dart';
+import 'package:cybernate_retail_mobile/models/profile.dart';
 part 'profile.g.dart';
 
 // ignore: library_private_types_in_public_api
