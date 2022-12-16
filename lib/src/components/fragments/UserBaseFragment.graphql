@@ -1,7 +1,0 @@
-  fragment UserBaseFragment on User {
-    id
-    email
-    firstName
-    lastName
-    isStaff
-  }

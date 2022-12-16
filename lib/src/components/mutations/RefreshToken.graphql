@@ -1,9 +1,0 @@
-#import '../fragments/AccountErrorFragment.graphql'
-  mutation refreshToken($csrfToken: String!) {
-    tokenRefresh(csrfToken: $csrfToken) {
-      token
-      errors {
-        ...AccountErrorFragment
-      }
-    }
-  }

@@ -1,5 +1,0 @@
-  fragment AccountErrorFragment on AccountError {
-    code
-    field
-    message
-  }
