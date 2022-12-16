@@ -1,0 +1,10 @@
+# import '../fragments/AccountErrorFragment.graphql'
+  mutation Register($input: AccountRegisterInputWithPhone!) {
+    accountRegisterWithPhone(input: $input) {
+      errors {
+        ...AccountErrorFragment
+      }
+      requiresConfirmation
+    }
+  }
+  

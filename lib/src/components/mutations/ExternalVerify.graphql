@@ -1,0 +1,21 @@
+#import '../fragments/AccountErrorFragment.graphql'
+#import '../fragments/UserDetailsFragment.graphql' 
+  mutation ExternalVerify(
+    $pluginId: String = "mirumee.authentication.openidconnect"
+    $input: JSONString!
+  ) {
+    externalVerify(pluginId: $pluginId, input: $input) {
+      isValid
+      verifyData
+      user {
+        ...UserDetailsFragment
+        userPermissions {
+          code
+          name
+        }
+      }
+      errors {
+        ...AccountErrorFragment
+      }
+    }
+  }

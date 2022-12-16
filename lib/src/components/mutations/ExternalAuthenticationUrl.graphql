@@ -1,0 +1,13 @@
+
+#import '../fragments/AccountErrorFragment.graphql'
+  mutation ExternalAuthenticationUrl(
+    $pluginId: String = "mirumee.authentication.openidconnect"
+    $input: JSONString!
+  ) {
+    externalAuthenticationUrl(pluginId: $pluginId, input: $input) {
+      authenticationData
+      errors {
+        ...AccountErrorFragment
+      }
+    }
+  }

@@ -1,0 +1,19 @@
+# import '../fragments/AddressDetailsFragment.graphql'
+enum AddressTypeEnum {
+  BILLING
+  SHIPPING
+}
+
+mutation SetAddressDefault($id: ID!, $type: AddressTypeEnum!) {
+  accountSetDefaultAddress(id: $id, type: $type) {
+    user {
+      addresses {
+        ...AddressDetailsFragment
+      }
+    }
+    errors {
+      code
+      message
+    }
+  }
+}

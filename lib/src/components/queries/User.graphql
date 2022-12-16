@@ -1,0 +1,6 @@
+#import '../fragments/UserDetailsFragment.graphql'
+  query User {
+    user: me {
+      ...UserDetailsFragment
+    }
+  }

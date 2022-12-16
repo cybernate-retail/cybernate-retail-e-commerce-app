@@ -1,0 +1,17 @@
+#import '../fragments/AccountErrorFragment.graphql'
+#import '../fragments/UserDetailsFragment.graphql' 
+  mutation ExternalRefreshWithUser(
+    $pluginId: String = "mirumee.authentication.openidconnect"
+    $input: JSONString!
+  ) {
+    externalRefresh(pluginId: $pluginId, input: $input) {
+      token
+      csrfToken
+      user {
+        ...UserDetailsFragment
+      }
+      errors {
+        ...AccountErrorFragment
+      }
+    }
+  }

@@ -1,0 +1,26 @@
+# import '../fragments/AddressDetailsFragment.graphql'
+mutation checkoutComplete($checkoutToken: UUID!, $paymentData: JSONString) {
+  checkoutComplete(token: $checkoutToken, paymentData: $paymentData) {
+    order {
+      id
+      status
+      token
+      billingAddress {
+        id
+        ...AddressDetailsFragment
+      }
+      shippingAddress {
+        id
+        ...AddressDetailsFragment
+      }
+    }
+    confirmationNeeded
+    confirmationData
+    errors {
+      field
+      message
+      variants
+      addressType
+    }
+  }
+}

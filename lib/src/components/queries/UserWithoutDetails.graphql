@@ -1,0 +1,7 @@
+#import '../fragments/UserBaseFragment.graphql'
+  query UserWithoutDetails {
+    user: me {
+      ...UserBaseFragment
+    }
+
+  }

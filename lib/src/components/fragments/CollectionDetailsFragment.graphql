@@ -1,0 +1,16 @@
+# import './CollectionBasicFragment.graphql'
+# import './ImageFragment.graphql'
+fragment CollectionDetailsFragment on Collection {
+  id
+  ...CollectionBasicFragment
+  seoTitle
+  seoDescription
+  description
+  translation(languageCode: $locale) {
+    id
+    description
+  }
+  backgroundImage {
+    ...ImageFragment
+  }
+}
