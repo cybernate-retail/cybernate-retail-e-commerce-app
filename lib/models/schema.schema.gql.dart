@@ -180,6 +180,36 @@ abstract class GAccountRegisterInput
       );
 }
 
+abstract class GAccountRegisterInputWithPhone
+    implements
+        Built<GAccountRegisterInputWithPhone,
+            GAccountRegisterInputWithPhoneBuilder> {
+  GAccountRegisterInputWithPhone._();
+
+  factory GAccountRegisterInputWithPhone(
+          [Function(GAccountRegisterInputWithPhoneBuilder b) updates]) =
+      _$GAccountRegisterInputWithPhone;
+
+  String? get firstName;
+  String? get lastName;
+  GLanguageCodeEnum? get languageCode;
+  String get email;
+  String? get redirectUrl;
+  BuiltList<GMetadataInput>? get metadata;
+  String? get channel;
+  static Serializer<GAccountRegisterInputWithPhone> get serializer =>
+      _$gAccountRegisterInputWithPhoneSerializer;
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GAccountRegisterInputWithPhone.serializer,
+        this,
+      ) as Map<String, dynamic>);
+  static GAccountRegisterInputWithPhone? fromJson(Map<String, dynamic> json) =>
+      _i2.serializers.deserializeWith(
+        GAccountRegisterInputWithPhone.serializer,
+        json,
+      );
+}
+
 abstract class GAddressInput
     implements Built<GAddressInput, GAddressInputBuilder> {
   GAddressInput._();

@@ -59,6 +59,7 @@ dependencies:
   hive_flutter: ^1.1.0
   ferry_hive_store: ^0.4.5
   hive: ^2.2.3
+  ferry_flutter: ^0.6.2
 
 dev_dependencies:
   flutter_test:

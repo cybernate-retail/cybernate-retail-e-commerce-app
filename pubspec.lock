@@ -288,6 +288,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
+  ferry_flutter:
+    dependency: "direct main"
+    description:
+      name: ferry_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.2"
   ferry_generator:
     dependency: "direct dev"
     description:

@@ -9,6 +9,7 @@ import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart'
         GAccountErrorCode,
         GAccountInput,
         GAccountRegisterInput,
+        GAccountRegisterInputWithPhone,
         GAddressInput,
         GAddressTypeEnum,
         GAllocationStrategyEnum,
@@ -1245,6 +1246,15 @@ import 'package:cybernate_retail_mobile/src/components/mutations/models/External
     show GExternalVerifyReq;
 import 'package:cybernate_retail_mobile/src/components/mutations/models/ExternalVerify.var.gql.dart'
     show GExternalVerifyVars;
+import 'package:cybernate_retail_mobile/src/components/mutations/models/GenerateOtpForLogin.data.gql.dart'
+    show
+        GGenerateOtpForLoginData,
+        GGenerateOtpForLoginData_tokenCreateWithPhone,
+        GGenerateOtpForLoginData_tokenCreateWithPhone_errors;
+import 'package:cybernate_retail_mobile/src/components/mutations/models/GenerateOtpForLogin.req.gql.dart'
+    show GGenerateOtpForLoginReq;
+import 'package:cybernate_retail_mobile/src/components/mutations/models/GenerateOtpForLogin.var.gql.dart'
+    show GGenerateOtpForLoginVars;
 import 'package:cybernate_retail_mobile/src/components/mutations/models/Login.data.gql.dart'
     show
         GloginData,
@@ -1317,6 +1327,10 @@ import 'package:cybernate_retail_mobile/src/components/mutations/models/Register
     show GRegisterReq;
 import 'package:cybernate_retail_mobile/src/components/mutations/models/Register.var.gql.dart'
     show GRegisterVars;
+import 'package:cybernate_retail_mobile/src/components/mutations/models/RegisterWithPhone.data.gql.dart'
+    show
+        GRegisterData_accountRegisterWithPhone,
+        GRegisterData_accountRegisterWithPhone_errors;
 import 'package:cybernate_retail_mobile/src/components/mutations/models/RequestEmailChange.data.gql.dart'
     show
         GRequestEmailChangeData,
@@ -1389,6 +1403,16 @@ import 'package:cybernate_retail_mobile/src/components/mutations/models/UpdateAc
     show GupdateAccountAddressReq;
 import 'package:cybernate_retail_mobile/src/components/mutations/models/UpdateAccountAddress.var.gql.dart'
     show GupdateAccountAddressVars;
+import 'package:cybernate_retail_mobile/src/components/mutations/models/VerifyOtp.data.gql.dart'
+    show
+        GVerifyOtpData,
+        GVerifyOtpData_otpVerify,
+        GVerifyOtpData_otpVerify_errors,
+        GVerifyOtpData_otpVerify_user;
+import 'package:cybernate_retail_mobile/src/components/mutations/models/VerifyOtp.req.gql.dart'
+    show GVerifyOtpReq;
+import 'package:cybernate_retail_mobile/src/components/mutations/models/VerifyOtp.var.gql.dart'
+    show GVerifyOtpVars;
 import 'package:cybernate_retail_mobile/src/components/mutations/models/VerifyToken.data.gql.dart'
     show
         GverifyTokenData,
@@ -1769,6 +1793,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GAccountErrorFragmentVars,
   GAccountInput,
   GAccountRegisterInput,
+  GAccountRegisterInputWithPhone,
   GAddressDeleteData,
   GAddressDeleteData_accountAddressDelete,
   GAddressDeleteData_accountAddressDelete_user,
@@ -2416,6 +2441,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GFulfillmentCancelInput,
   GFulfillmentStatus,
   GFulfillmentUpdateTrackingInput,
+  GGenerateOtpForLoginData,
+  GGenerateOtpForLoginData_tokenCreateWithPhone,
+  GGenerateOtpForLoginData_tokenCreateWithPhone_errors,
+  GGenerateOtpForLoginReq,
+  GGenerateOtpForLoginVars,
   GGenericScalar,
   GGiftCardAddNoteInput,
   GGiftCardBulkCreateInput,
@@ -2811,6 +2841,8 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GPublishableChannelListingInput,
   GRegisterData,
   GRegisterData_accountRegister,
+  GRegisterData_accountRegisterWithPhone,
+  GRegisterData_accountRegisterWithPhone_errors,
   GRegisterData_accountRegister_errors,
   GRegisterReq,
   GRegisterVars,
@@ -2965,6 +2997,12 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GUserWithoutDetailsReq,
   GUserWithoutDetailsVars,
   GVariantAttributeScope,
+  GVerifyOtpData,
+  GVerifyOtpData_otpVerify,
+  GVerifyOtpData_otpVerify_errors,
+  GVerifyOtpData_otpVerify_user,
+  GVerifyOtpReq,
+  GVerifyOtpVars,
   GVolumeUnitsEnum,
   GVoucherChannelListingAddInput,
   GVoucherChannelListingInput,

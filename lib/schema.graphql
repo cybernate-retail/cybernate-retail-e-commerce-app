@@ -163,6 +163,40 @@ input AccountRegisterInput {
   channel: String
 }
 
+input AccountRegisterInputWithPhone {
+  """Given name."""
+  firstName: String
+
+  """Family name."""
+  lastName: String
+
+  """User language code."""
+  languageCode: LanguageCodeEnum
+
+  """Phone number of the user."""
+  email: String!
+
+  """Base of frontend URL that will be needed to create confirmation URL."""
+  redirectUrl: String
+
+  """User public metadata."""
+  metadata: [MetadataInput!]
+
+  """
+  Slug of a channel which will be used to notify users. Optional when only one channel exists.
+  """
+  channel: String
+}
+
+"""Register a new user."""
+type AccountRegisterWithPhone {
+  """Informs whether users need to confirm their phone number."""
+  requiresConfirmation: Boolean
+  accountErrors: [AccountError!]! @deprecated(reason: "This field will be removed in Saleor 4.0. Use `errors` field instead.")
+  errors: [AccountError!]!
+  user: User
+}
+
 """
 Sends an email with the account removal link for the logged-in user. 
 
@@ -4701,6 +4735,14 @@ input CountryFilterInput {
   return all countries.
   """
   attachedToShippingZones: Boolean
+}
+
+"""Create JWT token."""
+type CreateOtp {
+  """Gives the status if otp is generated."""
+  otpGenerated: String
+  accountErrors: [AccountError!]! @deprecated(reason: "This field will be removed in Saleor 4.0. Use `errors` field instead.")
+  errors: [AccountError!]!
 }
 
 """Create JWT token."""
@@ -12326,6 +12368,12 @@ type Mutation {
     password: String!
   ): CreateToken
 
+  """Create JWT token."""
+  tokenCreateWithPhone(
+    """Email of a user."""
+    phone: String!
+  ): CreateOtp
+
   """
   Refresh JWT token. Mutation tries to take refreshToken from the input.If it
   fails it will try to take refreshToken from the http-only cookie
@@ -12346,6 +12394,24 @@ type Mutation {
     """JWT token to validate."""
     token: String!
   ): VerifyToken
+
+  """Create JWT token."""
+  otpVerify(
+    """
+    The audience that will be included to JWT tokens with prefix `custom:`.
+    
+    Added in Saleor 3.8.
+    
+    Note: this API is currently in Feature Preview and can be subject to changes at later point.
+    """
+    audience: String
+
+    """OTP of a user."""
+    otp: Int!
+
+    """Phone number of a user."""
+    phone: String!
+  ): VerifyOtp
 
   """
   Deactivate all JWT tokens of the currently authenticated user. 
@@ -12542,6 +12608,12 @@ type Mutation {
     """Fields required to create a user."""
     input: AccountRegisterInput!
   ): AccountRegister
+
+  """Register a new user."""
+  accountRegisterWithPhone(
+    """Fields required to create a user."""
+    input: AccountRegisterInputWithPhone!
+  ): AccountRegisterWithPhone
 
   """
   Updates the account of the logged-in user. 
@@ -23212,6 +23284,23 @@ type VAT {
 
   """Country's VAT rate exceptions for specific types of goods."""
   reducedRates: [ReducedRate!]!
+}
+
+"""Create JWT token."""
+type VerifyOtp {
+  """JWT token, required to authenticate."""
+  token: String
+
+  """JWT refresh token, required to re-generate access token."""
+  refreshToken: String
+
+  """CSRF token required to re-generate access token."""
+  csrfToken: String
+
+  """A user instance."""
+  user: User
+  accountErrors: [AccountError!]! @deprecated(reason: "This field will be removed in Saleor 4.0. Use `errors` field instead.")
+  errors: [AccountError!]!
 }
 
 """Verify JWT token."""

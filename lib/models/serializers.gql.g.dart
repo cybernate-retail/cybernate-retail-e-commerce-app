@@ -14,6 +14,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GAccountErrorFragmentVars.serializer)
       ..add(GAccountInput.serializer)
       ..add(GAccountRegisterInput.serializer)
+      ..add(GAccountRegisterInputWithPhone.serializer)
       ..add(GAddressDeleteData.serializer)
       ..add(GAddressDeleteData_accountAddressDelete.serializer)
       ..add(GAddressDeleteData_accountAddressDelete_user.serializer)
@@ -1151,6 +1152,11 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GFulfillmentCancelInput.serializer)
       ..add(GFulfillmentStatus.serializer)
       ..add(GFulfillmentUpdateTrackingInput.serializer)
+      ..add(GGenerateOtpForLoginData.serializer)
+      ..add(GGenerateOtpForLoginData_tokenCreateWithPhone.serializer)
+      ..add(GGenerateOtpForLoginData_tokenCreateWithPhone_errors.serializer)
+      ..add(GGenerateOtpForLoginReq.serializer)
+      ..add(GGenerateOtpForLoginVars.serializer)
       ..add(GGenericScalar.serializer)
       ..add(GGiftCardAddNoteInput.serializer)
       ..add(GGiftCardBulkCreateInput.serializer)
@@ -1571,6 +1577,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GPublishableChannelListingInput.serializer)
       ..add(GRegisterData.serializer)
       ..add(GRegisterData_accountRegister.serializer)
+      ..add(GRegisterData_accountRegisterWithPhone.serializer)
+      ..add(GRegisterData_accountRegisterWithPhone_errors.serializer)
       ..add(GRegisterData_accountRegister_errors.serializer)
       ..add(GRegisterReq.serializer)
       ..add(GRegisterVars.serializer)
@@ -1790,6 +1798,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GUserWithoutDetailsReq.serializer)
       ..add(GUserWithoutDetailsVars.serializer)
       ..add(GVariantAttributeScope.serializer)
+      ..add(GVerifyOtpData.serializer)
+      ..add(GVerifyOtpData_otpVerify.serializer)
+      ..add(GVerifyOtpData_otpVerify_errors.serializer)
+      ..add(GVerifyOtpData_otpVerify_user.serializer)
+      ..add(GVerifyOtpReq.serializer)
+      ..add(GVerifyOtpVars.serializer)
       ..add(GVolumeUnitsEnum.serializer)
       ..add(GVoucherChannelListingAddInput.serializer)
       ..add(GVoucherChannelListingInput.serializer)
@@ -2675,6 +2689,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
               const [const FullType(GFooterMenuData_menu_items_children)]),
           () => new ListBuilder<GFooterMenuData_menu_items_children>())
       ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(GGenerateOtpForLoginData_tokenCreateWithPhone_errors)
+          ]),
+          () => new ListBuilder<
+              GGenerateOtpForLoginData_tokenCreateWithPhone_errors>())
+      ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(GHomepageBlocksQueryData_menu_items)]),
           () => new ListBuilder<GHomepageBlocksQueryData_menu_items>())
@@ -2791,6 +2811,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(GMetadataInput)]),
+          () => new ListBuilder<GMetadataInput>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(GMetadataInput)]),
           () => new ListBuilder<GMetadataInput>())
@@ -3078,6 +3101,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
       ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(GRegisterData_accountRegisterWithPhone_errors)
+          ]),
+          () =>
+              new ListBuilder<GRegisterData_accountRegisterWithPhone_errors>())
+      ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(GRegisterData_accountRegister_errors)]),
           () => new ListBuilder<GRegisterData_accountRegister_errors>())
@@ -3205,6 +3234,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList,
               const [const FullType(GUserDetailsFragmentData_addresses)]),
           () => new ListBuilder<GUserDetailsFragmentData_addresses>())
+      ..addBuilderFactory(
+          const FullType(BuiltList,
+              const [const FullType(GVerifyOtpData_otpVerify_errors)]),
+          () => new ListBuilder<GVerifyOtpData_otpVerify_errors>())
       ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(GVoucherChannelListingAddInput)]),

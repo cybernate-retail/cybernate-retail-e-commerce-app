@@ -1,5 +1,6 @@
 import 'package:cybernate_retail_mobile/data/localdb/profile/profile_datasource.dart';
 import 'package:cybernate_retail_mobile/data/remote_repository.dart';
+import 'package:cybernate_retail_mobile/data/remotedb/product/product_datasource.dart';
 import 'package:cybernate_retail_mobile/data/repository.dart';
 import 'package:cybernate_retail_mobile/data/shared_prefs/sharedpref_helper.dart';
 import 'package:cybernate_retail_mobile/dependency_injection/modules/localmodule.dart';
@@ -21,9 +22,7 @@ Future<void> setupLocator() async {
       () => LocalModule.provideSharedPreferences());
   getIt.registerSingletonAsync<Ferry.Client>(() => LocalModule.initClient());
 
-  getIt.registerSingleton(
-      RemoteRepository(await getIt.getAsync<Ferry.Client>()));
-
+  // ---------------------Local------------------------------------------------//
   getIt.registerSingleton(
       SharedPreferenceHelper(await getIt.getAsync<SharedPreferences>()));
 
@@ -34,7 +33,12 @@ Future<void> setupLocator() async {
     getIt<ProfileDataSource>(),
   ));
 
-  //Stores
+  //------------------------Remote---------------------------------------------//
+  getIt.registerSingleton(
+      ProductDataSource(await getIt.getAsync<Ferry.Client>()));
+  getIt.registerSingleton(RemoteRepository(getIt<ProductDataSource>()));
+
+  //------------------------Stores---------------------------------------------//
   getIt.registerSingleton(IntroductionStore(getIt<Repository>()));
   getIt.registerSingleton(LanguageStore(getIt<Repository>()));
   getIt.registerSingleton(ThemeStore(getIt<Repository>()));

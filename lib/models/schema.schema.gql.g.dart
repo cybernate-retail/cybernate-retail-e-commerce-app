@@ -12025,6 +12025,9 @@ Serializer<GAccountInput> _$gAccountInputSerializer =
     new _$GAccountInputSerializer();
 Serializer<GAccountRegisterInput> _$gAccountRegisterInputSerializer =
     new _$GAccountRegisterInputSerializer();
+Serializer<GAccountRegisterInputWithPhone>
+    _$gAccountRegisterInputWithPhoneSerializer =
+    new _$GAccountRegisterInputWithPhoneSerializer();
 Serializer<GAddressInput> _$gAddressInputSerializer =
     new _$GAddressInputSerializer();
 Serializer<GAddressTypeEnum> _$gAddressTypeEnumSerializer =
@@ -12909,6 +12912,122 @@ class _$GAccountRegisterInputSerializer
           break;
         case 'password':
           result.password = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'redirectUrl':
+          result.redirectUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'metadata':
+          result.metadata.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(GMetadataInput)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'channel':
+          result.channel = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GAccountRegisterInputWithPhoneSerializer
+    implements StructuredSerializer<GAccountRegisterInputWithPhone> {
+  @override
+  final Iterable<Type> types = const [
+    GAccountRegisterInputWithPhone,
+    _$GAccountRegisterInputWithPhone
+  ];
+  @override
+  final String wireName = 'GAccountRegisterInputWithPhone';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GAccountRegisterInputWithPhone object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'email',
+      serializers.serialize(object.email,
+          specifiedType: const FullType(String)),
+    ];
+    Object? value;
+    value = object.firstName;
+    if (value != null) {
+      result
+        ..add('firstName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.lastName;
+    if (value != null) {
+      result
+        ..add('lastName')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.languageCode;
+    if (value != null) {
+      result
+        ..add('languageCode')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(GLanguageCodeEnum)));
+    }
+    value = object.redirectUrl;
+    if (value != null) {
+      result
+        ..add('redirectUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.metadata;
+    if (value != null) {
+      result
+        ..add('metadata')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(GMetadataInput)])));
+    }
+    value = object.channel;
+    if (value != null) {
+      result
+        ..add('channel')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GAccountRegisterInputWithPhone deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GAccountRegisterInputWithPhoneBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'firstName':
+          result.firstName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'lastName':
+          result.lastName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'languageCode':
+          result.languageCode = serializers.deserialize(value,
+                  specifiedType: const FullType(GLanguageCodeEnum))
+              as GLanguageCodeEnum?;
+          break;
+        case 'email':
+          result.email = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
         case 'redirectUrl':
@@ -32709,6 +32828,186 @@ class GAccountRegisterInputBuilder
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GAccountRegisterInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GAccountRegisterInputWithPhone extends GAccountRegisterInputWithPhone {
+  @override
+  final String? firstName;
+  @override
+  final String? lastName;
+  @override
+  final GLanguageCodeEnum? languageCode;
+  @override
+  final String email;
+  @override
+  final String? redirectUrl;
+  @override
+  final BuiltList<GMetadataInput>? metadata;
+  @override
+  final String? channel;
+
+  factory _$GAccountRegisterInputWithPhone(
+          [void Function(GAccountRegisterInputWithPhoneBuilder)? updates]) =>
+      (new GAccountRegisterInputWithPhoneBuilder()..update(updates))._build();
+
+  _$GAccountRegisterInputWithPhone._(
+      {this.firstName,
+      this.lastName,
+      this.languageCode,
+      required this.email,
+      this.redirectUrl,
+      this.metadata,
+      this.channel})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        email, r'GAccountRegisterInputWithPhone', 'email');
+  }
+
+  @override
+  GAccountRegisterInputWithPhone rebuild(
+          void Function(GAccountRegisterInputWithPhoneBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GAccountRegisterInputWithPhoneBuilder toBuilder() =>
+      new GAccountRegisterInputWithPhoneBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GAccountRegisterInputWithPhone &&
+        firstName == other.firstName &&
+        lastName == other.lastName &&
+        languageCode == other.languageCode &&
+        email == other.email &&
+        redirectUrl == other.redirectUrl &&
+        metadata == other.metadata &&
+        channel == other.channel;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(
+        $jc(
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, firstName.hashCode), lastName.hashCode),
+                        languageCode.hashCode),
+                    email.hashCode),
+                redirectUrl.hashCode),
+            metadata.hashCode),
+        channel.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GAccountRegisterInputWithPhone')
+          ..add('firstName', firstName)
+          ..add('lastName', lastName)
+          ..add('languageCode', languageCode)
+          ..add('email', email)
+          ..add('redirectUrl', redirectUrl)
+          ..add('metadata', metadata)
+          ..add('channel', channel))
+        .toString();
+  }
+}
+
+class GAccountRegisterInputWithPhoneBuilder
+    implements
+        Builder<GAccountRegisterInputWithPhone,
+            GAccountRegisterInputWithPhoneBuilder> {
+  _$GAccountRegisterInputWithPhone? _$v;
+
+  String? _firstName;
+  String? get firstName => _$this._firstName;
+  set firstName(String? firstName) => _$this._firstName = firstName;
+
+  String? _lastName;
+  String? get lastName => _$this._lastName;
+  set lastName(String? lastName) => _$this._lastName = lastName;
+
+  GLanguageCodeEnum? _languageCode;
+  GLanguageCodeEnum? get languageCode => _$this._languageCode;
+  set languageCode(GLanguageCodeEnum? languageCode) =>
+      _$this._languageCode = languageCode;
+
+  String? _email;
+  String? get email => _$this._email;
+  set email(String? email) => _$this._email = email;
+
+  String? _redirectUrl;
+  String? get redirectUrl => _$this._redirectUrl;
+  set redirectUrl(String? redirectUrl) => _$this._redirectUrl = redirectUrl;
+
+  ListBuilder<GMetadataInput>? _metadata;
+  ListBuilder<GMetadataInput> get metadata =>
+      _$this._metadata ??= new ListBuilder<GMetadataInput>();
+  set metadata(ListBuilder<GMetadataInput>? metadata) =>
+      _$this._metadata = metadata;
+
+  String? _channel;
+  String? get channel => _$this._channel;
+  set channel(String? channel) => _$this._channel = channel;
+
+  GAccountRegisterInputWithPhoneBuilder();
+
+  GAccountRegisterInputWithPhoneBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _firstName = $v.firstName;
+      _lastName = $v.lastName;
+      _languageCode = $v.languageCode;
+      _email = $v.email;
+      _redirectUrl = $v.redirectUrl;
+      _metadata = $v.metadata?.toBuilder();
+      _channel = $v.channel;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GAccountRegisterInputWithPhone other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GAccountRegisterInputWithPhone;
+  }
+
+  @override
+  void update(void Function(GAccountRegisterInputWithPhoneBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GAccountRegisterInputWithPhone build() => _build();
+
+  _$GAccountRegisterInputWithPhone _build() {
+    _$GAccountRegisterInputWithPhone _$result;
+    try {
+      _$result = _$v ??
+          new _$GAccountRegisterInputWithPhone._(
+              firstName: firstName,
+              lastName: lastName,
+              languageCode: languageCode,
+              email: BuiltValueNullFieldError.checkNotNull(
+                  email, r'GAccountRegisterInputWithPhone', 'email'),
+              redirectUrl: redirectUrl,
+              metadata: _metadata?.build(),
+              channel: channel);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'metadata';
+        _metadata?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GAccountRegisterInputWithPhone', _$failedField, e.toString());
       }
       rethrow;
     }

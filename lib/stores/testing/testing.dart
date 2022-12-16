@@ -10,4 +10,8 @@ abstract class _TestingStore with Store {
   final RemoteRepository _remoteRepository;
   final Repository _repository;
   _TestingStore(this._remoteRepository, this._repository);
+
+  product() {
+    return _remoteRepository.product();
+  }
 }

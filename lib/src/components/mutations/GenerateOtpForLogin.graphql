@@ -1,0 +1,9 @@
+#import '../fragments/AccountErrorFragment.graphql'
+mutation GenerateOtpForLogin($phone: String!){
+    tokenCreateWithPhone(phone: $phone){
+        errors{
+            ...AccountErrorFragment
+        }
+        otpGenerated
+    }
+}
