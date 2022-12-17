@@ -1,6 +1,6 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:cybernate_retail_mobile/assets_db/assets_db.dart';
-import 'package:cybernate_retail_mobile/constants/constants.dart';
+import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:uuid/uuid.dart';
 
@@ -75,9 +75,9 @@ class Utils {
         onClick();
       },
       style: NeumorphicStyle(
-          depth: Constants.neumorphicDepth,
-          intensity: Constants.neumorphicIntensity,
-          surfaceIntensity: Constants.neumorphicSurfaceIntensity,
+          depth: GlobalConstants.neumorphicDepth,
+          intensity: GlobalConstants.neumorphicIntensity,
+          surfaceIntensity: GlobalConstants.neumorphicSurfaceIntensity,
           color: buttonColor,
           boxShape: NeumorphicBoxShape.roundRect(
             BorderRadius.circular(10),

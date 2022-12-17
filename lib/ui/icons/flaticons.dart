@@ -1,5 +1,5 @@
-import 'package:cybernate_retail_mobile/assets_db/assets_db.dart';
-import 'package:cybernate_retail_mobile/utils/utils.dart';
+import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
+import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class FlatIcon {

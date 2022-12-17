@@ -1,4 +1,4 @@
-import 'package:cybernate_retail_mobile/navigator/inapp_navigation.dart';
+import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 

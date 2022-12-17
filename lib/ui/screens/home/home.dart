@@ -1,4 +1,4 @@
-import 'package:cybernate_retail_mobile/screens/components/appbar/appbar.dart';
+import 'package:cybernate_retail_mobile/ui/components/appbar/appbar.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

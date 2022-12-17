@@ -1,5 +1,5 @@
-import 'package:cybernate_retail_mobile/screens/signup/forms/profile_form_constants.dart';
-import 'package:cybernate_retail_mobile/utils/utils.dart';
+import 'package:cybernate_retail_mobile/ui/screens/signup/forms/profile_form_constants.dart';
+import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';

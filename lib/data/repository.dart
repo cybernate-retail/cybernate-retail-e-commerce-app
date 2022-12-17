@@ -3,7 +3,6 @@ import 'package:cybernate_retail_mobile/data/localdb/profile/profile_datasource.
 import 'package:cybernate_retail_mobile/data/shared_prefs/sharedpref_helper.dart';
 import 'package:cybernate_retail_mobile/models/profile.dart';
 import 'package:cybernate_retail_mobile/models/tokens.dart';
-import 'package:cybernate_retail_mobile/stores/login/login.dart';
 
 class Repository {
   final SharedPreferenceHelper _sharedPreferenceHelper;

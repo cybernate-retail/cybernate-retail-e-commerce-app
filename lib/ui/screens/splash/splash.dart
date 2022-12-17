@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cybernate_retail_mobile/assets_db/assets_db.dart';
+import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';

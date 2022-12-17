@@ -5,11 +5,11 @@ import 'package:cybernate_retail_mobile/data/remotedb/product/product_datasource
 import 'package:cybernate_retail_mobile/data/repository.dart';
 import 'package:cybernate_retail_mobile/data/shared_prefs/sharedpref_helper.dart';
 import 'package:cybernate_retail_mobile/dependency_injection/modules/localmodule.dart';
-import 'package:cybernate_retail_mobile/stores/introduction/introduction.dart';
-import 'package:cybernate_retail_mobile/stores/language/language.dart';
-import 'package:cybernate_retail_mobile/stores/login/login.dart';
-import 'package:cybernate_retail_mobile/stores/testing/testing.dart';
-import 'package:cybernate_retail_mobile/stores/theme/theme.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/introduction/introduction.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/language/language.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/login/login.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/testing/testing.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/theme/theme.dart';
 // ignore: library_prefixes
 import 'package:ferry/ferry.dart' as Ferry;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
