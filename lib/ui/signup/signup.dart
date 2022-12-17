@@ -178,13 +178,12 @@ class _SignupScreenInputState extends State<SignupScreen> {
           await onSignupComplete(username, phone);
         }
       });
-    } else {
-      InAppToast.errorSendingOtp(context);
-      _isHandsUp?.change(true);
-      setState(() {
-        _submitState = SubmitState.ERROR;
-      });
     }
+    InAppToast.errorSendingOtp(context);
+    _isHandsUp?.change(true);
+    setState(() {
+      _submitState = SubmitState.ERROR;
+    });
   }
 
   onContinueButtonPressed() async {
