@@ -30,13 +30,14 @@ class AppThemeData {
   static final Color _darkFocusColor = Colors.white.withOpacity(0.12);
 
   static ThemeData lightThemeData = ThemeData(
-    colorSchemeSeed: Color(0xff0f5dfb),
+    colorSchemeSeed: const Color(0xff0f5dfb),
     brightness: Brightness.light,
     useMaterial3: true,
+    fontFamily: 'open sans',
     // textTheme: _textTheme,
   );
   static ThemeData darkThemeData = ThemeData(
-    colorSchemeSeed: Color(0xff0f5dfb),
+    colorSchemeSeed: const Color(0xff0f5dfb),
     brightness: Brightness.dark,
     useMaterial3: true,
     fontFamily: 'open sans',

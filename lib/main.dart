@@ -51,6 +51,7 @@ class MyApp extends StatelessWidget {
       LoginStore(getIt<Repository>(), getIt<SecureSharedPreferencesHelper>());
   final TestingStore _testingStore =
       TestingStore(getIt<RemoteRepository>(), getIt<Repository>());
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -71,7 +72,11 @@ class MyApp extends StatelessWidget {
             theme: _themeStore.darkMode
                 ? AppThemeData.darkThemeData
                 : AppThemeData.lightThemeData,
-            home: const SplashLogo(),
+            home: _loginStore.getLoggedIn()
+                ? const SplashLogo(
+                    nextRoute: Routes.home,
+                  )
+                : const SplashLogo(nextRoute: Routes.signup),
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),

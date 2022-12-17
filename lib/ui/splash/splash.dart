@@ -1,24 +1,22 @@
 import 'dart:async';
 
 import 'package:cybernate_retail_mobile/assets_db/assets_db.dart';
-import 'package:cybernate_retail_mobile/routes/routes.dart';
-import 'package:cybernate_retail_mobile/stores/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 
 class SplashLogo extends StatefulWidget {
-  const SplashLogo({super.key});
+  final String nextRoute;
+  const SplashLogo({
+    super.key,
+    required this.nextRoute,
+  });
 
   @override
   State<SplashLogo> createState() => _SplashLogoState();
 }
 
 class _SplashLogoState extends State<SplashLogo> {
-  // late IntroductionStore _introductionStore;
-  late LoginStore _loginStore;
-
   @override
   void initState() {
     super.initState();
@@ -29,7 +27,6 @@ class _SplashLogoState extends State<SplashLogo> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _loginStore = Provider.of<LoginStore>(context);
   }
 
   Timer scheduleTimeout(BuildContext context, [int milliseconds = 1000]) =>
@@ -58,7 +55,7 @@ class _SplashLogoState extends State<SplashLogo> {
   void handleTimeout(BuildContext context) {
     Navigator.popAndPushNamed(
       context,
-      _loginStore.getLoggedIn() ? Routes.home : Routes.signup,
+      widget.nextRoute,
     );
   }
 }

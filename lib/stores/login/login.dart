@@ -2,7 +2,6 @@ import 'package:cybernate_retail_mobile/data/database_encryption/encryption/secu
 import 'package:cybernate_retail_mobile/data/repository.dart';
 import 'package:cybernate_retail_mobile/models/tokens.dart';
 import 'package:mobx/mobx.dart';
-import 'package:cybernate_retail_mobile/models/profile.dart';
 part 'login.g.dart';
 
 // ignore: library_private_types_in_public_api
@@ -15,6 +14,9 @@ abstract class _LoginStore with Store {
 
   @observable
   bool _loggedIn = false;
+
+  @computed
+  bool get isLoggedIn => _loggedIn;
 
   @action
   bool getLoggedIn() {

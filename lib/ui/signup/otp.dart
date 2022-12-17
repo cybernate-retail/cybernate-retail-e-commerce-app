@@ -3,10 +3,11 @@ import 'package:cybernate_retail_mobile/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/models/tokens.dart';
 import 'package:cybernate_retail_mobile/navigator/inapp_navigation.dart';
+import 'package:cybernate_retail_mobile/src/components/mutations/models/TokenCreateWithPhone.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/VerifyOtp.req.gql.dart';
 import 'package:cybernate_retail_mobile/stores/login/login.dart';
 import 'package:cybernate_retail_mobile/stores/profile/profile.dart';
-import 'package:cybernate_retail_mobile/ui/toast/inapp_toast.dart';
+import 'package:cybernate_retail_mobile/ui/components/toast/inapp_toast.dart';
 import 'package:cybernate_retail_mobile/utils/utils.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
@@ -119,17 +120,11 @@ class _OtpScreenState extends State<OtpScreen> {
                 child:
                     _otpDescription(_profileStore.profile?.phoneNumber ?? "")),
           ),
-          Expanded(
-            flex: 1,
-            child: _otpBoxes(),
-          ),
+          _otpBoxes(),
           Visibility(
             visible: !keyboardVisible,
             maintainState: true,
-            child: Expanded(
-              flex: 1,
-              child: _otpResend(),
-            ),
+            child: _otpResend(),
           )
         ],
       ),
@@ -187,6 +182,18 @@ class _OtpScreenState extends State<OtpScreen> {
                   enableResend = false;
                 });
                 _countDownController.start();
+                final generateOtpReq = GTokenCreateWithPhoneReq(
+                  (b) =>
+                      b..vars.phone = _profileStore.profile?.phoneNumber ?? "",
+                );
+                _client.request(generateOtpReq).listen((event) async {
+                  if (event.data?.tokenCreateWithPhone?.otpGenerated ==
+                      "true") {
+                    InAppToast.otpSendSuccess(context);
+                  } else {
+                    InAppToast.errorSendingOtp(context);
+                  }
+                });
               }
             },
             child: Text(

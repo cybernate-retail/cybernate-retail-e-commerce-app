@@ -1,3 +1,4 @@
+import 'package:cybernate_retail_mobile/ui/components/appbar/appbar.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,9 +11,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-      color: Colors.green,
+    return Scaffold(
+      appBar: customAppBar(context, "Erstnot"),
     );
   }
 }
