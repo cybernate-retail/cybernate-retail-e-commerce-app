@@ -1,9 +1,9 @@
 import 'package:cybernate_retail_mobile/routes/routes.dart';
-import 'package:cybernate_retail_mobile/ui/home/home.dart';
-import 'package:cybernate_retail_mobile/ui/signup/otp.dart';
-import 'package:cybernate_retail_mobile/ui/signup/signup.dart';
-import 'package:cybernate_retail_mobile/ui/components/user_agreement/privacy_policy.dart';
-import 'package:cybernate_retail_mobile/ui/components/user_agreement/terms_of_user.dart';
+import 'package:cybernate_retail_mobile/screens/home/home.dart';
+import 'package:cybernate_retail_mobile/screens/signup/otp.dart';
+import 'package:cybernate_retail_mobile/screens/signup/signup.dart';
+import 'package:cybernate_retail_mobile/screens/components/user_agreement/privacy_policy.dart';
+import 'package:cybernate_retail_mobile/screens/components/user_agreement/terms_of_user.dart';
 import 'package:flutter/material.dart';
 
 class InAppNavigation {
