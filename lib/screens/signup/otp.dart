@@ -7,7 +7,7 @@ import 'package:cybernate_retail_mobile/src/components/mutations/models/TokenCre
 import 'package:cybernate_retail_mobile/src/components/mutations/models/VerifyOtp.req.gql.dart';
 import 'package:cybernate_retail_mobile/stores/login/login.dart';
 import 'package:cybernate_retail_mobile/stores/profile/profile.dart';
-import 'package:cybernate_retail_mobile/ui/components/toast/inapp_toast.dart';
+import 'package:cybernate_retail_mobile/screens/components/toast/inapp_toast.dart';
 import 'package:cybernate_retail_mobile/utils/utils.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';

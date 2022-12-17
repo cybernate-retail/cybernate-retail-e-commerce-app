@@ -1,49 +1,38 @@
-import 'package:cybernate_retail_mobile/ui/signup/forms/profile_form_constants.dart';
+import 'package:cybernate_retail_mobile/screens/signup/forms/profile_form_constants.dart';
 import 'package:cybernate_retail_mobile/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-class FormPhoneFieldWidget extends StatelessWidget {
-  const FormPhoneFieldWidget({
-    super.key,
-    required this.onChanged,
-    required this.textEditingController,
-  });
-  final Function onChanged;
+class FormNameFieldWidget extends StatelessWidget {
+  const FormNameFieldWidget(
+      {super.key,
+      required this.textEditingController,
+      required this.onChanged});
   final TextEditingController textEditingController;
+  final Function onChanged;
 
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
-      name: ProfileFormConstants.phone,
+      name: ProfileFormConstants.name,
       controller: textEditingController,
-      maxLength: 10,
-      maxLengthEnforcement: MaxLengthEnforcement.enforced,
       onChanged: (value) {
         onChanged();
       },
       cursorColor: Colors.black,
       textAlign: TextAlign.justify,
-      // keyboardType: TextInputType.number,
-      keyboardType: const TextInputType.numberWithOptions(
-        signed: true,
-        decimal: true,
-      ),
-      inputFormatters: [
-        FilteringTextInputFormatter.digitsOnly,
-      ],
+      textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         fillColor: Colors.white,
         filled: true,
         focusedBorder:
             Utils.outlineInputBorder(10, Theme.of(context).primaryColor),
         prefixIcon: const Icon(
-          Icons.phone_iphone,
+          Icons.person,
           color: Colors.grey,
         ),
-        labelText: "Phone number",
+        labelText: "Your name",
         labelStyle: const TextStyle(
           color: Colors.black26,
         ),
@@ -54,8 +43,8 @@ class FormPhoneFieldWidget extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(),
-        FormBuilderValidators.maxLength(10),
-        FormBuilderValidators.minLength(10),
+        FormBuilderValidators.maxLength(50),
+        FormBuilderValidators.minLength(3),
       ]),
     );
   }

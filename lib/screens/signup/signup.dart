@@ -13,11 +13,11 @@ import 'package:cybernate_retail_mobile/src/components/mutations/models/Register
 import 'package:cybernate_retail_mobile/src/components/mutations/models/RegisterWithPhone.var.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/TokenCreateWithPhone.req.gql.dart';
 import 'package:cybernate_retail_mobile/stores/profile/profile.dart';
-import 'package:cybernate_retail_mobile/ui/signup/forms/form_phone_widget.dart';
-import 'package:cybernate_retail_mobile/ui/signup/forms/form_name_widget.dart';
-import 'package:cybernate_retail_mobile/ui/signup/forms/profile_form_constants.dart';
-import 'package:cybernate_retail_mobile/ui/components/user_agreement/user_agreement.dart';
-import 'package:cybernate_retail_mobile/ui/components/toast/inapp_toast.dart';
+import 'package:cybernate_retail_mobile/screens/signup/forms/form_phone_widget.dart';
+import 'package:cybernate_retail_mobile/screens/signup/forms/form_name_widget.dart';
+import 'package:cybernate_retail_mobile/screens/signup/forms/profile_form_constants.dart';
+import 'package:cybernate_retail_mobile/screens/components/user_agreement/user_agreement.dart';
+import 'package:cybernate_retail_mobile/screens/components/toast/inapp_toast.dart';
 import 'package:cybernate_retail_mobile/utils/utils.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
