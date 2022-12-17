@@ -3,6 +3,7 @@ import 'package:cybernate_retail_mobile/data/localdb/profile/profile_datasource.
 import 'package:cybernate_retail_mobile/data/shared_prefs/sharedpref_helper.dart';
 import 'package:cybernate_retail_mobile/models/profile.dart';
 import 'package:cybernate_retail_mobile/models/tokens.dart';
+import 'package:cybernate_retail_mobile/stores/login/login.dart';
 
 class Repository {
   final SharedPreferenceHelper _sharedPreferenceHelper;
@@ -61,6 +62,16 @@ class Repository {
     return _profileDataSource.setProfileData(profileModel);
   }
 
+  //LoggedIN -----------------------------------
+  bool? get getLoggedIn {
+    return _sharedPreferenceHelper.getLoggedIn();
+  }
+
+  Future<bool> setLoggedIn(bool value) {
+    return _sharedPreferenceHelper.setLoggedIn(value);
+  }
+
+  //Tokens --------------------------------------
   Future<TokenModel?> getTokens() {
     return _secureSharedPreferencesHelper.getTokens();
   }

@@ -1,13 +1,20 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:cybernate_retail_mobile/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/models/tokens.dart';
 import 'package:cybernate_retail_mobile/navigator/inapp_navigation.dart';
-import 'package:cybernate_retail_mobile/utils/toast/inapp_toast.dart';
+import 'package:cybernate_retail_mobile/src/components/mutations/models/VerifyOtp.req.gql.dart';
+import 'package:cybernate_retail_mobile/stores/login/login.dart';
+import 'package:cybernate_retail_mobile/stores/profile/profile.dart';
+import 'package:cybernate_retail_mobile/ui/toast/inapp_toast.dart';
 import 'package:cybernate_retail_mobile/utils/utils.dart';
+import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -20,6 +27,9 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   final controller = TextEditingController();
   final _countDownController = CountDownController();
+  late ProfileStore _profileStore;
+  late LoginStore _loginStore;
+  final Client _client = GetIt.instance<Client>();
   final focusNode = FocusNode();
   bool keyboardVisible = false;
   int secondsRemaining = 30;
@@ -42,6 +52,13 @@ class _OtpScreenState extends State<OtpScreen> {
       if (visible) onFormInputChange();
       setState(() {});
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    _profileStore = Provider.of<ProfileStore>(context);
+    _loginStore = Provider.of<LoginStore>(context);
+    super.didChangeDependencies();
   }
 
   @override
@@ -97,7 +114,10 @@ class _OtpScreenState extends State<OtpScreen> {
           Utils.verticalSpace(4),
           Visibility(
             visible: !keyboardVisible,
-            child: Expanded(flex: 1, child: _otpDescription("+35353453543")),
+            child: Expanded(
+                flex: 1,
+                child:
+                    _otpDescription(_profileStore.profile?.phoneNumber ?? "")),
           ),
           Expanded(
             flex: 1,
@@ -193,7 +213,7 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget _otpBoxes() {
     const length = 4;
     const borderColor = Color.fromRGBO(114, 178, 238, 1);
-    const errorColor = Color.fromARGB(255, 255, 1, 47);
+    const errorColor = Color.fromARGB(255, 255, 0, 47);
     const fillColor = Color.fromARGB(255, 255, 255, 255);
     final defaultPinTheme = PinTheme(
       width: 56,
@@ -227,11 +247,12 @@ class _OtpScreenState extends State<OtpScreen> {
             ),
           ),
           errorPinTheme: defaultPinTheme.copyWith(
-            decoration: BoxDecoration(
-              color: errorColor,
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
+              // decoration: BoxDecoration(
+              //   color: errorColor,
+              //   borderRadius: BorderRadius.circular(10),
+              // ),
+              decoration: defaultPinTheme.decoration!
+                  .copyWith(border: Border.all(color: errorColor))),
           forceErrorState: _submitState == SubmitState.ERROR,
         ),
       ),
@@ -252,22 +273,41 @@ class _OtpScreenState extends State<OtpScreen> {
     setState(() {
       _submitState = SubmitState.STARTED;
     });
-    if (pin == "5555") {
-      _trigSuccess?.fire();
+    final phoneNumber = _profileStore.profile?.phoneNumber;
+    final otpVerifyReq = GVerifyOtpReq(
+      (b) => b
+        ..vars.phone = phoneNumber
+        ..vars.otp = int.parse(pin),
+    );
 
-      setState(() {
-        _submitState = SubmitState.DONE;
-      });
-      InAppToast.otpVerificationSuccess(context);
-      InAppNavigation.pHome(context);
-    } else {
-      InAppToast.wrongOtp(context);
-      setState(() {
-        _submitState = SubmitState.ERROR;
-      });
-      _isHandsUp?.change(true);
-      controller.clear();
-      setState(() {});
-    }
+    _client.request(otpVerifyReq).listen((event) {
+      if (event.data?.otpVerify?.errors.isEmpty ?? false) {
+        final String jwtToken = event.data?.otpVerify?.token ?? "";
+        final String refreshToken = event.data?.otpVerify?.refreshToken ?? "";
+        final String csrfToken = event.data?.otpVerify?.csrfToken ?? "";
+
+        final TokenModel tokens = TokenModel(
+          jwtToken: jwtToken,
+          refreshToken: refreshToken,
+          csrfToken: csrfToken,
+        );
+        _loginStore.setToken(tokens);
+
+        _trigSuccess?.fire();
+
+        setState(() {
+          _submitState = SubmitState.DONE;
+        });
+        InAppToast.otpVerificationSuccess(context);
+        InAppNavigation.pHome(context);
+      } else {
+        InAppToast.wrongOtp(context);
+        setState(() {
+          _submitState = SubmitState.ERROR;
+          _isHandsUp?.change(true);
+          controller.clear();
+        });
+      }
+    });
   }
 }

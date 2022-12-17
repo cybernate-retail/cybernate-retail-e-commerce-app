@@ -1,7 +1,7 @@
 import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/ui/home/home.dart';
-import 'package:cybernate_retail_mobile/ui/profile/otp.dart';
-import 'package:cybernate_retail_mobile/ui/profile/profile.dart';
+import 'package:cybernate_retail_mobile/ui/signup/otp.dart';
+import 'package:cybernate_retail_mobile/ui/signup/signup.dart';
 import 'package:cybernate_retail_mobile/ui/user_agreement/privacy_policy.dart';
 import 'package:cybernate_retail_mobile/ui/user_agreement/terms_of_user.dart';
 import 'package:flutter/material.dart';
@@ -34,15 +34,15 @@ class InAppNavigation {
   }
 
   //Profile
-  static void profile(BuildContext context) {
+  static void signup(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const ProfileScreen()),
+      MaterialPageRoute(builder: (context) => const SignupScreen()),
     );
   }
 
   static void pProfile(BuildContext context) {
-    Navigator.of(context).popAndPushNamed(Routes.profile);
+    Navigator.of(context).popAndPushNamed(Routes.signup);
   }
 
   //Privacy policy

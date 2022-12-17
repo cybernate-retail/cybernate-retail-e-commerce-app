@@ -7,4 +7,5 @@ class PreferencesConstants {
   static const String introductionScreen = "introductionScreen";
   static const String darkMode = "darkMode";
   static const String profileInput = "profileInput";
+  static const String loggedIn = "logggedIn";
 }

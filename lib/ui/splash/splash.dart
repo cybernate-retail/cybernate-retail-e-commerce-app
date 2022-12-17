@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cybernate_retail_mobile/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';
-import 'package:cybernate_retail_mobile/stores/profile/profile.dart';
+import 'package:cybernate_retail_mobile/stores/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
@@ -17,19 +17,19 @@ class SplashLogo extends StatefulWidget {
 
 class _SplashLogoState extends State<SplashLogo> {
   // late IntroductionStore _introductionStore;
-  late ProfileStore _profileStore;
+  late LoginStore _loginStore;
 
   @override
   void initState() {
     super.initState();
     SchedulerBinding.instance
-        .addPostFrameCallback((_) => scheduleTimeout(context));
+        .addPostFrameCallback((_) => scheduleTimeout(context, 10));
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _profileStore = Provider.of<ProfileStore>(context);
+    _loginStore = Provider.of<LoginStore>(context);
   }
 
   Timer scheduleTimeout(BuildContext context, [int milliseconds = 1000]) =>
@@ -40,14 +40,14 @@ class _SplashLogoState extends State<SplashLogo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 60, 0, 134),
+      backgroundColor: const Color.fromARGB(255, 60, 0, 134),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Lottie.asset(
             AssetsDb.appSplashLogo,
           ),
-          Text(
+          const Text(
             "Localdepo",
           )
         ],
@@ -58,7 +58,7 @@ class _SplashLogoState extends State<SplashLogo> {
   void handleTimeout(BuildContext context) {
     Navigator.popAndPushNamed(
       context,
-      _profileStore.profileInputDone ? Routes.home : Routes.profile,
+      _loginStore.getLoggedIn() ? Routes.home : Routes.signup,
     );
   }
 }

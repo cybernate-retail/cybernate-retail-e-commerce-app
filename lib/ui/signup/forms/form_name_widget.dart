@@ -1,3 +1,5 @@
+import 'package:cybernate_retail_mobile/ui/signup/forms/profile_form_constants.dart';
+import 'package:cybernate_retail_mobile/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -13,46 +15,31 @@ class FormNameFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
-      name: 'name',
+      name: ProfileFormConstants.name,
       controller: textEditingController,
       onChanged: (value) {
         onChanged();
       },
       cursorColor: Colors.black,
-      textAlign: TextAlign.center,
+      textAlign: TextAlign.justify,
       textCapitalization: TextCapitalization.sentences,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         fillColor: Colors.white,
         filled: true,
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-            borderSide: BorderSide(color: Colors.black)),
-        prefixIcon: Icon(
+        focusedBorder:
+            Utils.outlineInputBorder(10, Theme.of(context).primaryColor),
+        prefixIcon: const Icon(
           Icons.person,
           color: Colors.grey,
         ),
         labelText: "Your name",
-        labelStyle: TextStyle(
+        labelStyle: const TextStyle(
           color: Colors.black26,
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
-          borderSide: BorderSide(
-            color: Colors.white,
-          ),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
-          borderSide: BorderSide(
-            color: Colors.red,
-          ),
-        ),
+        enabledBorder: Utils.outlineInputBorder(10, Colors.white),
+        errorBorder: Utils.outlineInputBorder(10, Colors.red),
+        focusedErrorBorder:
+            Utils.outlineInputBorder(10, Theme.of(context).primaryColor),
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(),

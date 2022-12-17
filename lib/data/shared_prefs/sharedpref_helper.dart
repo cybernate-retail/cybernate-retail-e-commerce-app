@@ -60,4 +60,14 @@ class SharedPreferenceHelper {
   Future<bool> setProfileInputDone(bool value) {
     return _sharedPreference.setBool(PreferencesConstants.profileInput, value);
   }
+
+  //Login: -------------------------------------------------------
+
+  bool? getLoggedIn() {
+    return _sharedPreference.getBool(PreferencesConstants.loggedIn);
+  }
+
+  Future<bool> setLoggedIn(bool value) {
+    return _sharedPreference.setBool(PreferencesConstants.loggedIn, value);
+  }
 }

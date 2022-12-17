@@ -273,49 +273,49 @@ packages:
       name: ferry
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.2+1"
+    version: "0.13.0"
   ferry_cache:
     dependency: transitive
     description:
       name: ferry_cache
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.4"
+    version: "0.7.0"
   ferry_exec:
     dependency: transitive
     description:
       name: ferry_exec
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0"
+    version: "0.3.0"
   ferry_flutter:
     dependency: "direct main"
     description:
       name: ferry_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.2"
+    version: "0.8.0"
   ferry_generator:
     dependency: "direct dev"
     description:
       name: ferry_generator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.1"
+    version: "0.7.0"
   ferry_hive_store:
     dependency: "direct main"
     description:
       name: ferry_hive_store
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.5"
+    version: "0.5.0"
   ferry_store:
     dependency: transitive
     description:
       name: ferry_store
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.5"
+    version: "0.5.0"
   ffi:
     dependency: transitive
     description:
@@ -615,7 +615,7 @@ packages:
       name: gql_code_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.0"
+    version: "0.7.0"
   gql_exec:
     dependency: transitive
     description:
@@ -860,7 +860,7 @@ packages:
       name: normalize
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.2"
+    version: "0.8.0"
   package_config:
     dependency: transitive
     description:

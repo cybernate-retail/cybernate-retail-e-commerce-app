@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cybernate_retail_mobile/data/database_encryption/encryption/secure_sharedprefs/secure_sharedprefs_helper.dart';
 import 'package:cybernate_retail_mobile/data/remote_repository.dart';
 import 'package:cybernate_retail_mobile/data/repository.dart';
 import 'package:cybernate_retail_mobile/dependency_injection/services.dart';
@@ -6,10 +7,13 @@ import 'package:cybernate_retail_mobile/global_theme/apptheme.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/stores/introduction/introduction.dart';
 import 'package:cybernate_retail_mobile/stores/language/language.dart';
+import 'package:cybernate_retail_mobile/stores/login/login.dart';
 import 'package:cybernate_retail_mobile/stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/stores/theme/theme.dart';
-import 'package:cybernate_retail_mobile/ui/profile/profile.dart';
+import 'package:cybernate_retail_mobile/ui/home/home.dart';
+import 'package:cybernate_retail_mobile/ui/signup/signup.dart';
+import 'package:cybernate_retail_mobile/ui/splash/splash.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +47,8 @@ class MyApp extends StatelessWidget {
   final ThemeStore _themeStore = ThemeStore(getIt<Repository>());
   final LanguageStore _languageStore = LanguageStore(getIt<Repository>());
   final ProfileStore _profileStore = ProfileStore(getIt<Repository>());
+  final LoginStore _loginStore =
+      LoginStore(getIt<Repository>(), getIt<SecureSharedPreferencesHelper>());
   final TestingStore _testingStore =
       TestingStore(getIt<RemoteRepository>(), getIt<Repository>());
   @override
@@ -54,6 +60,7 @@ class MyApp extends StatelessWidget {
         Provider(create: (_) => _languageStore),
         Provider(create: (_) => _profileStore),
         Provider(create: (_) => _testingStore),
+        Provider(create: (_) => _loginStore),
       ],
       child: Observer(
         name: 'global-observer',
@@ -64,7 +71,7 @@ class MyApp extends StatelessWidget {
             theme: _themeStore.darkMode
                 ? AppThemeData.darkThemeData
                 : AppThemeData.lightThemeData,
-            home: const ProfileScreen(),
+            home: const SplashLogo(),
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),

@@ -7,6 +7,7 @@ import 'package:cybernate_retail_mobile/data/shared_prefs/sharedpref_helper.dart
 import 'package:cybernate_retail_mobile/dependency_injection/modules/localmodule.dart';
 import 'package:cybernate_retail_mobile/stores/introduction/introduction.dart';
 import 'package:cybernate_retail_mobile/stores/language/language.dart';
+import 'package:cybernate_retail_mobile/stores/login/login.dart';
 import 'package:cybernate_retail_mobile/stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/stores/theme/theme.dart';
 // ignore: library_prefixes
@@ -28,6 +29,8 @@ Future<void> setupLocator() async {
   // ---------------------Local------------------------------------------------//
   getIt.registerSingleton(
       SharedPreferenceHelper(await getIt.getAsync<SharedPreferences>()));
+  getIt.registerSingleton(
+      SecureSharedPreferencesHelper(getIt.get<FlutterSecureStorage>()));
 
   getIt.registerSingleton(ProfileDataSource(await getIt.getAsync<Database>()));
 
@@ -46,6 +49,8 @@ Future<void> setupLocator() async {
   getIt.registerSingleton(IntroductionStore(getIt<Repository>()));
   getIt.registerSingleton(LanguageStore(getIt<Repository>()));
   getIt.registerSingleton(ThemeStore(getIt<Repository>()));
+  getIt.registerSingleton(
+      LoginStore(getIt<Repository>(), getIt<SecureSharedPreferencesHelper>()));
   getIt.registerSingleton(
       TestingStore(getIt<RemoteRepository>(), getIt<Repository>()));
 }

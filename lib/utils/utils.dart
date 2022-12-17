@@ -178,4 +178,14 @@ class Utils {
       },
     );
   }
+
+  static OutlineInputBorder outlineInputBorder(
+      double circularBorderRadius, Color borderColor) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(circularBorderRadius),
+      ),
+      borderSide: BorderSide(color: borderColor),
+    );
+  }
 }

@@ -53,13 +53,13 @@ dependencies:
   getwidget: ^3.0.1
   pinput: ^2.2.16
   circular_countdown_timer: ^0.2.3
-  ferry: ^0.11.2+1
+  ferry: ^0.13.0
   gql_http_link: ^0.4.5
   build_runner: ^2.3.2
   hive_flutter: ^1.1.0
-  ferry_hive_store: ^0.4.5
+  ferry_hive_store: ^0.5.0
   hive: ^2.2.3
-  ferry_flutter: ^0.6.2
+  ferry_flutter: ^0.8.0
   json_serializable: ^6.5.4
   flutter_secure_storage: ^7.0.1
 
@@ -67,7 +67,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  ferry_generator: ^0.6.1
+  ferry_generator: ^0.7.0
   
 flutter:
 

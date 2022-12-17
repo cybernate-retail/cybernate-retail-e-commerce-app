@@ -1,5 +1,5 @@
 # import '../fragments/AccountErrorFragment.graphql'
-  mutation Register($input: AccountRegisterInputWithPhone!) {
+  mutation RegisterWithPhone($input: AccountRegisterInputWithPhone!) {
     accountRegisterWithPhone(input: $input) {
       errors {
         ...AccountErrorFragment

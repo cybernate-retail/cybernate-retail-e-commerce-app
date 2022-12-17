@@ -1,3 +1,5 @@
+import 'package:cybernate_retail_mobile/ui/signup/forms/profile_form_constants.dart';
+import 'package:cybernate_retail_mobile/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -15,7 +17,7 @@ class FormPhoneFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormBuilderTextField(
-      name: 'phone',
+      name: ProfileFormConstants.phone,
       controller: textEditingController,
       maxLength: 10,
       maxLengthEnforcement: MaxLengthEnforcement.enforced,
@@ -23,7 +25,7 @@ class FormPhoneFieldWidget extends StatelessWidget {
         onChanged();
       },
       cursorColor: Colors.black,
-      textAlign: TextAlign.center,
+      textAlign: TextAlign.justify,
       // keyboardType: TextInputType.number,
       keyboardType: const TextInputType.numberWithOptions(
         signed: true,
@@ -32,39 +34,23 @@ class FormPhoneFieldWidget extends StatelessWidget {
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
       ],
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         fillColor: Colors.white,
         filled: true,
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
-          borderSide: BorderSide(color: Colors.black),
-        ),
-        prefixIcon: Icon(
+        focusedBorder:
+            Utils.outlineInputBorder(10, Theme.of(context).primaryColor),
+        prefixIcon: const Icon(
           Icons.phone_iphone,
           color: Colors.grey,
         ),
         labelText: "Phone number",
-        labelStyle: TextStyle(
+        labelStyle: const TextStyle(
           color: Colors.black26,
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
-          borderSide: BorderSide(
-            color: Colors.white,
-          ),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
-          borderSide: BorderSide(
-            color: Colors.red,
-          ),
-        ),
+        enabledBorder: Utils.outlineInputBorder(10, Colors.white),
+        errorBorder: Utils.outlineInputBorder(10, Colors.red),
+        focusedErrorBorder:
+            Utils.outlineInputBorder(10, Theme.of(context).primaryColor),
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(),
