@@ -2,6 +2,9 @@
 
 A new Flutter project.
 
+
+## To generate colorscheme go to https://m3.material.io/theme-builder#/custom
+
 ## Download Your GraphQL Schema
 
 To generate our classes, we first need to download our GraphQL in SDL format to any location within the lib project directory. You can use the get-graphql-schema tool to download a schema from a GraphQL endpoint:

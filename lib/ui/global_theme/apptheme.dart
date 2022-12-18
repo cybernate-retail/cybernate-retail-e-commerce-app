@@ -1,128 +1,158 @@
-/// Creating custom color palettes is part of creating a custom app. The idea is to create
-/// your class of custom colors, in this case `CompanyColors` and then create a `ThemeData`
-/// object with those colors you just defined.
-///
-/// Resource:
-/// A good resource would be this website: http://mcg.mbitson.com/
-/// You simply need to put in the colour you wish to use, and it will generate all shades
-/// for you. Your primary colour will be the `500` value.
-///
-/// Colour Creation:
-/// In order to create the custom colours you need to create a `Map<int, Color>` object
-/// which will have all the shade values. `const Color(0xFF...)` will be how you create
-/// the colours. The six character hex code is what follows. If you wanted the colour
-/// #114488 or #D39090 as primary colours in your theme, then you would have
-/// `const Color(0x114488)` and `const Color(0xD39090)`, respectively.
-///
-/// Usage:
-/// In order to use this newly created theme or even the colours in it, you would just
-/// `import` this file in your project, anywhere you needed it.
-/// `import 'path/to/theme.dart';`
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppThemeData {
-  static const _lightFillColor = Colors.black;
-  static const _darkFillColor = Colors.white;
-
-  static final Color _lightFocusColor = Colors.black.withOpacity(0.12);
-  static final Color _darkFocusColor = Colors.white.withOpacity(0.12);
-
   static ThemeData lightThemeData = ThemeData(
-    colorSchemeSeed: const Color(0xff0f5dfb),
+    colorScheme: _lightColorScheme,
+    fontFamily: 'OpenSans',
     brightness: Brightness.light,
+    primaryColor: _lightColorScheme.primary,
+    canvasColor: _lightColorScheme.background,
+    scaffoldBackgroundColor: _lightColorScheme.background,
+    bottomAppBarColor: _lightColorScheme.surface,
+    cardColor: _lightColorScheme.surface,
+    dividerColor: _lightColorScheme.onSurface.withOpacity(0.12),
+    backgroundColor: _lightColorScheme.background,
+    dialogBackgroundColor: _lightColorScheme.background,
+    indicatorColor: _lightColorScheme.onPrimary,
+    errorColor: _lightColorScheme.error,
+    applyElevationOverlayColor: false,
     useMaterial3: true,
-    fontFamily: 'open sans',
-    // textTheme: _textTheme,
+    appBarTheme: AppBarTheme(
+      iconTheme: IconThemeData(color: _lightColorScheme.primary),
+      toolbarTextStyle: TextStyle(
+        color: _lightColorScheme.primary,
+      ),
+      titleTextStyle: TextStyle(
+        color: _lightColorScheme.primary,
+      ),
+      toolbarHeight: 56,
+      centerTitle: false,
+    ),
+    textTheme: const TextTheme().apply(
+      fontFamily: 'OpenSans',
+      displayColor: _lightColorScheme.primary,
+      bodyColor: _lightColorScheme.onPrimary,
+    ),
+    iconTheme: IconThemeData(
+      color: _lightColorScheme.primary,
+      size: 50,
+    ),
   );
   static ThemeData darkThemeData = ThemeData(
-    colorSchemeSeed: const Color(0xff0f5dfb),
+    colorScheme: _darkColorScheme,
     brightness: Brightness.dark,
+    fontFamily: 'OpenSans',
+    primarySwatch: createMaterialColor(_darkColorScheme.primary),
+    canvasColor: _darkColorScheme.background,
+    scaffoldBackgroundColor: _darkColorScheme.background,
+    bottomAppBarColor: _darkColorScheme.surface,
+    cardColor: _darkColorScheme.surface,
+    dividerColor: _darkColorScheme.onSurface.withOpacity(0.12),
+    backgroundColor: _darkColorScheme.background,
+    dialogBackgroundColor: _darkColorScheme.background,
+    indicatorColor: _darkColorScheme.onSurface,
+    errorColor: _darkColorScheme.error,
+    applyElevationOverlayColor: true,
     useMaterial3: true,
-    fontFamily: 'open sans',
-    // textTheme: _textTheme,
+    appBarTheme: AppBarTheme(
+      iconTheme: IconThemeData(color: _lightColorScheme.primary),
+      toolbarTextStyle: TextStyle(
+        color: _lightColorScheme.primary,
+      ),
+      titleTextStyle: TextStyle(
+        color: _lightColorScheme.primary,
+      ),
+      toolbarHeight: 56,
+      centerTitle: false,
+    ),
+    textTheme: const TextTheme().apply(
+      fontFamily: 'OpenSans',
+      displayColor: _darkColorScheme.primary,
+      bodyColor: _darkColorScheme.onPrimary,
+    ),
   );
 
-  // static ThemeData lightThemeData =
-  //     themeData(lightColorScheme, _lightFocusColor);
-  // static ThemeData darkThemeData = themeData(darkColorScheme, _darkFocusColor);
-
-  // static ThemeData themeData(ColorScheme colorScheme, Color focusColor) {
-  //   return ThemeData(
-  //     colorScheme: colorScheme,
-  //     textTheme: _textTheme,
-  //     // Matches manifest.json colors and background color.
-  //     primaryColor: Color.fromARGB(255, 0, 42, 252),
-  //     appBarTheme: AppBarTheme(
-  //       backgroundColor: colorScheme.background,
-  //       elevation: 0,
-  //       iconTheme: IconThemeData(color: colorScheme.primary),
-  //     ),
-  //     iconTheme: IconThemeData(color: colorScheme.onPrimary),
-  //     canvasColor: colorScheme.background,
-  //     scaffoldBackgroundColor: colorScheme.background,
-  //     highlightColor: Colors.transparent,
-  //     focusColor: focusColor,
-  //     snackBarTheme: SnackBarThemeData(
-  //       behavior: SnackBarBehavior.floating,
-  //       backgroundColor: Color.alphaBlend(
-  //         _lightFillColor.withOpacity(0.80),
-  //         _darkFillColor,
-  //       ),
-  //       contentTextStyle: _textTheme.subtitle1!.apply(color: _darkFillColor),
-  //     ),
-  //   );
-  // }
-
-  static const ColorScheme lightColorScheme = ColorScheme(
-    primary: Color(0xff0c5ef9),
-    primaryContainer: Color(0xFF9e1718),
-    secondary: Color(0xFFEFF3F3),
-    secondaryContainer: Color(0xFFFAFBFB),
-    background: Color(0xFFE6EBEB),
-    surface: Color(0xFFFAFBFB),
-    onBackground: Colors.white,
-    error: _lightFillColor,
-    onError: _lightFillColor,
-    onPrimary: _lightFillColor,
-    onSecondary: Color(0xFF322942),
-    onSurface: Color(0xFF241E30),
+  static const _lightColorScheme = ColorScheme(
     brightness: Brightness.light,
+    primary: Color(0xFF6667AB),
+    onPrimary: Color(0xFFFFFFFF),
+    primaryContainer: Color(0xFFE1DFFF),
+    onPrimaryContainer: Color(0xFF0C0664),
+    secondary: Color(0xFF5455A9),
+    onSecondary: Color(0xFFFFFFFF),
+    secondaryContainer: Color(0xFFE1DFFF),
+    onSecondaryContainer: Color(0xFF0C0664),
+    tertiary: Color(0xFF5555A9),
+    onTertiary: Color(0xFFFFFFFF),
+    tertiaryContainer: Color(0xFFE2DFFF),
+    onTertiaryContainer: Color(0xFF0D0664),
+    error: Color(0xFFBA1A1A),
+    errorContainer: Color(0xFFFFDAD6),
+    onError: Color(0xFFFFFFFF),
+    onErrorContainer: Color(0xFF410002),
+    background: Color(0xFFF8FDFF),
+    onBackground: Color(0xFF001F25),
+    surface: Color(0xFFF8FDFF),
+    onSurface: Color(0xFF001F25),
+    surfaceVariant: Color(0xFFE4E1EC),
+    onSurfaceVariant: Color(0xFF47464F),
+    outline: Color(0xFF777680),
+    onInverseSurface: Color(0xFFD6F6FF),
+    inverseSurface: Color(0xFF00363F),
+    inversePrimary: Color(0xFFC1C1FF),
+    shadow: Color(0xFF000000),
+    surfaceTint: Color(0xFF5455A9),
   );
 
-  static const ColorScheme darkColorScheme = ColorScheme(
-    primary: Color(0xFFFF8383),
-    primaryContainer: Color(0xFF1CDEC9),
-    secondary: Color(0xFF4D1F7C),
-    secondaryContainer: Color(0xFF451B6F),
-    background: Color(0xFF241E30),
-    surface: Color(0xFF1F1929),
-    onBackground: Color(0x0DFFFFFF),
-    // White with 0.05 opacity
-    error: _darkFillColor,
-    onError: _darkFillColor,
-    onPrimary: _darkFillColor,
-    onSecondary: _darkFillColor,
-    onSurface: _darkFillColor,
+  static const _darkColorScheme = ColorScheme(
     brightness: Brightness.dark,
+    primary: Color(0xFFC1C1FF),
+    onPrimary: Color(0xFF242478),
+    primaryContainer: Color(0xFF3C3D8F),
+    onPrimaryContainer: Color(0xFFE1DFFF),
+    secondary: Color(0xFFC1C1FF),
+    onSecondary: Color(0xFF242478),
+    secondaryContainer: Color(0xFF3C3D8F),
+    onSecondaryContainer: Color(0xFFE1DFFF),
+    tertiary: Color(0xFFC2C1FF),
+    onTertiary: Color(0xFF252477),
+    tertiaryContainer: Color(0xFF3D3C8F),
+    onTertiaryContainer: Color(0xFFE2DFFF),
+    error: Color(0xFFFFB4AB),
+    errorContainer: Color(0xFF93000A),
+    onError: Color(0xFF690005),
+    onErrorContainer: Color(0xFFFFDAD6),
+    background: Color(0xFF001F25),
+    onBackground: Color(0xFFA6EEFF),
+    surface: Color(0xFF001F25),
+    onSurface: Color(0xFFA6EEFF),
+    surfaceVariant: Color(0xFF47464F),
+    onSurfaceVariant: Color(0xFFC8C5D0),
+    outline: Color(0xFF918F9A),
+    onInverseSurface: Color(0xFF001F25),
+    inverseSurface: Color(0xFFA6EEFF),
+    inversePrimary: Color(0xFF5455A9),
+    shadow: Color(0xFF000000),
+    surfaceTint: Color(0xFFC1C1FF),
   );
+}
 
-  static const _regular = FontWeight.w400;
-  static const _medium = FontWeight.w500;
-  static const _semiBold = FontWeight.w600;
-  static const _bold = FontWeight.w700;
+MaterialColor createMaterialColor(Color color) {
+  List strengths = <double>[.05];
+  Map<int, Color> swatch = {};
+  final int r = color.red, g = color.green, b = color.blue;
 
-  static final TextTheme _textTheme = TextTheme(
-    headline4: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 20.0),
-    caption: GoogleFonts.oswald(fontWeight: _semiBold, fontSize: 16.0),
-    headline5: GoogleFonts.oswald(fontWeight: _medium, fontSize: 16.0),
-    subtitle1: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 16.0),
-    overline: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 12.0),
-    bodyText1: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 14.0),
-    subtitle2: GoogleFonts.montserrat(fontWeight: _medium, fontSize: 14.0),
-    bodyText2: GoogleFonts.montserrat(fontWeight: _regular, fontSize: 16.0),
-    headline6: GoogleFonts.montserrat(fontWeight: _bold, fontSize: 16.0),
-    button: GoogleFonts.montserrat(fontWeight: _semiBold, fontSize: 14.0),
-  );
+  for (int i = 1; i < 10; i++) {
+    strengths.add(0.1 * i);
+  }
+  for (var strength in strengths) {
+    final double ds = 0.5 - strength;
+    swatch[(strength * 1000).round()] = Color.fromRGBO(
+      r + ((ds < 0 ? r : (255 - r)) * ds).round(),
+      g + ((ds < 0 ? g : (255 - g)) * ds).round(),
+      b + ((ds < 0 ? b : (255 - b)) * ds).round(),
+      1,
+    );
+  }
+  return MaterialColor(color.value, swatch);
 }

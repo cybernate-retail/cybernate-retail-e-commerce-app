@@ -77,6 +77,15 @@ flutter:
     - assets/login/
     - assets/logo/
     - assets/splash/
+    - assets/icons/
+
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans-Bold.ttf
+        - asset: assets/fonts/OpenSans-Regular.ttf
+          weight: 700
+
 
 flutter_native_splash:
   background_image: "assets/logo/logo-splash.png"

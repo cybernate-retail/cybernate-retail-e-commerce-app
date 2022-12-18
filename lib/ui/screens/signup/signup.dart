@@ -140,13 +140,22 @@ class _SignupScreenInputState extends State<SignupScreen> {
       child: RichText(
         textAlign: TextAlign.start,
         text: TextSpan(
-          text: "Signup/Signin",
-          style: TextStyle(
-            color: Theme.of(context).primaryColor,
-            fontWeight: FontWeight.w500,
-            fontSize: Theme.of(context).textTheme.headline5?.fontSize,
-          ),
-        ),
+            text: "Get Started!\n",
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontWeight: FontWeight.w600,
+              fontSize: Theme.of(context).textTheme.headline5?.fontSize,
+            ),
+            children: [
+              TextSpan(
+                text: "Enter your phone number to get started\n",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onBackground,
+                  fontWeight: FontWeight.w300,
+                  fontSize: Theme.of(context).textTheme.labelSmall?.fontSize,
+                ),
+              )
+            ]),
       ),
     );
   }
@@ -248,7 +257,7 @@ class _SignupScreenInputState extends State<SignupScreen> {
             flex: 5,
             child: _animatedLoginScreen(),
           ),
-          Utils.verticalSpace(2),
+          Visibility(visible: !keyboardVisible, child: Utils.verticalSpace(2)),
           Visibility(
             visible: !keyboardVisible,
             child: Expanded(
@@ -256,27 +265,26 @@ class _SignupScreenInputState extends State<SignupScreen> {
               child: _getStartedText(),
             ),
           ),
+          Visibility(visible: !keyboardVisible, child: Utils.verticalSpace(2)),
           Expanded(
-            flex: 4,
+            flex: 3,
             child: _profileInputForm(),
           ),
           Visibility(
             visible: !keyboardVisible,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.8,
-                height: MediaQuery.of(context).size.height * 0.09,
-                child: Utils.neumorphicActionButtonWithIcon(
-                  context,
-                  "Get Started ",
-                  iconData: Icons.double_arrow_rounded,
-                  buttonColor: Theme.of(context).primaryColor,
-                  onClick: onContinueButtonPressed,
-                ),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.08,
+              child: Utils.neumorphicActionButtonWithIcon(
+                context,
+                "Login ",
+                iconData: Icons.double_arrow_rounded,
+                buttonColor: Theme.of(context).primaryColor,
+                onClick: onContinueButtonPressed,
               ),
             ),
           ),
+          Visibility(visible: !keyboardVisible, child: Utils.verticalSpace(2)),
           Visibility(
             visible: !keyboardVisible,
             child: const Padding(

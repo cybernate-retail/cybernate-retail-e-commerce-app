@@ -1,3 +1,4 @@
+import 'package:cybernate_retail_mobile/ui/icons/flaticons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/signup/forms/profile_form_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +29,11 @@ class FormNameFieldWidget extends StatelessWidget {
         filled: true,
         focusedBorder:
             Utils.outlineInputBorder(10, Theme.of(context).primaryColor),
-        prefixIcon: const Icon(
-          Icons.person,
-          color: Colors.grey,
+        prefixIcon: Padding(
+          padding: const EdgeInsets.all(8),
+          child: FlatIcon.person(
+            color: Theme.of(context).colorScheme.tertiary,
+          ),
         ),
         labelText: "Your name",
         labelStyle: const TextStyle(

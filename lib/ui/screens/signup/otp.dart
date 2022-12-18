@@ -144,8 +144,8 @@ class _OtpScreenState extends State<OtpScreen> {
               : "Wrong OTP \n",
           style: TextStyle(
             color: _submitState != SubmitState.ERROR
-                ? const Color(0xff0f5dfb)
-                : Colors.red,
+                ? Theme.of(context).primaryColor
+                : Theme.of(context).errorColor,
             fontSize: Theme.of(context).textTheme.headline5?.fontSize,
           ),
           children: [
@@ -254,10 +254,6 @@ class _OtpScreenState extends State<OtpScreen> {
             ),
           ),
           errorPinTheme: defaultPinTheme.copyWith(
-              // decoration: BoxDecoration(
-              //   color: errorColor,
-              //   borderRadius: BorderRadius.circular(10),
-              // ),
               decoration: defaultPinTheme.decoration!
                   .copyWith(border: Border.all(color: errorColor))),
           forceErrorState: _submitState == SubmitState.ERROR,
@@ -298,6 +294,8 @@ class _OtpScreenState extends State<OtpScreen> {
           refreshToken: refreshToken,
           csrfToken: csrfToken,
         );
+
+        _loginStore.setLoggedIn(true);
         _loginStore.setToken(tokens);
 
         _trigSuccess?.fire();

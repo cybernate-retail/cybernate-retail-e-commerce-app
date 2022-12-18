@@ -15,8 +15,12 @@ class Utils {
 
   static Widget horizontalSpace(double value) {
     return SizedBox(
-      height: 8 * value,
+      width: 8 * value,
     );
+  }
+
+  static double spaceScale(double value) {
+    return 8 * value;
   }
 
   static String getNewUuid() {
@@ -88,11 +92,12 @@ class Utils {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: buttonText,
-                  style: TextStyle(
-                    color: Theme.of(context).secondaryHeaderColor,
-                    fontSize: Theme.of(context).textTheme.titleLarge?.fontSize,
-                  )),
+                text: buttonText,
+                style: TextStyle(
+                  fontSize: Theme.of(context).textTheme.headline6?.fontSize,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              ),
               if (iconData != null)
                 WidgetSpan(
                     child: Icon(
