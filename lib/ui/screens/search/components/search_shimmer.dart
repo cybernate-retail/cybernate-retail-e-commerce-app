@@ -4,22 +4,9 @@ import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class HomeShimmer extends StatelessWidget {
+class SearchShimmer extends StatelessWidget {
   final bool enabled;
-  const HomeShimmer({super.key, required this.enabled});
-
-  Widget bannerShimmer(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(Utils.spaceScale(2)),
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.25,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
-        ),
-      ),
-    );
-  }
+  const SearchShimmer({super.key, required this.enabled});
 
   Widget trendingShimmer(BuildContext context) {
     return Container(
@@ -51,7 +38,17 @@ class HomeShimmer extends StatelessWidget {
       highlightColor: UiConstants.shimmerHighlightColor,
       child: ListView(
         children: [
-          bannerShimmer(context),
+          Utils.verticalSpace(3),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              trendingShimmer(context),
+              Utils.horizontalSpace(1),
+              trendingShimmer(context),
+              Utils.horizontalSpace(1),
+              trendingShimmer(context),
+            ],
+          ),
           Utils.verticalSpace(2),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -70,17 +67,6 @@ class HomeShimmer extends StatelessWidget {
               categoryShimmer(context),
               Utils.horizontalSpace(1),
               categoryShimmer(context),
-            ],
-          ),
-          Utils.verticalSpace(2),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              trendingShimmer(context),
-              Utils.horizontalSpace(1),
-              trendingShimmer(context),
-              Utils.horizontalSpace(1),
-              trendingShimmer(context),
             ],
           ),
         ],

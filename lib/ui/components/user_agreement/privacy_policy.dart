@@ -1,3 +1,4 @@
+import 'package:cybernate_retail_mobile/ui/components/appbar/appbars.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -8,8 +9,8 @@ class PrivacyPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
+      appBar: justBackButtonWithTitleAppBar(context, "Privacy Policy"),
+      body: const Center(
         child: Text("Privacy Policy"),
       ),
     );

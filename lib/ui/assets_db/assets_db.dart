@@ -15,4 +15,18 @@ class AssetsDb {
   static String get locationIcon => "assets/icons/location.svg";
   static String get navigationIcon => "assets/icons/navigation.svg";
   static String get backIcon => "assets/icons/back.svg";
+  static String get orderIcon => "assets/icons/order.svg";
+  static String get walletIcon => "assets/icons/wallet.svg";
+  static String get cardIcon => "assets/icons/card.svg";
+  static String get addressIcon => "assets/icons/address-book.svg";
+  static String get nextArrowIcon => "assets/icons/arrow-right.svg";
+  static String get wishlistIcon => "assets/icons/heart.svg";
+  static String get homeIcon => "assets/icons/home.svg";
+  static String get discountIcon => "assets/icons/discount.svg";
+  static String get bellIcon => "assets/icons/bell.svg";
+  static String get arrowRightIcon => "assets/icons/angle-right.svg";
+  static String get customerSupportIcon => "assets/icons/customer-support.svg";
+  static String get infoIcon => "assets/icons/info.svg";
+  static String get termsIcon => "assets/icons/ballot.svg";
+  static String get privacyIcon => "assets/icons/lock.svg";
 }

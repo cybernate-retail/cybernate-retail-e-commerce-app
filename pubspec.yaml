@@ -62,6 +62,7 @@ dependencies:
   ferry_flutter: ^0.8.0
   json_serializable: ^6.5.4
   flutter_secure_storage: ^7.0.1
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:

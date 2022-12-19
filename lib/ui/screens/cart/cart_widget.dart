@@ -1,5 +1,7 @@
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
+import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,12 +20,14 @@ class _CartWidgetState extends State<CartWidget> {
       padding: EdgeInsets.symmetric(
           horizontal: Utils.spaceScale(2.5), vertical: Utils.spaceScale(3)),
       child: InkWell(
-        onTap: Utils.emptyFunction,
+        onTap: () {
+          InAppNavigation.cart(context);
+        },
         child: Ink(
           height: MediaQuery.of(context).size.height * 0.08,
           decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(GlobalConstants.edgeRadius)),
+              borderRadius: BorderRadius.circular(UiConstants.edgeRadius)),
           child: cartTabs(),
         ),
       ),

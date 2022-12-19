@@ -1,6 +1,7 @@
+import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
-import 'package:cybernate_retail_mobile/ui/components/location/pin_location.dart';
-import 'package:cybernate_retail_mobile/ui/icons/flaticons.dart';
+import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,7 +22,7 @@ PreferredSizeWidget customAppBar(BuildContext context) {
 
   Widget titleWidget() {
     return Text(
-      "Rvane",
+      GlobalConstants.appName,
       style: TextStyle(
         fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
       ),
@@ -30,12 +31,16 @@ PreferredSizeWidget customAppBar(BuildContext context) {
 
   List<Widget> actionWidget() {
     return [
-      FlatIcon.search(
-        color: Theme.of(context).iconTheme.color,
-      ),
-      FlatIcon.person(
-        color: Theme.of(context).iconTheme.color,
-      ),
+      UiIcons.search(
+          color: Theme.of(context).iconTheme.color,
+          onPressed: () {
+            InAppNavigation.search(context);
+          }),
+      UiIcons.person(
+          color: Theme.of(context).iconTheme.color,
+          onPressed: () {
+            InAppNavigation.profile(context);
+          }),
       Utils.horizontalSpace(1),
     ];
   }

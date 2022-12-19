@@ -1,4 +1,4 @@
-import 'package:cybernate_retail_mobile/ui/icons/flaticons.dart';
+import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/signup/forms/profile_form_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,7 @@ class FormPhoneFieldWidget extends StatelessWidget {
             Utils.outlineInputBorder(10, Theme.of(context).primaryColor),
         prefixIcon: Padding(
           padding: const EdgeInsets.all(8),
-          child: FlatIcon.phone(
+          child: UiIcons.phone(
             color: Theme.of(context).colorScheme.tertiary,
           ),
         ),

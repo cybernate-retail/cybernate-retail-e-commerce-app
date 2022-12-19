@@ -1,3 +1,4 @@
+import 'package:cybernate_retail_mobile/ui/components/appbar/appbars.dart';
 import 'package:flutter/material.dart';
 
 class TermsOfUseScreen extends StatelessWidget {
@@ -6,8 +7,8 @@ class TermsOfUseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
+      appBar: justBackButtonWithTitleAppBar(context, "Terms of use"),
+      body: const Center(
         child: Text("Terms of use"),
       ),
     );

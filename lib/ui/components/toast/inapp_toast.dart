@@ -5,6 +5,7 @@ class InAppToast {
   InAppToast._();
   static const _toastPosition = GFToastPosition.BOTTOM;
   static const double _toastRadius = 10;
+  static const double _toastIconSize = 20;
   static void otpVerificationSuccess(BuildContext context) {
     GFToast.showToast(
       "OTP verified Successfully",
@@ -13,6 +14,7 @@ class InAppToast {
       trailing: const Icon(
         Icons.done,
         color: GFColors.SUCCESS,
+        size: _toastIconSize,
       ),
       toastBorderRadius: _toastRadius,
     );
@@ -27,6 +29,7 @@ class InAppToast {
       trailing: const Icon(
         Icons.cancel,
         color: GFColors.DANGER,
+        size: _toastIconSize,
       ),
       toastBorderRadius: _toastRadius,
     );
@@ -41,6 +44,7 @@ class InAppToast {
       trailing: const Icon(
         Icons.cancel,
         color: GFColors.DANGER,
+        size: _toastIconSize,
       ),
       toastBorderRadius: _toastRadius,
     );
@@ -54,6 +58,7 @@ class InAppToast {
       trailing: const Icon(
         Icons.done,
         color: GFColors.SUCCESS,
+        size: _toastIconSize,
       ),
       toastBorderRadius: _toastRadius,
     );
