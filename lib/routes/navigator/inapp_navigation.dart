@@ -1,5 +1,4 @@
 import 'package:cybernate_retail_mobile/routes/routes.dart';
-import 'package:cybernate_retail_mobile/ui/screens/address/address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/view_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/cart/cart.dart';
 import 'package:cybernate_retail_mobile/ui/screens/general_info/general_info.dart';
@@ -62,10 +61,6 @@ class InAppNavigation {
 
   static void viewPayments(BuildContext context) {
     push(context, const ViewPayments());
-  }
-
-  static void address(BuildContext context) {
-    push(context, const AddressScreen());
   }
 
   static void viewAddress(BuildContext context) {

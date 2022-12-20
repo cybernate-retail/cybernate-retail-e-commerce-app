@@ -1,4 +1,3 @@
-import 'package:cybernate_retail_mobile/ui/screens/address/address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/view_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/general_info/general_info.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/home.dart';
@@ -27,9 +26,6 @@ class Routes {
   static const String payments = '/payments';
   static const String viewPayments = '/viewPayments';
 
-  static const String address = '/address';
-  static const String viewAddress = '/viewAddress';
-
   static const String viewGeneralInfo = '/viewGeneralInfo';
 
   static final routes = <String, WidgetBuilder>{
@@ -41,8 +37,6 @@ class Routes {
     orders: (BuildContext context) => const OrdersScreen(),
     payments: (BuildContext context) => const PaymentsScreen(),
     viewPayments: (BuildContext context) => const ViewPayments(),
-    address: (BuildContext context) => const AddressScreen(),
-    viewAddress: (BuildContext context) => const ViewAddress(),
     viewGeneralInfo: (BuildContext context) => const GeneralInfo(),
   };
 }

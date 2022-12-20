@@ -11,7 +11,7 @@ class SearchShimmer extends StatelessWidget {
   Widget trendingShimmer(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.15,
-      width: MediaQuery.of(context).size.width * 0.29,
+      width: MediaQuery.of(context).size.width * 0.285,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
@@ -22,7 +22,7 @@ class SearchShimmer extends StatelessWidget {
   Widget categoryShimmer(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.15,
-      width: MediaQuery.of(context).size.width * 0.45,
+      width: MediaQuery.of(context).size.width * 0.44,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
@@ -37,35 +37,36 @@ class SearchShimmer extends StatelessWidget {
       baseColor: UiConstants.shimmerBaseColor,
       highlightColor: UiConstants.shimmerHighlightColor,
       child: ListView(
+        padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(2.5)),
         children: [
           Utils.verticalSpace(3),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               trendingShimmer(context),
-              Utils.horizontalSpace(1),
+              // Utils.horizontalSpace(1),
               trendingShimmer(context),
-              Utils.horizontalSpace(1),
+              // Utils.horizontalSpace(1),
               trendingShimmer(context),
             ],
           ),
           Utils.verticalSpace(2),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               trendingShimmer(context),
-              Utils.horizontalSpace(1),
+              // Utils.horizontalSpace(1),
               trendingShimmer(context),
-              Utils.horizontalSpace(1),
+              // Utils.horizontalSpace(1),
               trendingShimmer(context),
             ],
           ),
-          Utils.verticalSpace(3),
+          Utils.verticalSpace(2),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               categoryShimmer(context),
-              Utils.horizontalSpace(1),
+              // Utils.horizontalSpace(1),
               categoryShimmer(context),
             ],
           ),
