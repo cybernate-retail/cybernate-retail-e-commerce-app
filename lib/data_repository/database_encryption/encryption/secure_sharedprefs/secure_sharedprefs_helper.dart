@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cybernate_retail_mobile/data/database_encryption/encryption/secure_sharedprefs/constants/secure_preferences_constants.dart';
+import 'package:cybernate_retail_mobile/data_repository/database_encryption/encryption/secure_sharedprefs/constants/secure_preferences_constants.dart';
 import 'package:cybernate_retail_mobile/models/tokens.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
