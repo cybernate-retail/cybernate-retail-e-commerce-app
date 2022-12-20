@@ -8,11 +8,11 @@ import 'package:cybernate_retail_mobile/src/components/mutations/models/Register
 import 'package:cybernate_retail_mobile/src/components/mutations/models/RegisterWithPhone.var.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/TokenCreateWithPhone.req.gql.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
-import 'package:cybernate_retail_mobile/ui/screens/signup/forms/signup_form_phone.dart';
-import 'package:cybernate_retail_mobile/ui/screens/signup/forms/signup_form_name.dart';
 import 'package:cybernate_retail_mobile/ui/screens/signup/forms/profile_form_constants.dart';
 import 'package:cybernate_retail_mobile/ui/components/user_agreement/user_agreement.dart';
 import 'package:cybernate_retail_mobile/ui/components/toast/inapp_toast.dart';
+import 'package:cybernate_retail_mobile/ui/screens/signup/forms/signup_form_name_field.dart';
+import 'package:cybernate_retail_mobile/ui/screens/signup/forms/signup_form_phone_field.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -101,12 +101,12 @@ class _SignupScreenInputState extends State<SignupScreen> {
           key: _userNameKey,
           child: Column(
             children: [
-              SignupFormNameFieldWidget(
+              SignupFormNameField(
                 textEditingController: _nameTextEditingController,
                 onChanged: onFormInputChange,
               ),
               Utils.verticalSpace(1),
-              SignupFormPhoneFieldWidget(
+              SignupFormPhoneField(
                 textEditingController: _phoneTextEditingController,
                 onChanged: onFormInputChange,
               ),

@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-class SignupFormPhoneFieldWidget extends StatelessWidget {
-  const SignupFormPhoneFieldWidget({
+class SignupFormPhoneField extends StatelessWidget {
+  const SignupFormPhoneField({
     super.key,
     required this.onChanged,
     required this.textEditingController,
