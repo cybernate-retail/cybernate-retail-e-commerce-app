@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-class FormNameFieldWidget extends StatelessWidget {
-  const FormNameFieldWidget(
+class SignupFormNameFieldWidget extends StatelessWidget {
+  const SignupFormNameFieldWidget(
       {super.key,
       required this.textEditingController,
       required this.onChanged});

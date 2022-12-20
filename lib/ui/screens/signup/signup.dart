@@ -1,20 +1,15 @@
-import 'dart:async';
-
-import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/models/profile.dart';
-import 'package:cybernate_retail_mobile/models/schema.ast.gql.dart';
 import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
-import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/RegisterWithPhone.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/RegisterWithPhone.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/RegisterWithPhone.var.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/TokenCreateWithPhone.req.gql.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
-import 'package:cybernate_retail_mobile/ui/screens/signup/forms/form_phone_widget.dart';
-import 'package:cybernate_retail_mobile/ui/screens/signup/forms/form_name_widget.dart';
+import 'package:cybernate_retail_mobile/ui/screens/signup/forms/signup_form_phone.dart';
+import 'package:cybernate_retail_mobile/ui/screens/signup/forms/signup_form_name.dart';
 import 'package:cybernate_retail_mobile/ui/screens/signup/forms/profile_form_constants.dart';
 import 'package:cybernate_retail_mobile/ui/components/user_agreement/user_agreement.dart';
 import 'package:cybernate_retail_mobile/ui/components/toast/inapp_toast.dart';
@@ -106,12 +101,12 @@ class _SignupScreenInputState extends State<SignupScreen> {
           key: _userNameKey,
           child: Column(
             children: [
-              FormNameFieldWidget(
+              SignupFormNameFieldWidget(
                 textEditingController: _nameTextEditingController,
                 onChanged: onFormInputChange,
               ),
               Utils.verticalSpace(1),
-              FormPhoneFieldWidget(
+              SignupFormPhoneFieldWidget(
                 textEditingController: _phoneTextEditingController,
                 onChanged: onFormInputChange,
               ),
