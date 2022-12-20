@@ -1,5 +1,5 @@
-import 'package:cybernate_retail_mobile/data/remote_repository.dart';
-import 'package:cybernate_retail_mobile/data/repository.dart';
+import 'package:cybernate_retail_mobile/data_repository/remote_repository.dart';
+import 'package:cybernate_retail_mobile/data_repository/repository.dart';
 import 'package:mobx/mobx.dart';
 part 'testing.g.dart';
 

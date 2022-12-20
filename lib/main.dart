@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:cybernate_retail_mobile/data/database_encryption/encryption/secure_sharedprefs/secure_sharedprefs_helper.dart';
-import 'package:cybernate_retail_mobile/data/remote_repository.dart';
-import 'package:cybernate_retail_mobile/data/repository.dart';
+import 'package:cybernate_retail_mobile/data_repository/database_encryption/encryption/secure_sharedprefs/secure_sharedprefs_helper.dart';
+import 'package:cybernate_retail_mobile/data_repository/remote_repository.dart';
+import 'package:cybernate_retail_mobile/data_repository/repository.dart';
 import 'package:cybernate_retail_mobile/dependency_injection/services.dart';
 import 'package:cybernate_retail_mobile/ui/global_theme/apptheme.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';

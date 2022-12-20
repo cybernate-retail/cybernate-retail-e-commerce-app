@@ -1,4 +1,4 @@
-import 'package:cybernate_retail_mobile/data/repository.dart';
+import 'package:cybernate_retail_mobile/data_repository/repository.dart';
 import 'package:cybernate_retail_mobile/models/language.dart';
 import 'package:mobx/mobx.dart';
 

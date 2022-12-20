@@ -1,9 +1,9 @@
-import 'package:cybernate_retail_mobile/data/database_encryption/encryption/secure_sharedprefs/secure_sharedprefs_helper.dart';
-import 'package:cybernate_retail_mobile/data/localdb/profile/profile_datasource.dart';
-import 'package:cybernate_retail_mobile/data/remote_repository.dart';
-import 'package:cybernate_retail_mobile/data/remotedb/product/product_datasource.dart';
-import 'package:cybernate_retail_mobile/data/repository.dart';
-import 'package:cybernate_retail_mobile/data/shared_prefs/sharedpref_helper.dart';
+import 'package:cybernate_retail_mobile/data_repository/database_encryption/encryption/secure_sharedprefs/secure_sharedprefs_helper.dart';
+import 'package:cybernate_retail_mobile/data_repository/localdb/profile/profile_datasource.dart';
+import 'package:cybernate_retail_mobile/data_repository/remote_repository.dart';
+import 'package:cybernate_retail_mobile/data_repository/remotedb/product/product_datasource.dart';
+import 'package:cybernate_retail_mobile/data_repository/repository.dart';
+import 'package:cybernate_retail_mobile/data_repository/shared_prefs/sharedpref_helper.dart';
 import 'package:cybernate_retail_mobile/dependency_injection/modules/localmodule.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/introduction/introduction.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/language/language.dart';

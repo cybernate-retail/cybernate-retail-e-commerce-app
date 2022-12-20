@@ -1,5 +1,5 @@
-import 'package:cybernate_retail_mobile/data/database_encryption/encryption/secure_sharedprefs/secure_sharedprefs_helper.dart';
-import 'package:cybernate_retail_mobile/data/repository.dart';
+import 'package:cybernate_retail_mobile/data_repository/database_encryption/encryption/secure_sharedprefs/secure_sharedprefs_helper.dart';
+import 'package:cybernate_retail_mobile/data_repository/repository.dart';
 import 'package:cybernate_retail_mobile/models/tokens.dart';
 import 'package:mobx/mobx.dart';
 part 'login.g.dart';
