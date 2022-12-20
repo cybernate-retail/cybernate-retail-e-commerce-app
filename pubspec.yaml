@@ -63,6 +63,7 @@ dependencies:
   json_serializable: ^6.5.4
   flutter_secure_storage: ^7.0.1
   get: ^4.6.5
+  toggle_switch: ^2.0.1
 
 dev_dependencies:
   flutter_test:

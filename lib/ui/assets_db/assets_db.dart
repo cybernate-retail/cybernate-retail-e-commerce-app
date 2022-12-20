@@ -29,4 +29,13 @@ class AssetsDb {
   static String get infoIcon => "assets/icons/info.svg";
   static String get termsIcon => "assets/icons/ballot.svg";
   static String get privacyIcon => "assets/icons/lock.svg";
+  static String get cancelIcon => "assets/icons/cross-circle.svg";
+  static String get flagIcon => "assets/icons/flag.svg";
+  static String get houseBuildingIcon => "assets/icons/house-building.svg";
+  static String get houseLocationIcon => "assets/icons/home-location.svg";
+  static String get diskIcon => "assets/icons/disk.svg";
+  static String get castleIcon => "assets/icons/castle.svg";
+  static String get editIcon => "assets/icons/pencil.svg";
+  static String get deleteIcon => "assets/icons/trash.svg";
+  static String get mapMarkerIcon => "assets/icons/map-marker.svg";
 }

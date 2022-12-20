@@ -249,4 +249,124 @@ class UiIcons {
       onPressed: onPressed,
     );
   }
+
+  static IconButton cancel(
+      {double size = 24.0,
+      Color? color = Colors.black,
+      Function onPressed = Utils.emptyFunction}) {
+    return icon(
+      AssetsDb.cancelIcon,
+      size: size,
+      color: color,
+      onPressed: onPressed,
+    );
+  }
+
+  static IconButton flag(
+      {double size = 24.0,
+      Color? color = Colors.black,
+      Function onPressed = Utils.emptyFunction}) {
+    return icon(
+      AssetsDb.flagIcon,
+      size: size,
+      color: color,
+      onPressed: onPressed,
+    );
+  }
+
+  static IconButton houseBuilding(
+      {double size = 24.0,
+      Color? color = Colors.black,
+      Function onPressed = Utils.emptyFunction}) {
+    return icon(
+      AssetsDb.houseBuildingIcon,
+      size: size,
+      color: color,
+      onPressed: onPressed,
+    );
+  }
+
+  static IconButton houseLocation(
+      {double size = 24.0,
+      Color? color = Colors.black,
+      Function onPressed = Utils.emptyFunction}) {
+    return icon(
+      AssetsDb.houseLocationIcon,
+      size: size,
+      color: color,
+      onPressed: onPressed,
+    );
+  }
+
+  static IconButton save(
+      {double size = 24.0,
+      Color? color = Colors.black,
+      Function onPressed = Utils.emptyFunction}) {
+    return icon(
+      AssetsDb.diskIcon,
+      size: size,
+      color: color,
+      onPressed: onPressed,
+    );
+  }
+
+  static IconButton castle(
+      {double size = 24.0,
+      Color? color = Colors.black,
+      Function onPressed = Utils.emptyFunction}) {
+    return icon(
+      AssetsDb.castleIcon,
+      size: size,
+      color: color,
+      onPressed: onPressed,
+    );
+  }
+
+  static IconButton location(
+      {double size = 24.0,
+      Color? color = Colors.black,
+      Function onPressed = Utils.emptyFunction}) {
+    return icon(
+      AssetsDb.locationIcon,
+      size: size,
+      color: color,
+      onPressed: onPressed,
+    );
+  }
+
+  static IconButton edit(
+      {double size = 24.0,
+      Color? color = Colors.black,
+      Function onPressed = Utils.emptyFunction}) {
+    return icon(
+      AssetsDb.editIcon,
+      size: size,
+      color: color,
+      onPressed: onPressed,
+    );
+  }
+
+  static IconButton delete(
+      {double size = 24.0,
+      Color? color = Colors.black,
+      Function onPressed = Utils.emptyFunction}) {
+    return icon(
+      AssetsDb.deleteIcon,
+      size: size,
+      color: color,
+      onPressed: onPressed,
+    );
+  }
+
+  static IconButton mapMarker(
+      {double size = 24.0,
+      Color? color = Colors.black,
+      Function onPressed = Utils.emptyFunction}) {
+    return icon(
+      AssetsDb.mapMarkerIcon,
+      size: size,
+      color: color,
+      onPressed: onPressed,
+    );
+  }
 }

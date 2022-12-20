@@ -1,4 +1,13 @@
+import 'package:cybernate_retail_mobile/ui/components/forms/custom_form_validators.dart';
+import 'package:cybernate_retail_mobile/ui/components/forms/custom_forms.dart';
+import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
+import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
+import 'package:cybernate_retail_mobile/ui/screens/address/components/address_form_keys.dart';
+import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class AddAddress extends StatefulWidget {
   const AddAddress({super.key});
@@ -8,8 +17,175 @@ class AddAddress extends StatefulWidget {
 }
 
 class _AddAddressState extends State<AddAddress> {
+  final _userNameKey = GlobalKey<FormBuilderState>();
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: _appBar("Add Address"),
+      body: _body(context),
+      bottomNavigationBar: _bottomNavigationBar(),
+    );
+  }
+
+  AppBar _appBar(String title) {
+    return AppBar(
+      title: Text(
+        title,
+        style: TextStyle(
+          fontSize: Theme.of(context).textTheme.titleLarge?.fontSize,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+      ),
+      centerTitle: true,
+      leading: UiIcons.back(
+        color: Theme.of(context).colorScheme.primary,
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      actions: [
+        UiIcons.cancel(
+          color: Theme.of(context).colorScheme.error,
+          size: 24,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        Utils.horizontalSpace(1),
+      ],
+    );
+  }
+
+  Widget _body(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(2)),
+      child: _form(),
+    );
+  }
+
+  onSavePressed() {}
+
+  Widget _bottomNavigationBar() {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: Utils.spaceScale(2),
+        vertical: Utils.spaceScale(3),
+      ),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.8,
+        height: MediaQuery.of(context).size.height * 0.08,
+        child: Utils.neumorphicActionButtonWithIcon(
+          context,
+          "Save",
+          buttonColor: Theme.of(context).primaryColor,
+          onClick: onSavePressed,
+        ),
+      ),
+    );
+  }
+
+  Widget _form() {
+    return FormBuilder(
+        key: _userNameKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Utils.verticalSpace(5),
+            _location(),
+            Utils.verticalSpace(5),
+            _houseNoField(),
+            Utils.verticalSpace(1),
+            _landmarkField(),
+            Utils.verticalSpace(3),
+            _addressType()
+          ],
+        ));
+  }
+
+  _location() {
+    return ListTile(
+      tileColor: Theme.of(context).primaryColor,
+      leading: SizedBox(
+        width: 50,
+        child: Center(
+          child: UiIcons.mapMarker(
+            color: Theme.of(context).colorScheme.onPrimary,
+          ).icon,
+        ),
+      ),
+      title: Padding(
+        padding: EdgeInsets.only(
+            top: Utils.spaceScale(2), bottom: Utils.spaceScale(1)),
+        child: Text(
+          "Ayyappa Society",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onPrimary,
+            fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      subtitle: Padding(
+        padding: EdgeInsets.only(bottom: Utils.spaceScale(2)),
+        child: Text(
+          "C9XQ+XQ,\n Ayyappa Society..",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onPrimary,
+            fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      visualDensity: const VisualDensity(vertical: 4),
+      shape: RoundedRectangleBorder(
+        side: BorderSide(
+          color: Theme.of(context).colorScheme.tertiaryContainer,
+        ),
+        borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
+      ),
+    );
+  }
+
+  _houseNoField() {
+    return CustomFormFields.formTextField(
+      context,
+      AddressFormKeys.houseNoField,
+      UiIcons.houseBuilding(
+        size: 20,
+        color: Theme.of(context).colorScheme.tertiary,
+      ),
+      "House No, Block & Building*",
+      CustomFormFieldValidators.buildingFieldValidator(),
+    );
+  }
+
+  _landmarkField() {
+    return CustomFormFields.formTextField(
+      context,
+      AddressFormKeys.landmarkField,
+      UiIcons.castle(
+        size: 20,
+        color: Theme.of(context).colorScheme.tertiary,
+      ),
+      "Landmark & Area (optional)",
+      CustomFormFieldValidators.emptyValidator(),
+    );
+  }
+
+  _addressType({onToggle = Utils.emptyFunction}) {
+    return ToggleSwitch(
+      initialLabelIndex: 0,
+      totalSwitches: 3,
+      animate: true,
+      animationDuration: 300,
+      labels: const ['Home', 'Work', 'Other'],
+      onToggle: (index) {
+        onToggle();
+        if (kDebugMode) {
+          print('switched to: $index');
+        }
+      },
+    );
   }
 }

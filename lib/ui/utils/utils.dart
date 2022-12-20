@@ -85,7 +85,7 @@ class Utils {
           surfaceIntensity: UiConstants.neumorphicSurfaceIntensity,
           color: buttonColor,
           boxShape: NeumorphicBoxShape.roundRect(
-            BorderRadius.circular(10),
+            BorderRadius.circular(UiConstants.edgeRadius),
           )),
       child: Center(
         child: RichText(
