@@ -3,6 +3,8 @@ class AssetsDb {
   static String get animatedLoginScreen =>
       "assets/login/animated-login-screen.riv";
 
+  static String get offerOrCouponAnimation => "assets/animations/offer.json";
+  static String get emptyCartAnimations => "assets/animations/empty_cart.json";
   static String get appSplashLogo => "assets/splash/splash.json";
   static String get logo => "assets/logo/logo.png";
   static String get phoneIcon => "assets/icons/phone.svg";
@@ -38,4 +40,6 @@ class AssetsDb {
   static String get editIcon => "assets/icons/pencil.svg";
   static String get deleteIcon => "assets/icons/trash.svg";
   static String get mapMarkerIcon => "assets/icons/map-marker.svg";
+  static String get oilImage => "assets/item_images/oil1.jpg";
+  static String get oil1Image => "assets/item_images/oil2.png";
 }

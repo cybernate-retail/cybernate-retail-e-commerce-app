@@ -4,7 +4,8 @@ import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class ViewAddress extends StatefulWidget {
-  const ViewAddress({super.key});
+  final String title;
+  const ViewAddress({super.key, required this.title});
 
   @override
   State<ViewAddress> createState() => _ViewAddressState();
@@ -20,6 +21,7 @@ class _ViewAddressState extends State<ViewAddress> {
   }
 
   Widget _body() {
+    // TODO add select address view
     return Padding(
       padding: EdgeInsets.all(Utils.spaceScale(2.5)),
       child: ListView(

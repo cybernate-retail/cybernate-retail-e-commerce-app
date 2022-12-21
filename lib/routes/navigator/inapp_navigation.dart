@@ -77,8 +77,12 @@ class InAppNavigation {
 
   //Address
 
-  static void viewAddress(BuildContext context) {
-    _push(context, const ViewAddress());
+  static void viewAddress(BuildContext context, String title) {
+    _push(
+        context,
+        ViewAddress(
+          title: title,
+        ));
   }
 
   static void addAddress(BuildContext context) {

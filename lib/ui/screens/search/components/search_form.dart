@@ -52,10 +52,10 @@ class SearchForm extends StatelessWidget {
             Theme.of(context).colorScheme.error,
           ),
           suffixIcon: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(Utils.spaceScale(1)),
             child: SizedBox(
-              width: 48,
-              height: 48,
+              width: Utils.spaceScale(6),
+              height: Utils.spaceScale(6),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).primaryColor,

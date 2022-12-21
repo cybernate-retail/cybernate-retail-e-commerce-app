@@ -1,4 +1,5 @@
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
+import 'package:cybernate_retail_mobile/ui/screens/address/components/address_modal.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,8 +15,8 @@ class PinLocationWidget extends StatelessWidget {
         Utils.horizontalSpace(2),
         SvgPicture.asset(
           AssetsDb.locationIcon,
-          width: 20,
-          height: 20,
+          width: 16,
+          height: 16,
           color: Theme.of(context).primaryColor,
         ),
         Utils.horizontalSpace(1),
@@ -25,10 +26,12 @@ class PinLocationWidget extends StatelessWidget {
               fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            ShowAddressModal().showAddressModal(context);
+          },
           icon: Icon(
             Icons.keyboard_arrow_down,
-            size: 22,
+            size: 24,
             color: Theme.of(context).primaryColor,
           ),
         )

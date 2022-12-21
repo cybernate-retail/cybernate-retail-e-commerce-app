@@ -120,7 +120,10 @@ class ProfileOptionsWidget extends StatelessWidget {
         width: 100,
         height: 50,
         child: Center(
-          child: Text("Logout"),
+          child: Text(
+            "Logout",
+            style: TextStyle(color: Colors.red),
+          ),
         ),
       ),
     );

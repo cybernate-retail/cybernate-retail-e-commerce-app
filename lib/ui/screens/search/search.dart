@@ -1,8 +1,9 @@
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
-import 'package:cybernate_retail_mobile/ui/screens/cart/cart_widget.dart';
+import 'package:cybernate_retail_mobile/ui/screens/cart/components/cart_widget.dart';
 import 'package:cybernate_retail_mobile/ui/screens/search/components/search_form.dart';
 import 'package:cybernate_retail_mobile/ui/screens/search/components/search_shimmer.dart';
+import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -24,7 +25,11 @@ class _SearchScreenState extends State<SearchScreen> {
 
   AppBar _appBar() {
     return AppBar(
-      title: const SearchForm(),
+      title: Padding(
+        padding: EdgeInsets.only(right: Utils.spaceScale(2)),
+        child: const SearchForm(),
+      ),
+      titleSpacing: 0,
       toolbarHeight: 70,
       centerTitle: true,
       leading: UiIcons.back(

@@ -82,6 +82,8 @@ flutter:
     - assets/logo/
     - assets/splash/
     - assets/icons/
+    - assets/item_images/
+    - assets/animations/
 
   fonts:
     - family: OpenSans
