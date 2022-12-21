@@ -64,6 +64,8 @@ dependencies:
   flutter_secure_storage: ^7.0.1
   get: ^4.6.5
   toggle_switch: ^2.0.1
+  google_maps_flutter: ^2.2.2
+  page_transition: ^2.0.9
 
 dev_dependencies:
   flutter_test:

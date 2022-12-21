@@ -1,3 +1,4 @@
+import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/ui/components/forms/custom_form_validators.dart';
 import 'package:cybernate_retail_mobile/ui/components/forms/custom_forms.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
@@ -41,7 +42,7 @@ class _AddAddressState extends State<AddAddress> {
       leading: UiIcons.back(
         color: Theme.of(context).colorScheme.primary,
         onPressed: () {
-          Navigator.pop(context);
+          InAppNavigation.pop(context);
         },
       ),
       actions: [
@@ -49,7 +50,7 @@ class _AddAddressState extends State<AddAddress> {
           color: Theme.of(context).colorScheme.error,
           size: 24,
           onPressed: () {
-            Navigator.pop(context);
+            InAppNavigation.pop(context);
           },
         ),
         Utils.horizontalSpace(1),
@@ -129,7 +130,7 @@ class _AddAddressState extends State<AddAddress> {
       subtitle: Padding(
         padding: EdgeInsets.only(bottom: Utils.spaceScale(2)),
         child: Text(
-          "C9XQ+XQ,\n Ayyappa Society..",
+          "C9XQ+XQ,\nAyyappa Society..",
           style: TextStyle(
             color: Theme.of(context).colorScheme.onPrimary,
             fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
@@ -179,6 +180,8 @@ class _AddAddressState extends State<AddAddress> {
       totalSwitches: 3,
       animate: true,
       animationDuration: 300,
+      inactiveBgColor: Colors.grey[300],
+      dividerColor: Colors.black,
       labels: const ['Home', 'Work', 'Other'],
       onToggle: (index) {
         onToggle();

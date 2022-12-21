@@ -1,3 +1,4 @@
+import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/cart/cart_widget.dart';
 import 'package:cybernate_retail_mobile/ui/screens/search/components/search_form.dart';
@@ -29,7 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
       leading: UiIcons.back(
         color: Theme.of(context).colorScheme.primary,
         onPressed: () {
-          Navigator.pop(context);
+          InAppNavigation.pop(context);
         },
       ),
     );

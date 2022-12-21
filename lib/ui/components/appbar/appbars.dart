@@ -1,3 +1,4 @@
+import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +7,7 @@ AppBar justBackButtonAppBar(BuildContext context) {
     leading: UiIcons.back(
         color: Theme.of(context).colorScheme.primary,
         onPressed: () {
-          Navigator.pop(context);
+          InAppNavigation.pop(context);
         }),
   );
 }
@@ -24,7 +25,7 @@ AppBar justBackButtonWithTitleAppBar(BuildContext context, String title) {
     leading: UiIcons.back(
       color: Theme.of(context).colorScheme.primary,
       onPressed: () {
-        Navigator.pop(context);
+        InAppNavigation.pop(context);
       },
     ),
   );

@@ -304,7 +304,7 @@ class _OtpScreenState extends State<OtpScreen> {
           _submitState = SubmitState.DONE;
         });
         InAppToast.otpVerificationSuccess(context);
-        InAppNavigation.pHome(context);
+        InAppNavigation.popAndPushHome(context);
       } else {
         InAppToast.wrongOtp(context);
         setState(() {
