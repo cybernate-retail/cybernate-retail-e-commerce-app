@@ -1,8 +1,6 @@
 import 'package:cybernate_retail_mobile/models/countries.dart';
 import 'package:cybernate_retail_mobile/models/indian_states.dart';
-import 'package:cybernate_retail_mobile/ui/components/forms/custom_form_validators.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
-import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';

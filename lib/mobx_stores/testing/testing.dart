@@ -8,6 +8,7 @@ class TestingStore = _TestingStore with _$TestingStore;
 
 abstract class _TestingStore with Store {
   final RemoteRepository _remoteRepository;
+  // ignore: unused_field
   final Repository _repository;
   _TestingStore(this._remoteRepository, this._repository);
 

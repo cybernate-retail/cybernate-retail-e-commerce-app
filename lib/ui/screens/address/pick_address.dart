@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
-import 'package:cybernate_retail_mobile/ui/components/appbar/appbars.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';

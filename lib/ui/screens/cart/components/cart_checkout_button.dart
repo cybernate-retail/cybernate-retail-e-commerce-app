@@ -8,8 +8,7 @@ class CartCheckoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.18,
+      child: IntrinsicHeight(
         child: Column(
           children: [
             Row(

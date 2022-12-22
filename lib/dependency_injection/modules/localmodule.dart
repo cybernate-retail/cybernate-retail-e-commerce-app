@@ -1,16 +1,15 @@
 import 'package:cybernate_retail_mobile/data_repository/database_encryption/encryption.dart';
 import 'package:cybernate_retail_mobile/data_repository/localdb/constants/db_constants.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
+// ignore: depend_on_referenced_packages
 import "package:path/path.dart" show join;
 import 'package:path_provider/path_provider.dart';
 import 'package:gql_http_link/gql_http_link.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry_hive_store/ferry_hive_store.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart'
     show possibleTypesMap;

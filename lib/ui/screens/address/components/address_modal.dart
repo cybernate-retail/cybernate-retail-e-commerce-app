@@ -1,4 +1,3 @@
-import 'package:cybernate_retail_mobile/ui/screens/address/components/view_address_widget.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/view_address.dart';
 import 'package:flutter/material.dart';
 

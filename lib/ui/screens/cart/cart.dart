@@ -65,22 +65,45 @@ class _CartScreenState extends State<CartScreen> {
       _cartItem(AssetsDb.oilImage, "Oil", 2),
       _cartItem(AssetsDb.oil1Image, "Oil", 2),
     ];
-    return Padding(
-      padding: EdgeInsets.all(Utils.spaceScale(2)),
-      child: CustomScrollView(
-        slivers: [
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              childCount: lists.length,
-              (context, index) {
-                return lists[index];
-              },
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          automaticallyImplyLeading: false,
+          pinned: true,
+          toolbarHeight: 30,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
+          ),
+          title: Container(
+            alignment: Alignment.center,
+            child: const Text(
+              "₹345 saved",
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.green,
+              ),
             ),
           ),
-          SliverToBoxAdapter(child: _couponsWidget()),
-          SliverToBoxAdapter(child: _billWidget()),
-        ],
-      ),
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            childCount: lists.length,
+            (context, index) {
+              return lists[index];
+            },
+          ),
+        ),
+        SliverToBoxAdapter(
+            child: Padding(
+          padding: EdgeInsets.all(Utils.spaceScale(2)),
+          child: _couponsWidget(),
+        )),
+        SliverToBoxAdapter(
+            child: Padding(
+          padding: EdgeInsets.all(Utils.spaceScale(2)),
+          child: _billWidget(),
+        )),
+      ],
     );
   }
 

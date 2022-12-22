@@ -42,4 +42,5 @@ class AssetsDb {
   static String get mapMarkerIcon => "assets/icons/map-marker.svg";
   static String get oilImage => "assets/item_images/oil1.jpg";
   static String get oil1Image => "assets/item_images/oil2.png";
+  static String get basketIcon => "assets/icons/basket.png";
 }

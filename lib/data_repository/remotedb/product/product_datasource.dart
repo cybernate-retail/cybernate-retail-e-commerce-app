@@ -1,4 +1,3 @@
-import 'package:cybernate_retail_mobile/src/components/queries/models/ProductCollection.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/ProductCollection.req.gql.dart';
 import 'package:ferry/ferry.dart';
 

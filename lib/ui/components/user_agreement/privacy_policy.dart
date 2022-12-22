@@ -1,6 +1,4 @@
 import 'package:cybernate_retail_mobile/ui/components/appbar/appbars.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {

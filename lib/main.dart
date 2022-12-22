@@ -11,19 +11,15 @@ import 'package:cybernate_retail_mobile/mobx_stores/login/login.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/theme/theme.dart';
-import 'package:cybernate_retail_mobile/ui/screens/address/add_address.dart';
-import 'package:cybernate_retail_mobile/ui/screens/address/pick_address.dart';
-import 'package:cybernate_retail_mobile/ui/screens/address/view_address.dart';
-import 'package:cybernate_retail_mobile/ui/screens/cart/cart.dart';
-import 'package:cybernate_retail_mobile/ui/screens/home/home.dart';
-import 'package:cybernate_retail_mobile/ui/screens/splash/splash.dart';
+
+import 'package:cybernate_retail_mobile/ui/screens/orders/order.dart';
+import 'package:cybernate_retail_mobile/ui/screens/orders/order_details.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 
+// ignore: constant_identifier_names
 const SENTRY_ENDPOINT = 'url';
 
 Future<void> main() async {
@@ -82,7 +78,7 @@ class MyApp extends StatelessWidget {
             //         nextRoute: Routes.home,
             //       )
             //     : const SplashLogo(nextRoute: Routes.signup),
-            home: const HomeScreen(),
+            home: const OrderDetailScreen(),
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),
