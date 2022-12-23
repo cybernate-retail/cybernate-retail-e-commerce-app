@@ -1,4 +1,5 @@
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
+import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/ui/components/appbar/appbars.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
@@ -25,9 +26,7 @@ class GeneralInfo extends StatelessWidget {
             Utils.verticalSpace(1),
             _option(
               context,
-              UiIcons.terms(
-                color: Theme.of(context).colorScheme.primary,
-              ).icon,
+              AssetsDb.termsIcon,
               "Terms of use",
               onPressed: () {
                 InAppNavigation.termsOfUse(context);
@@ -36,9 +35,7 @@ class GeneralInfo extends StatelessWidget {
             Utils.verticalSpace(1),
             _option(
               context,
-              UiIcons.privacy(
-                color: Theme.of(context).colorScheme.primary,
-              ).icon,
+              AssetsDb.privacyIcon,
               "Privacy Policy",
               onPressed: () {
                 InAppNavigation.privacyPolicy(context);
@@ -50,33 +47,44 @@ class GeneralInfo extends StatelessWidget {
     );
   }
 
-  Widget _option(BuildContext context, Widget icon, String title,
-      {onPressed = Utils.emptyFunction}) {
+  Widget _option(
+    BuildContext context,
+    String iconAsset,
+    String title, {
+    onPressed = Utils.emptyFunction,
+  }) {
+    // TODO create links
     return ListTile(
       leading: SizedBox(
-        width: 50,
-        child: Center(child: icon),
+        width: 40,
+        child: Center(
+          child: UiIcons.icon(
+            iconAsset,
+            size: 20,
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
       ),
       onTap: onPressed,
       title: Text(
         title,
         style: TextStyle(
-          fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
+          fontSize: Theme.of(context).textTheme.titleSmall?.fontSize,
         ),
       ),
       trailing: SizedBox(
-        width: 50,
+        width: 10,
         child: Center(
           child: UiIcons.arrowRight(
                   size: 15, color: Theme.of(context).primaryColor)
               .icon,
         ),
       ),
-      visualDensity: const VisualDensity(vertical: 3),
+      visualDensity: const VisualDensity(vertical: 2),
       shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Theme.of(context).colorScheme.tertiaryContainer,
-        ),
+        // side: BorderSide(
+        //   color: Theme.of(context).colorScheme.tertiaryContainer,
+        // ),
         borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
       ),
     );

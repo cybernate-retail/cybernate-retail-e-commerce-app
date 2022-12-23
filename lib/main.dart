@@ -84,9 +84,7 @@ class MyApp extends StatelessWidget {
             //         nextRoute: Routes.home,
             //       )
             //     : const SplashLogo(nextRoute: Routes.signup),
-            home: const CouponsScreen(
-              applyWidgetEnabled: true,
-            ),
+            home: HomeScreen(),
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),

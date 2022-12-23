@@ -40,7 +40,7 @@ class ProfileOptionsWidget extends StatelessWidget {
             AssetsDb.discountIcon,
             "Coupons",
             onPressed: () {
-              InAppNavigation.coupons(context);
+              InAppNavigation.coupons(context, false);
             },
           ),
           Utils.verticalSpace(1),

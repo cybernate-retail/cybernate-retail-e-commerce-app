@@ -124,8 +124,8 @@ class InAppNavigation {
     _push(context, const ContactUsScreen());
   }
 
-  static void coupons(BuildContext context) {
-    _push(context, const CouponsScreen());
+  static void coupons(BuildContext context, bool applyWidgetEnabled) {
+    _push(context, CouponsScreen(applyWidgetEnabled: applyWidgetEnabled));
   }
 
   static void wishlist(BuildContext context) {
