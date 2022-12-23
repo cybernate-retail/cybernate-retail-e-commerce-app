@@ -369,4 +369,16 @@ class UiIcons {
       onPressed: onPressed,
     );
   }
+
+  static IconButton funnel(
+      {double size = 24.0,
+      Color? color = Colors.black,
+      Function onPressed = Utils.emptyFunction}) {
+    return icon(
+      AssetsDb.funnelIcon,
+      size: size,
+      color: color,
+      onPressed: onPressed,
+    );
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:cybernate_retail_mobile/ui/components/appbar/appbars.dart';
+import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/components/view_address_widget.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class _ViewAddressState extends State<ViewAddress> {
   Widget _body() {
     // TODO add select address view
     return Padding(
-      padding: EdgeInsets.all(Utils.spaceScale(2.5)),
+      padding: const EdgeInsets.all(UiConstants.globalPadding),
       child: ListView(
         children: [
           const ViewAddressWidget(

@@ -1,11 +1,28 @@
 class AssetsDb {
   AssetsDb._();
+
+  // ANimations
   static String get animatedLoginScreen =>
       "assets/login/animated-login-screen.riv";
 
   static String get offerOrCouponAnimation => "assets/animations/offer.json";
+
   static String get emptyCartAnimations => "assets/animations/empty_cart.json";
   static String get appSplashLogo => "assets/splash/splash.json";
+  static String get deliveredAnimation => "assets/animations/delivered.json";
+  static String get deliveryGuyAnimation =>
+      "assets/animations/delivery-guy.json";
+  static String get boxPackingAnimation => "assets/animations/box-packing.json";
+  static String get boxDelightAnimation =>
+      "assets/animations/deliver-delight.json";
+  static String get cancelOrderAnimation =>
+      "assets/animations/cancel-order.json";
+  static String get groceryShoppingAnimation =>
+      "assets/animations/grocery-shopping.json";
+  static String get waitingAnimation => "assets/animations/waiting.json";
+  static String get rejectedAnimation => "assets/animations/rejected.json";
+
+  //Logos or icons
   static String get logo => "assets/logo/logo.png";
   static String get phoneIcon => "assets/icons/phone.svg";
   static String get userIcon => "assets/icons/user.svg";
@@ -43,4 +60,5 @@ class AssetsDb {
   static String get oilImage => "assets/item_images/oil1.jpg";
   static String get oil1Image => "assets/item_images/oil2.png";
   static String get basketIcon => "assets/icons/basket.png";
+  static String get funnelIcon => "assets/icons/filter.svg";
 }

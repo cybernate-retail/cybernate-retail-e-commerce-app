@@ -31,9 +31,9 @@ searchFilter(BuildContext context) {
   );
 }
 
-Column _filterRadioButtons(BuildContext context) {
+ListView _filterRadioButtons(BuildContext context) {
   EnumSortBy? sort = EnumSortBy.priceHighToLow;
-  return Column(
+  return ListView(
     children: [
       RadioListTile<EnumSortBy>(
           value: EnumSortBy.recommended,

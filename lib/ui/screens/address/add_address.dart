@@ -53,14 +53,15 @@ class _AddAddressState extends State<AddAddress> {
             InAppNavigation.pop(context);
           },
         ),
-        Utils.horizontalSpace(1),
+        Utils.horizontalSizedBox(UiConstants.globalPadding / 2),
       ],
     );
   }
 
   Widget _body(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(2)),
+      padding:
+          const EdgeInsets.symmetric(horizontal: UiConstants.globalPadding),
       child: _form(),
     );
   }
@@ -70,7 +71,7 @@ class _AddAddressState extends State<AddAddress> {
   Widget _bottomNavigationBar() {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: Utils.spaceScale(2),
+        horizontal: UiConstants.globalPadding,
         vertical: Utils.spaceScale(3),
       ),
       child: SizedBox(

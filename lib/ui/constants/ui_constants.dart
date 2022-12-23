@@ -7,7 +7,7 @@ class UiConstants {
   static const double neumorphicSurfaceIntensity = 5;
 
   static const double edgeRadius = 10;
-
+  static const double globalPadding = 20;
   static Color shimmerBaseColor = Colors.grey[100]!;
   static Color shimmerHighlightColor = Colors.grey[300]!;
 }

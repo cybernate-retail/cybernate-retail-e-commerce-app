@@ -23,6 +23,18 @@ class Utils {
     return 8 * value;
   }
 
+  static Widget verticalSizedBox(double value) {
+    return SizedBox(
+      height: value,
+    );
+  }
+
+  static Widget horizontalSizedBox(double value) {
+    return SizedBox(
+      width: value,
+    );
+  }
+
   static String getNewUuid() {
     return const Uuid().v1();
   }
@@ -192,5 +204,14 @@ class Utils {
       ),
       borderSide: BorderSide(color: borderColor),
     );
+  }
+
+  static String truncateString(String data, int length) {
+    return (data.length >= length) ? '${data.substring(0, length)}...' : data;
+  }
+
+  static String addNewLineAfterLength(String data, int length) {
+    String dt = data.replaceRange(0, length, "${data.substring(0, length)}\n");
+    return truncateString(dt, 2 * length);
   }
 }

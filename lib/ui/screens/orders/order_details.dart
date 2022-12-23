@@ -34,21 +34,18 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
       _orderItems(AssetsDb.oil1Image, "Oil", 2),
     ];
     return Padding(
-      padding: EdgeInsets.all(Utils.spaceScale(2)),
+      padding: const EdgeInsets.all(UiConstants.globalPadding),
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.all(Utils.spaceScale(1)),
-              child: _orderDetails(),
-            ),
+            child: _orderDetails(),
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               childCount: lists.length,
               (context, index) {
                 return Padding(
-                  padding: EdgeInsets.all(Utils.spaceScale(1)),
+                  padding: EdgeInsets.only(top: Utils.spaceScale(1)),
                   child: lists[index],
                 );
               },
@@ -151,7 +148,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   }
 
   Widget _orderDetails() {
-    return Container(
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: Utils.spaceScale(2)),
       child: Column(
         children: [
           Row(
@@ -164,7 +162,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              _getOrderStatusWidget(OrderStatus.ORDERED)
+              _getOrderStatusWidget(OrderStatus.DELIVERED)
             ],
           ),
           Utils.verticalSpace(1),
@@ -196,12 +194,16 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   Widget _getOrderStatusWidget(OrderStatus orderStatus) {
     switch (orderStatus) {
       case OrderStatus.ORDERED:
-        return _orderStatusWidget(Color(0xff6667ab), orderStatus);
-      case OrderStatus.SHIPPED:
         return _orderStatusWidget(Colors.blue, orderStatus);
+      case OrderStatus.PACKED:
+        return _orderStatusWidget(Colors.blue, orderStatus);
+      case OrderStatus.SHIPPED:
+        return _orderStatusWidget(Colors.green, orderStatus);
       case OrderStatus.DELIVERED:
         return _orderStatusWidget(Colors.green, orderStatus);
       case OrderStatus.RETURNED:
+        return _orderStatusWidget(Colors.red, orderStatus);
+      case OrderStatus.REJECTED:
         return _orderStatusWidget(Colors.red, orderStatus);
       default:
         return Container();
@@ -232,7 +234,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
       // height: Utils.spaceScale(20),
       padding: EdgeInsets.symmetric(vertical: Utils.spaceScale(2)),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(UiConstants.edgeRadius / 2),
+        borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
         border: Border.all(
           color: Theme.of(context).colorScheme.tertiaryContainer,
         ),

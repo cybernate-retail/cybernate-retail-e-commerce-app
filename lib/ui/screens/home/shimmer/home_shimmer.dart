@@ -46,7 +46,8 @@ class HomeShimmer extends StatelessWidget {
       baseColor: UiConstants.shimmerBaseColor,
       highlightColor: UiConstants.shimmerHighlightColor,
       child: ListView(
-        padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(2.5)),
+        padding:
+            const EdgeInsets.symmetric(horizontal: UiConstants.globalPadding),
         children: [
           bannerShimmer(context),
           Utils.verticalSpace(2),

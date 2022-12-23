@@ -277,7 +277,7 @@ class _CartScreenState extends State<CartScreen> {
       // height: Utils.spaceScale(20),
       padding: EdgeInsets.symmetric(vertical: Utils.spaceScale(2)),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(UiConstants.edgeRadius / 2),
+        borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
         border: Border.all(
           color: Theme.of(context).colorScheme.tertiaryContainer,
         ),
