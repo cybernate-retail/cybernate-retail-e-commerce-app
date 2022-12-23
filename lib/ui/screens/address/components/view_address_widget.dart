@@ -1,7 +1,9 @@
+import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class ViewAddressWidget extends StatelessWidget {
   final String addressType;
@@ -16,12 +18,12 @@ class ViewAddressWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: SizedBox(
-        width: 50,
+        width: 60,
         child: Center(
-          child: UiIcons.mapMarker(
-            size: 22,
-            color: Theme.of(context).colorScheme.primary,
-          ).icon,
+          child: Lottie.asset(
+            AssetsDb.locationAnimation,
+            repeat: false,
+          ),
         ),
       ),
       title: Padding(
@@ -30,7 +32,7 @@ class ViewAddressWidget extends StatelessWidget {
         child: Text(
           addressType,
           style: TextStyle(
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.primary,
             fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
             fontWeight: FontWeight.w600,
           ),
@@ -49,12 +51,12 @@ class ViewAddressWidget extends StatelessWidget {
       ),
       isThreeLine: true,
       visualDensity: const VisualDensity(vertical: 4),
-      trailing: SizedBox(
-        width: 50,
+      trailing: const SizedBox(
+        width: 20,
         child: Center(
-          child: UiIcons.delete(
-            size: 18,
-            color: Theme.of(context).errorColor,
+          child: Icon(
+            Icons.delete,
+            size: 20,
           ),
         ),
       ),

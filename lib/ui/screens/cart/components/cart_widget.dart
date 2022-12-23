@@ -16,8 +16,10 @@ class _CartWidgetState extends State<CartWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: Utils.spaceScale(2.5), vertical: Utils.spaceScale(3)),
+      padding: EdgeInsets.only(
+          left: UiConstants.globalPadding,
+          right: UiConstants.globalPadding,
+          bottom: Utils.spaceScale(3)),
       child: InkWell(
         onTap: () {
           InAppNavigation.cart(context);

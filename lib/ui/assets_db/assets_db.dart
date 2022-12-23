@@ -22,6 +22,8 @@ class AssetsDb {
   static String get waitingAnimation => "assets/animations/waiting.json";
   static String get rejectedAnimation => "assets/animations/rejected.json";
 
+  static String get locationAnimation => "assets/animations/location.json";
+
   //Logos or icons
   static String get logo => "assets/logo/logo.png";
   static String get phoneIcon => "assets/icons/phone.svg";

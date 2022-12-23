@@ -52,10 +52,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             ),
           ),
           SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(1)),
-              child: _billWidget(),
-            ),
+            child: _billWidget(),
           ),
         ],
       ),
@@ -291,15 +288,22 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             Utils.verticalSpace(1),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
                   "Grand total",
                   style: TextStyle(
                     fontSize: 18,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                 ),
-                Text("₹1000"),
+                Text(
+                  "₹1000",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
+                ),
               ],
             ),
           ],

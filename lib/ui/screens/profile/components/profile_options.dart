@@ -1,4 +1,5 @@
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
+import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
@@ -27,34 +28,43 @@ class ProfileOptionsWidget extends StatelessWidget {
           Utils.verticalSpace(1),
           _option(
             context,
-            UiIcons.wishlist(color: Theme.of(context).colorScheme.primary).icon,
+            AssetsDb.wishlistIcon,
             "Wishlist",
+            onPressed: () {
+              InAppNavigation.wishlist(context);
+            },
           ),
           Utils.verticalSpace(1),
           _option(
             context,
-            UiIcons.discount(color: Theme.of(context).colorScheme.primary).icon,
+            AssetsDb.discountIcon,
             "Coupons",
+            onPressed: () {
+              InAppNavigation.coupons(context);
+            },
           ),
           Utils.verticalSpace(1),
           _option(
             context,
-            UiIcons.notification(color: Theme.of(context).colorScheme.primary)
-                .icon,
+            AssetsDb.bellIcon,
             "Notifications",
+            onPressed: () {
+              InAppNavigation.notifications(context);
+            },
           ),
           Utils.verticalSpace(1),
           _option(
             context,
-            UiIcons.customerSupport(
-                    color: Theme.of(context).colorScheme.primary)
-                .icon,
+            AssetsDb.customerSupportIcon,
             "Contact us",
+            onPressed: () {
+              InAppNavigation.contactUs(context);
+            },
           ),
           Utils.verticalSpace(1),
           _option(
             context,
-            UiIcons.info(color: Theme.of(context).colorScheme.primary).icon,
+            AssetsDb.infoIcon,
             "General Info",
             onPressed: () {
               InAppNavigation.generalInfo(context);
@@ -69,36 +79,42 @@ class ProfileOptionsWidget extends StatelessWidget {
 
   Widget _option(
     BuildContext context,
-    Widget icon,
+    String iconAsset,
     String title, {
     onPressed = Utils.emptyFunction,
   }) {
     // TODO create links
     return ListTile(
       leading: SizedBox(
-        width: 50,
-        child: Center(child: icon),
+        width: 40,
+        child: Center(
+          child: UiIcons.icon(
+            iconAsset,
+            size: 20,
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
       ),
       onTap: onPressed,
       title: Text(
         title,
         style: TextStyle(
-          fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
+          fontSize: Theme.of(context).textTheme.titleSmall?.fontSize,
         ),
       ),
       trailing: SizedBox(
-        width: 50,
+        width: 10,
         child: Center(
           child: UiIcons.arrowRight(
                   size: 15, color: Theme.of(context).primaryColor)
               .icon,
         ),
       ),
-      visualDensity: const VisualDensity(vertical: 3),
+      visualDensity: const VisualDensity(vertical: 2),
       shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Theme.of(context).colorScheme.tertiaryContainer,
-        ),
+        // side: BorderSide(
+        //   color: Theme.of(context).colorScheme.tertiaryContainer,
+        // ),
         borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
       ),
     );
@@ -122,7 +138,10 @@ class ProfileOptionsWidget extends StatelessWidget {
         child: Center(
           child: Text(
             "Logout",
-            style: TextStyle(color: Colors.red),
+            style: TextStyle(
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

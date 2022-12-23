@@ -95,12 +95,12 @@ class _CartScreenState extends State<CartScreen> {
         ),
         SliverToBoxAdapter(
             child: Padding(
-          padding: EdgeInsets.all(Utils.spaceScale(2)),
+          padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(2)),
           child: _couponsWidget(),
         )),
         SliverToBoxAdapter(
             child: Padding(
-          padding: EdgeInsets.all(Utils.spaceScale(2)),
+          padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(2)),
           child: _billWidget(),
         )),
       ],
@@ -334,15 +334,22 @@ class _CartScreenState extends State<CartScreen> {
             Utils.verticalSpace(1),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
                   "Grand total",
                   style: TextStyle(
                     fontSize: 18,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                 ),
-                Text("₹1000"),
+                Text(
+                  "₹1000",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Theme.of(context).colorScheme.onBackground,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
           ],

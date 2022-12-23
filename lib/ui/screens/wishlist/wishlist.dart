@@ -1,15 +1,15 @@
 import 'package:cybernate_retail_mobile/ui/components/appbar/appbars.dart';
 import 'package:flutter/material.dart';
 
-class ViewPayments extends StatefulWidget {
-  final String title = "View Payments";
-  const ViewPayments({super.key});
+class WishListScreen extends StatefulWidget {
+  final String title = "Wishlist";
+  const WishListScreen({super.key});
 
   @override
-  State<ViewPayments> createState() => _ViewPaymentsState();
+  State<WishListScreen> createState() => _WishListScreenState();
 }
 
-class _ViewPaymentsState extends State<ViewPayments> {
+class _WishListScreenState extends State<WishListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

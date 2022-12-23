@@ -13,10 +13,12 @@ import 'package:cybernate_retail_mobile/mobx_stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/theme/theme.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/add_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/view_address.dart';
+import 'package:cybernate_retail_mobile/ui/screens/coupons/coupons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/home.dart';
 
 import 'package:cybernate_retail_mobile/ui/screens/orders/order.dart';
 import 'package:cybernate_retail_mobile/ui/screens/orders/order_details.dart';
+import 'package:cybernate_retail_mobile/ui/screens/profile/profile.dart';
 import 'package:cybernate_retail_mobile/ui/screens/search/search.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -82,7 +84,9 @@ class MyApp extends StatelessWidget {
             //         nextRoute: Routes.home,
             //       )
             //     : const SplashLogo(nextRoute: Routes.signup),
-            home: OrdersScreen(),
+            home: const CouponsScreen(
+              applyWidgetEnabled: true,
+            ),
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),

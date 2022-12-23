@@ -66,6 +66,7 @@ dependencies:
   toggle_switch: ^2.0.1
   google_maps_flutter: ^2.2.2
   page_transition: ^2.0.9
+  coupon_uikit: ^0.1.0
 
 dev_dependencies:
   flutter_test:

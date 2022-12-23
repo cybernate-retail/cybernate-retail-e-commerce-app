@@ -15,6 +15,14 @@ class CustomFormFieldValidators {
     ]);
   }
 
+  static couponFieldValidator() {
+    return FormBuilderValidators.compose([
+      FormBuilderValidators.required(),
+      FormBuilderValidators.maxLength(50),
+      FormBuilderValidators.minLength(1),
+    ]);
+  }
+
   static buildingFieldValidator() {
     return FormBuilderValidators.compose([
       FormBuilderValidators.required(),

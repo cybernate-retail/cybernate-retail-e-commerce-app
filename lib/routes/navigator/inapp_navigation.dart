@@ -2,8 +2,11 @@ import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/add_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/view_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/cart/cart.dart';
+import 'package:cybernate_retail_mobile/ui/screens/contact_us/contact_us.dart';
+import 'package:cybernate_retail_mobile/ui/screens/coupons/coupons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/general_info/general_info.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/home.dart';
+import 'package:cybernate_retail_mobile/ui/screens/notification/notifications.dart';
 import 'package:cybernate_retail_mobile/ui/screens/orders/order.dart';
 import 'package:cybernate_retail_mobile/ui/screens/orders/order_details.dart';
 import 'package:cybernate_retail_mobile/ui/screens/payments/payments.dart';
@@ -14,6 +17,7 @@ import 'package:cybernate_retail_mobile/ui/screens/signup/otp.dart';
 import 'package:cybernate_retail_mobile/ui/screens/signup/signup.dart';
 import 'package:cybernate_retail_mobile/ui/components/user_agreement/privacy_policy.dart';
 import 'package:cybernate_retail_mobile/ui/components/user_agreement/terms_of_user.dart';
+import 'package:cybernate_retail_mobile/ui/screens/wishlist/wishlist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -114,5 +118,21 @@ class InAppNavigation {
 
   static void orderDetail(BuildContext context) {
     _push(context, const OrderDetailScreen());
+  }
+
+  static void contactUs(BuildContext context) {
+    _push(context, const ContactUsScreen());
+  }
+
+  static void coupons(BuildContext context) {
+    _push(context, const CouponsScreen());
+  }
+
+  static void wishlist(BuildContext context) {
+    _push(context, const WishListScreen());
+  }
+
+  static void notifications(BuildContext context) {
+    _push(context, const NotificationScreen());
   }
 }

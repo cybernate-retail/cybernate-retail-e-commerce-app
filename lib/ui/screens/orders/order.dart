@@ -383,7 +383,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         return Lottie.asset(
           AssetsDb.waitingAnimation,
           repeat: true,
-          height: 40,
+          height: 50,
         );
       case OrderStatus.PACKED:
         return Lottie.asset(
