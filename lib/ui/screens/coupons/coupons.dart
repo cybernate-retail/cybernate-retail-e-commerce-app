@@ -215,7 +215,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
       secondChild: Container(
         width: double.maxFinite,
         color: Theme.of(context).colorScheme.primaryContainer,
-        padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(3)),
+        padding: EdgeInsets.only(left: Utils.spaceScale(4)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,14 +238,23 @@ class _CouponsScreenState extends State<CouponsScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Utils.verticalSpace(1),
-            const Text(
-              'Valid Till - 30 Jan 2022',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black45,
-                fontSize: 10,
-              ),
+            // Utils.verticalSpace(1),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Valid Till - 30 Jan 2022',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black45,
+                    fontSize: 10,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: Utils.spaceScale(1)),
+                  child: _applyButton(),
+                )
+              ],
             ),
           ],
         ),
@@ -315,7 +324,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right: Utils.spaceScale(2)),
+              padding: EdgeInsets.only(right: Utils.spaceScale(1)),
               child: _applyButton(),
             ),
           ],
@@ -382,25 +391,26 @@ class _CouponsScreenState extends State<CouponsScreen> {
   Widget _applyButton() {
     return ElevatedButton(
       style: ButtonStyle(
-        padding: const MaterialStatePropertyAll(EdgeInsets.all(0)),
+        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
         elevation: MaterialStateProperty.all(0),
         surfaceTintColor: MaterialStateProperty.all(Colors.white),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
-            side: const BorderSide(
-              color: Colors.red,
+            side: BorderSide(
+              color: Theme.of(context).primaryColor,
             ),
           ),
         ),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
       onPressed: () {},
-      child: const Text(
+      child: Text(
         "Apply",
         style: TextStyle(
-          color: Colors.red,
+          color: Theme.of(context).primaryColor,
           fontWeight: FontWeight.bold,
-          fontSize: 12,
+          fontSize: 10,
         ),
       ),
     );

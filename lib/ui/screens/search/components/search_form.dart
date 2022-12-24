@@ -70,7 +70,9 @@ class SearchForm extends StatelessWidget {
                 onPressed: () async {
                   searchFilter(context);
                 },
-                child: SvgPicture.asset("assets/icons/filter_small.svg"),
+                child: SvgPicture.asset(
+                  "assets/icons/filter_small.svg",
+                ),
               ),
             ),
           ),

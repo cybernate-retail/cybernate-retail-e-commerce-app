@@ -63,4 +63,5 @@ class AssetsDb {
   static String get oil1Image => "assets/item_images/oil2.png";
   static String get basketIcon => "assets/icons/basket.png";
   static String get funnelIcon => "assets/icons/filter.svg";
+  static String get settingIcon => "assets/icons/settings-sliders.svg";
 }

@@ -235,9 +235,9 @@ class _CartScreenState extends State<CartScreen> {
       margin: EdgeInsets.symmetric(vertical: Utils.spaceScale(2)),
       child: ListTile(
         onTap: Utils.emptyFunction,
-        minVerticalPadding: Utils.spaceScale(4),
+        // minVerticalPadding: Utils.spaceScale(4),
         leading: SizedBox(
-          width: Utils.spaceScale(10),
+          width: Utils.spaceScale(4),
           child: Center(
             child: Lottie.asset(
               AssetsDb.offerOrCouponAnimation,
@@ -246,7 +246,7 @@ class _CartScreenState extends State<CartScreen> {
             ),
           ),
         ),
-        minLeadingWidth: Utils.spaceScale(11),
+        // minLeadingWidth: Utils.spaceScale(11),
         title: Text(
           "Offer/Coupons",
           style: TextStyle(
@@ -273,8 +273,7 @@ class _CartScreenState extends State<CartScreen> {
 
   Widget _billWidget() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: Utils.spaceScale(2)),
-      // height: Utils.spaceScale(20),
+      margin: EdgeInsets.symmetric(vertical: Utils.spaceScale(0)),
       padding: EdgeInsets.symmetric(vertical: Utils.spaceScale(2)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(UiConstants.edgeRadius),

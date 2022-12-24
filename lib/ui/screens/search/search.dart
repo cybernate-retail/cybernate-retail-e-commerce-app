@@ -30,7 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: const SearchForm(),
       ),
       titleSpacing: 0,
-      toolbarHeight: 70,
+      toolbarHeight: 65,
       centerTitle: true,
       leading: UiIcons.back(
         color: Theme.of(context).colorScheme.primary,
