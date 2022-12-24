@@ -18,6 +18,7 @@ class GlobalConstants {
   GlobalConstants._();
 
   static const appName = "Rvane";
+  static const appPhone = "+919573860738";
   static const appUrl = "http://localhost:8000/graphql/";
   static const defaultChannel = "default-channel";
   static const defaultLanguage = GLanguageCodeEnum.EN_US;

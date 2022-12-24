@@ -32,5 +32,20 @@
             android:value="2" />
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyCQ0572IuGkapSaYgPjwhWcB5EeHUnD3ZU"/>
+        <!-- Provide required visibility configuration for API level 30 and above -->
     </application>
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+            <data android:scheme="tel" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="*/*" />
+        </intent>
+    </queries>
 </manifest>

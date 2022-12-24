@@ -3,10 +3,11 @@ import 'package:cybernate_retail_mobile/ui/screens/address/add_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/view_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/cart/cart.dart';
 import 'package:cybernate_retail_mobile/ui/screens/contact_us/contact_us.dart';
+import 'package:cybernate_retail_mobile/ui/screens/contact_us/contact_us_chat.dart';
 import 'package:cybernate_retail_mobile/ui/screens/coupons/coupons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/general_info/general_info.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/home.dart';
-import 'package:cybernate_retail_mobile/ui/screens/notification/notifications.dart';
+import 'package:cybernate_retail_mobile/ui/screens/notifications/notifications.dart';
 import 'package:cybernate_retail_mobile/ui/screens/orders/order.dart';
 import 'package:cybernate_retail_mobile/ui/screens/orders/order_details.dart';
 import 'package:cybernate_retail_mobile/ui/screens/payments/payments.dart';
@@ -134,5 +135,9 @@ class InAppNavigation {
 
   static void notifications(BuildContext context) {
     _push(context, const NotificationScreen());
+  }
+
+  static void contactUsChat(BuildContext context) {
+    _push(context, const ContactUsChat());
   }
 }

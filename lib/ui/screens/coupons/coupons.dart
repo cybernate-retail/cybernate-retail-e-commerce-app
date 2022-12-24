@@ -170,6 +170,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
       height: 100,
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       curveAxis: Axis.vertical,
+      curveRadius: 20,
       firstChild: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
@@ -217,7 +218,8 @@ class _CouponsScreenState extends State<CouponsScreen> {
         color: Theme.of(context).colorScheme.primaryContainer,
         padding: EdgeInsets.only(left: Utils.spaceScale(4)),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          // mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
@@ -238,7 +240,6 @@ class _CouponsScreenState extends State<CouponsScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            // Utils.verticalSpace(1),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -396,7 +397,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
         surfaceTintColor: MaterialStateProperty.all(Colors.white),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
+            borderRadius: BorderRadius.circular(UiConstants.edgeRadius / 2),
             side: BorderSide(
               color: Theme.of(context).primaryColor,
             ),
@@ -410,7 +411,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
         style: TextStyle(
           color: Theme.of(context).primaryColor,
           fontWeight: FontWeight.bold,
-          fontSize: 10,
+          fontSize: 12,
         ),
       ),
     );
