@@ -1,4 +1,4 @@
-import 'package:cybernate_retail_mobile/ui/components/location/pin_location.dart';
+import 'package:cybernate_retail_mobile/ui/common_widgets/location/pin_location.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 

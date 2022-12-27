@@ -1,7 +1,7 @@
 import 'package:coupon_uikit/coupon_uikit.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
-import 'package:cybernate_retail_mobile/ui/components/appbar/appbars.dart';
-import 'package:cybernate_retail_mobile/ui/components/forms/custom_form_validators.dart';
+import 'package:cybernate_retail_mobile/ui/common_widgets/appbar/appbars.dart';
+import 'package:cybernate_retail_mobile/ui/common_widgets/forms/custom_form_validators.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';

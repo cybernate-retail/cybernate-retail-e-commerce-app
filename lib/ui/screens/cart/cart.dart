@@ -126,7 +126,7 @@ class _CartScreenState extends State<CartScreen> {
           SizedBox(
             width: 120,
             child: Padding(
-              padding: EdgeInsets.all(Utils.spaceScale(2)),
+              padding: EdgeInsets.all(Utils.spaceScale(4)),
               child: Center(
                 child: Image.asset(
                   productImage,
@@ -157,15 +157,15 @@ class _CartScreenState extends State<CartScreen> {
         Text(
           productName,
           style: TextStyle(
-            fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
+            fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
             color: Theme.of(context).primaryColor,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
           ),
         ),
         Text(
           productQuantity,
-          style: TextStyle(
-            fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+          style: const TextStyle(
+            fontSize: 9,
             color: Colors.grey,
             fontWeight: FontWeight.normal,
           ),

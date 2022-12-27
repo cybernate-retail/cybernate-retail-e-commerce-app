@@ -1,7 +1,7 @@
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
-import 'package:cybernate_retail_mobile/ui/components/appbar/appbars.dart';
+import 'package:cybernate_retail_mobile/ui/common_widgets/appbar/appbars.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
@@ -32,7 +32,7 @@ class ContactUsScreen extends StatelessWidget {
               AssetsDb.phoneCallIcon,
               "Call us",
               onPressed: () {
-                callPerson(GlobalConstants.appPhone);
+                callPerson(GlobalConstants.contactPhoneNumber);
               },
             ),
             Utils.verticalSpace(1),

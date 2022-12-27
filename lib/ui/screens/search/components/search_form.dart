@@ -27,13 +27,17 @@ class SearchForm extends StatelessWidget {
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
+          contentPadding: EdgeInsets.zero,
           hintText: "Search ${GlobalConstants.appName}",
           hintStyle: TextStyle(
             color: Colors.grey[400],
           ),
           prefixIcon: Padding(
             padding: EdgeInsets.all(Utils.spaceScale(1.5)),
-            child: SvgPicture.asset("assets/icons/search_small.svg"),
+            child: SvgPicture.asset(
+              "assets/icons/search_small.svg",
+              color: Colors.grey,
+            ),
           ),
           border: Utils.outlineInputBorder(
             UiConstants.edgeRadius,
@@ -54,11 +58,12 @@ class SearchForm extends StatelessWidget {
           suffixIcon: Padding(
             padding: EdgeInsets.all(Utils.spaceScale(1)),
             child: SizedBox(
-              width: Utils.spaceScale(6),
-              height: Utils.spaceScale(6),
+              width: Utils.spaceScale(5),
+              height: Utils.spaceScale(5),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).primaryColor,
+                  padding: EdgeInsets.zero,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(
@@ -72,6 +77,7 @@ class SearchForm extends StatelessWidget {
                 },
                 child: SvgPicture.asset(
                   "assets/icons/filter_small.svg",
+                  fit: BoxFit.contain,
                 ),
               ),
             ),

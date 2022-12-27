@@ -29,7 +29,10 @@ class _CartWidgetState extends State<CartWidget> {
           decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(UiConstants.edgeRadius)),
-          child: cartTabs(),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(2)),
+            child: cartTabs(),
+          ),
         ),
       ),
     );
@@ -37,68 +40,66 @@ class _CartWidgetState extends State<CartWidget> {
 
   Widget cartTabs() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
-          flex: 1,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "6 items",
-                style: TextStyle(
-                  fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ),
-              ),
-              Text(
-                "₹20",
-                style: TextStyle(
-                  fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Container(
-              // color: Colors.green,
-              ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 2.0),
-                child: SvgPicture.asset(
-                  AssetsDb.shoppingBagIcon,
-                  width: 24,
-                  height: 24,
-                ),
-              ),
-              Utils.horizontalSpace(1),
-              Text(
-                "View Cart",
-                style: TextStyle(
-                  fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SvgPicture.asset(
-                AssetsDb.nextCartIcon,
-                width: 20,
-                height: 20,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "₹20000 |",
+              style: TextStyle(
+                fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
                 color: Theme.of(context).colorScheme.onPrimary,
+                fontWeight: FontWeight.bold,
               ),
-            ],
-          ),
+            ),
+            // Utils.horizontalSpace(1),
+            Text(
+              " 6 items",
+              style: TextStyle(
+                fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+
+        // Expanded(
+        //   flex: 1,
+        //   child: Container(
+        //       // color: Colors.green,
+        //       ),
+        // ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 2.0),
+              child: SvgPicture.asset(
+                AssetsDb.shoppingBagIcon,
+                width: 24,
+                height: 24,
+              ),
+            ),
+            Utils.horizontalSpace(1),
+            Text(
+              "View Cart",
+              style: TextStyle(
+                fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SvgPicture.asset(
+              AssetsDb.nextCartIcon,
+              width: 20,
+              height: 20,
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
+          ],
         ),
       ],
     );

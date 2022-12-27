@@ -51,12 +51,15 @@ class ViewAddressWidget extends StatelessWidget {
       ),
       isThreeLine: true,
       visualDensity: const VisualDensity(vertical: 4),
-      trailing: const SizedBox(
+      trailing: SizedBox(
         width: 20,
         child: Center(
-          child: Icon(
-            Icons.delete,
-            size: 20,
+          child: IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.delete_outline,
+              size: 20,
+            ),
           ),
         ),
       ),

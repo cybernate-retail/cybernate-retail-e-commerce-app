@@ -1,0 +1,18 @@
+# import '../fragments/CollectionProduct.graphql'
+query CollectionProductById($id: ID!, $first: Int, $after: String, $last: Int, $before: String,$channel: String) {
+  collection(id: $id,channel: $channel) {
+    products(first: $first, after: $after, before: $before, last: $last) {
+      edges {
+        node {
+          ...CollectionProduct 
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor 
+      } 
+    }
+  }
+}

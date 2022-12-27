@@ -1,6 +1,6 @@
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
-import 'package:cybernate_retail_mobile/ui/components/forms/custom_form_validators.dart';
-import 'package:cybernate_retail_mobile/ui/components/forms/custom_forms.dart';
+import 'package:cybernate_retail_mobile/ui/common_widgets/forms/custom_form_validators.dart';
+import 'package:cybernate_retail_mobile/ui/common_widgets/forms/custom_forms.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/components/address_form_keys.dart';

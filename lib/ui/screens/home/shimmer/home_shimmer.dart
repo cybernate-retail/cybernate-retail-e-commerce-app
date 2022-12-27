@@ -9,7 +9,7 @@ class HomeShimmer extends StatelessWidget {
 
   Widget bannerShimmer(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.25,
+      height: MediaQuery.of(context).size.height * 0.2,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
@@ -46,6 +46,7 @@ class HomeShimmer extends StatelessWidget {
       baseColor: UiConstants.shimmerBaseColor,
       highlightColor: UiConstants.shimmerHighlightColor,
       child: ListView(
+        shrinkWrap: true,
         padding:
             const EdgeInsets.symmetric(horizontal: UiConstants.globalPadding),
         children: [

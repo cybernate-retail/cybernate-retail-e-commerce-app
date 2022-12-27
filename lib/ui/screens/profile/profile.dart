@@ -1,5 +1,5 @@
 import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
-import 'package:cybernate_retail_mobile/ui/components/appbar/appbars.dart';
+import 'package:cybernate_retail_mobile/ui/common_widgets/appbar/appbars.dart';
 import 'package:cybernate_retail_mobile/ui/screens/profile/components/profile_iconstab.dart';
 import 'package:cybernate_retail_mobile/ui/screens/profile/components/profile_options.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';

@@ -8,6 +8,10 @@ fragment MenuItemFragment on MenuItem {
   category {
     id
     slug
+    backgroundImage {
+        url
+        alt
+    }
   }
   collection {
     id

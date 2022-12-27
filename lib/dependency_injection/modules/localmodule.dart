@@ -64,7 +64,11 @@ abstract class LocalModule {
 
     final client = Client(
       link: link,
-      cache: cache,
+      // cache: cache,
+      defaultFetchPolicies: {
+        OperationType.query: FetchPolicy.NoCache,
+        OperationType.mutation: FetchPolicy.NoCache,
+      },
     );
 
     return client;

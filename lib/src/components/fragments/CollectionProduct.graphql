@@ -1,0 +1,11 @@
+fragment CollectionProduct on Product {
+  id
+  name
+  productType {
+    id
+    name
+  }
+  thumbnail {
+    url 
+  }  
+}

@@ -17,9 +17,13 @@ enum OrderStatus {
 class GlobalConstants {
   GlobalConstants._();
 
-  static const appName = "Rvane";
-  static const appPhone = "+919573860738";
-  static const appUrl = "http://localhost:8000/graphql/";
-  static const defaultChannel = "default-channel";
+  static const String appName = "Rvane";
+  static const String contactPhoneNumber = "+919573860738";
+  static const String mainMenuNameSlug = "mainmenu";
+  static const String adBannerSlug = 'ad-banners';
+  static const String featuredProductsSlug = 'featured-products';
+  static const int adBannerDuration = 10;
+  static const String appUrl = "http://localhost:8000/graphql/";
+  static const String defaultChannel = "default-channel";
   static const defaultLanguage = GLanguageCodeEnum.EN_US;
 }
