@@ -5,7 +5,7 @@ import 'package:cybernate_retail_mobile/src/components/queries/models/MainMenu.v
 import 'package:cybernate_retail_mobile/ui/screens/home/appbar/appbars.dart';
 import 'package:cybernate_retail_mobile/ui/screens/cart/components/cart_widget.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/location/pin_location.dart';
-import 'package:cybernate_retail_mobile/ui/screens/home/components/main_menu.dart';
+import 'package:cybernate_retail_mobile/ui/screens/home/components/main_menu_widget.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/shimmer/home_shimmer.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
@@ -27,12 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: customAppBar(context),
       bottomNavigationBar: const CartWidget(),
-      // body: Column(
-      //   children: const <Widget>[
-      //     PinLocationWidget(),
-      //     Expanded(child: HomeShimmer(enabled: true)),
-      //   ],
-      // ),
       body: _body(),
     );
   }
@@ -63,13 +57,13 @@ class _HomeScreenState extends State<HomeScreen> {
             OperationResponse<GMainMenuData, GMainMenuVars>? response,
             Object? error,
           ) {
-            if (response != null && response.loading) {
+            if (response == null || response.loading) {
               return const SliverToBoxAdapter(
                 child: HomeShimmer(enabled: true),
               );
             }
             return MainMenuWidget(
-              menuItemFragments: response?.data?.menu?.items,
+              menuItemFragments: response.data?.menu?.items,
             );
           },
         ),

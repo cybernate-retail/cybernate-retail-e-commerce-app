@@ -19,6 +19,7 @@ import 'package:cybernate_retail_mobile/ui/screens/notifications/notifications.d
 
 import 'package:cybernate_retail_mobile/ui/screens/orders/order.dart';
 import 'package:cybernate_retail_mobile/ui/screens/orders/order_details.dart';
+import 'package:cybernate_retail_mobile/ui/screens/product/product_view.dart';
 import 'package:cybernate_retail_mobile/ui/screens/profile/profile.dart';
 import 'package:cybernate_retail_mobile/ui/screens/search/search.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -85,7 +86,10 @@ class MyApp extends StatelessWidget {
             //         nextRoute: Routes.home,
             //       )
             //     : const SplashLogo(nextRoute: Routes.signup),
-            home: HomeScreen(),
+            home: const ProductViewScreen(
+              productId: "UHJvZHVjdDoxNTI=",
+            ),
+
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),

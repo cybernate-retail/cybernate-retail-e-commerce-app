@@ -14,6 +14,8 @@ enum OrderStatus {
   UNKNOWN
 }
 
+enum ProductViewType { CARD, SCREEN }
+
 class GlobalConstants {
   GlobalConstants._();
 

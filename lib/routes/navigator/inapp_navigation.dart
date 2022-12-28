@@ -12,6 +12,7 @@ import 'package:cybernate_retail_mobile/ui/screens/orders/order.dart';
 import 'package:cybernate_retail_mobile/ui/screens/orders/order_details.dart';
 import 'package:cybernate_retail_mobile/ui/screens/payments/payments.dart';
 import 'package:cybernate_retail_mobile/ui/screens/payments/view_payments.dart';
+import 'package:cybernate_retail_mobile/ui/screens/product/product_view.dart';
 import 'package:cybernate_retail_mobile/ui/screens/profile/profile.dart';
 import 'package:cybernate_retail_mobile/ui/screens/search/search.dart';
 import 'package:cybernate_retail_mobile/ui/screens/signup/otp.dart';
@@ -31,8 +32,9 @@ class InAppNavigation {
       context,
       PageTransition(
         child: screen,
-        type: PageTransitionType.fade,
+        type: PageTransitionType.scale,
         curve: Curves.easeIn,
+        alignment: Alignment.center,
       ),
     );
     // Get.to(screen, transition: Transition.cupertino);
@@ -139,5 +141,13 @@ class InAppNavigation {
 
   static void contactUsChat(BuildContext context) {
     _push(context, const ContactUsChat());
+  }
+
+  static void viewProduct(BuildContext context, String productId) {
+    _push(
+        context,
+        ProductViewScreen(
+          productId: productId,
+        ));
   }
 }

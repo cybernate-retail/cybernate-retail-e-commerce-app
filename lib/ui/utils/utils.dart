@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:im_stepper/stepper.dart';
 import 'package:uuid/uuid.dart';
 
 class Utils {
@@ -213,5 +215,52 @@ class Utils {
   static String addNewLineAfterLength(String data, int length) {
     String dt = data.replaceRange(0, length, "${data.substring(0, length)}\n");
     return truncateString(dt, 2 * length);
+  }
+
+  static Widget dotStepper(BuildContext context, int dotCount, int activeStep) {
+    return DotStepper(
+      // direction: Axis.vertical,
+      dotCount: dotCount,
+      dotRadius: 6,
+      tappingEnabled: false,
+
+      /// THIS MUST BE SET. SEE HOW IT IS CHANGED IN NEXT/PREVIOUS BUTTONS AND JUMP BUTTONS.
+      activeStep: activeStep,
+      shape: Shape.squircle,
+      spacing: 6,
+      indicator: Indicator.shrink,
+
+      // DOT-STEPPER DECORATIONS
+      fixedDotDecoration: FixedDotDecoration(
+        strokeWidth: 1,
+        strokeColor: Theme.of(context).colorScheme.tertiaryContainer,
+        color: Colors.white,
+      ),
+
+      indicatorDecoration: IndicatorDecoration(
+        // style: PaintingStyle.stroke,
+        // strokeWidth: 8,
+        color: Theme.of(context).primaryColor,
+      ),
+    );
+  }
+
+  static CachedNetworkImage renderNetworkImageWithLoader(String url) {
+    return CachedNetworkImage(
+      imageUrl: url,
+      fit: BoxFit.fitHeight,
+      errorWidget: (context, error, stackTrace) => const Center(
+          child: Icon(
+        Icons.error,
+        color: Colors.red,
+      )),
+      progressIndicatorBuilder: ((context, url, progress) {
+        return Center(
+          child: CircularProgressIndicator(
+            value: progress.progress,
+          ),
+        );
+      }),
+    );
   }
 }

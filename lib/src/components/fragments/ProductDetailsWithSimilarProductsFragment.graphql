@@ -1,0 +1,45 @@
+# import './CategoryDetailsWithSimilarProductsFragment.graphql'
+# import './ProductVariantDetailsFragment.graphql'
+# import './PriceFragment.graphql'
+# import './ProductMediaFragment.graphql'
+# import './ImageFragment.graphql'
+# import './SelectedAttributeDetailsFragment.graphql'
+# import './PageInfoFragment.graphql'
+fragment ProductDetailsWithSimilarProductsFragment on Product {
+  id
+  name
+  slug
+  description
+  seoDescription
+  seoTitle
+  isAvailableForPurchase
+  translation(languageCode: $locale) {
+    id
+    description
+    name
+  }
+  attributes {
+    ...SelectedAttributeDetailsFragment
+  }
+  category {
+    ...CategoryDetailsWithSimilarProductsFragment
+  }
+  variants {
+    ...ProductVariantDetailsFragment
+  }
+  pricing {
+    priceRange {
+      start {
+        gross {
+          ...PriceFragment
+        }
+      }
+    }
+  }
+  media {
+    ...ProductMediaFragment
+  }
+  thumbnail {
+    ...ImageFragment
+  }
+}

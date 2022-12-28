@@ -1,7 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
+import 'package:cybernate_retail_mobile/ui/common_widgets/buttons/custom_buttons.dart';
+import 'package:cybernate_retail_mobile/ui/common_widgets/product/product_price_with_discount.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 const temp =
@@ -19,11 +21,11 @@ class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 150,
-      height: 200,
+      width: UiConstants.productSize.width,
+      height: UiConstants.productSize.height,
+      //has a margin of 4 careful with that
       child: Card(
         elevation: 4,
-        margin: const EdgeInsets.all(2),
         surfaceTintColor: Theme.of(context).colorScheme.primary,
         shadowColor: Theme.of(context).colorScheme.tertiaryContainer,
         shape: RoundedRectangleBorder(
@@ -31,12 +33,20 @@ class _ProductWidgetState extends State<ProductWidget> {
             UiConstants.edgeRadius,
           ),
         ),
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _productImage(),
-            _productDescription(),
-          ],
+        child: InkWell(
+          onTap: () {
+            InAppNavigation.viewProduct(context, "UHJvZHVjdDoxNTI=");
+          },
+          borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
+          child: Ink(
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _productImage(),
+                _productDescription(),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -44,16 +54,16 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   Widget _productImage() {
     return Container(
-      height: 82,
+      height: 80,
       margin: EdgeInsets.all(Utils.spaceScale(1)),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(UiConstants.edgeRadius / 2),
+        borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
         border: Border.all(
           color: Theme.of(context).colorScheme.tertiaryContainer,
         ),
         color: Colors.white,
       ),
-      child: Center(child: renderNetworkImageWithLoader(temp)),
+      child: Center(child: Utils.renderNetworkImageWithLoader(temp)),
     );
   }
 
@@ -61,7 +71,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     return Container(
       margin: EdgeInsets.symmetric(
           horizontal: Utils.spaceScale(1), vertical: Utils.spaceScale(1)),
-      height: 82,
+      height: 80,
       // padding: EdgeInsets.only(bottom: Utils.spaceScale(1)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,47 +84,22 @@ class _ProductWidgetState extends State<ProductWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _productPriceWithDiscount("200", "300"),
+              const ProductPriceWithDiscount(
+                productViewType: ProductViewType.CARD,
+                productPrice: '300',
+                productMrp: '200',
+              ),
               widget.productAddedCount == 0
-                  ? _addButton()
+                  ? CustomButtons.addButton(
+                      24,
+                      Theme.of(context).primaryColor,
+                      Theme.of(context).colorScheme.onPrimary,
+                      10,
+                    )
                   : _quantityController(),
             ],
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _addButton() {
-    return Container(
-      height: 24,
-      child: NeumorphicButton(
-        onPressed: () {},
-        padding: EdgeInsets.symmetric(
-          // vertical: Utils.spaceScale(1),
-          horizontal: Utils.spaceScale(2),
-        ),
-        // margin: EdgeInsets.all(1),
-        style: NeumorphicStyle(
-          // color: Colors.white,
-          color: Theme.of(context).primaryColor,
-          depth: UiConstants.neumorphicDepth,
-          intensity: UiConstants.neumorphicIntensity,
-          surfaceIntensity: UiConstants.neumorphicSurfaceIntensity,
-          boxShape: NeumorphicBoxShape.roundRect(
-            BorderRadius.circular(UiConstants.edgeRadius / 2),
-          ),
-        ),
-        child: Center(
-          child: Text(
-            "ADD",
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimary,
-              fontWeight: FontWeight.bold,
-              fontSize: 10,
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -143,46 +128,6 @@ class _ProductWidgetState extends State<ProductWidget> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _productPriceWithDiscount(String productPrice, String productMrp) {
-    return Row(
-      children: [
-        Text(
-          '\$$productPrice',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: Theme.of(context).textTheme.labelSmall?.fontSize,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Utils.horizontalSizedBox(4),
-        Text(
-          '\$$productMrp',
-          style: const TextStyle(
-            color: Colors.grey,
-            decoration: TextDecoration.lineThrough,
-            fontSize: 9,
-          ),
-        ),
-      ],
-    );
-  }
-
-  CachedNetworkImage renderNetworkImageWithLoader(String url) {
-    return CachedNetworkImage(
-      imageUrl: url,
-      fit: BoxFit.fill,
-      errorWidget: (context, error, stackTrace) =>
-          const Center(child: Text("Error 😕")),
-      progressIndicatorBuilder: ((context, url, progress) {
-        return Center(
-          child: CircularProgressIndicator(
-            value: progress.progress,
-          ),
-        );
-      }),
     );
   }
 

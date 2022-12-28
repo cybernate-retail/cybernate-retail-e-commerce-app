@@ -67,7 +67,7 @@ class _MainMenuBannerWidgetState extends State<MainMenuBannerWidget> {
           return Container(
             width: MediaQuery.of(context).size.width * 0.8,
             margin: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.02,
+              horizontal: MediaQuery.of(context).size.width * 0.015,
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(UiConstants.edgeRadius),

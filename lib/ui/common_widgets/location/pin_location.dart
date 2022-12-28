@@ -23,9 +23,12 @@ class PinLocationWidget extends StatelessWidget {
         Text(
           "Deliver to Home - Hyderabad",
           style: TextStyle(
-              fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize),
+            fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
+            color: Theme.of(context).colorScheme.onBackground,
+          ),
         ),
         IconButton(
+          padding: EdgeInsets.zero,
           onPressed: () {
             ShowAddressModal().showAddressModal(context);
           },

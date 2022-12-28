@@ -71,6 +71,7 @@ dependencies:
   url_launcher: ^6.1.7
   built_collection: ^5.1.1
   cached_network_image: ^3.2.3
+  connectivity_plus: ^3.0.2
 
 dev_dependencies:
   flutter_test:

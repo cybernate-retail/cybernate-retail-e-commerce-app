@@ -13,6 +13,7 @@ class UiIcons {
       onPressed: () {
         onPressed();
       },
+      padding: EdgeInsets.zero,
       icon: SvgPicture.asset(
         asset,
         color: color,

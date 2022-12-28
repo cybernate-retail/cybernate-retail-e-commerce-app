@@ -1,0 +1,6 @@
+# import '../fragments/ProductDetailsWithSimilarProductsFragment.graphql'
+query ProductByIdWithSimilarProducts($id: ID!, $channel: String!, $locale: LanguageCodeEnum!) {
+  product(id: $id, channel: $channel) {
+    ...ProductDetailsWithSimilarProductsFragment
+  }
+}

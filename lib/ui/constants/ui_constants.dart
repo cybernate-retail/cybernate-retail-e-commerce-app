@@ -8,6 +8,7 @@ class UiConstants {
 
   static const double edgeRadius = 10;
   static const double globalPadding = 20;
+  static const Size productSize = Size(150, 200);
   static Color shimmerBaseColor = Colors.grey[100]!;
   static Color shimmerHighlightColor = Colors.grey[300]!;
 }
