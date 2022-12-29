@@ -5,8 +5,12 @@ import 'package:cybernate_retail_mobile/src/components/queries/models/MainMenu.v
 import 'package:cybernate_retail_mobile/ui/screens/home/appbar/appbars.dart';
 import 'package:cybernate_retail_mobile/ui/screens/cart/components/cart_widget.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/location/pin_location.dart';
+import 'package:cybernate_retail_mobile/ui/screens/home/components/all_categories.dart';
+import 'package:cybernate_retail_mobile/ui/screens/home/components/banner_widget.dart';
+import 'package:cybernate_retail_mobile/ui/screens/home/components/featured_products_widget.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/components/main_menu_widget.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/shimmer/home_shimmer.dart';
+import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
@@ -27,60 +31,55 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: customAppBar(context),
       bottomNavigationBar: const CartWidget(),
-      body: _body(),
+      body: _mainMenuItems(),
     );
   }
 
-  Widget _body() {
-    List<Widget> lists = [
-      _banner(),
-      _topProducts(),
-      _categories(),
-    ];
+  _mainMenuItems() {
+    return Operation(
+      client: client,
+      operationRequest: GMainMenuReq(
+        (b) => b
+          ..vars.slug = GlobalConstants.mainMenuNameSlug
+          ..vars.channel = GlobalConstants.defaultChannel
+          ..vars.locale = GlobalConstants.defaultLanguage,
+      ),
+      builder: (
+        BuildContext context,
+        OperationResponse<GMainMenuData, GMainMenuVars>? response,
+        Object? error,
+      ) {
+        if (response == null || response.loading) {
+          return const HomeShimmer(enabled: true);
+        }
+        final menuItemFragments = response.data?.menu?.items;
 
-    return CustomScrollView(
-      slivers: [
-        const SliverAppBar(
-          pinned: true,
-          title: PinLocationWidget(),
-        ),
-        Operation(
-          client: client,
-          operationRequest: GMainMenuReq(
-            (b) => b
-              ..vars.slug = GlobalConstants.mainMenuNameSlug
-              ..vars.channel = GlobalConstants.defaultChannel
-              ..vars.locale = GlobalConstants.defaultLanguage,
-          ),
-          builder: (
-            BuildContext context,
-            OperationResponse<GMainMenuData, GMainMenuVars>? response,
-            Object? error,
-          ) {
-            if (response == null || response.loading) {
-              return const SliverToBoxAdapter(
-                child: HomeShimmer(enabled: true),
-              );
-            }
-            return MainMenuWidget(
-              menuItemFragments: response.data?.menu?.items,
-            );
-          },
-        ),
-        //
-      ],
+        return CustomScrollView(
+          slivers: [
+            const SliverAppBar(
+              title: PinLocationWidget(),
+            ),
+            SliverToBoxAdapter(
+              child: MainMenuBannerWidget(
+                menuItemFragments: menuItemFragments,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: FeaturedProductWidget(
+                menuItemFragments: menuItemFragments,
+              ),
+            ),
+            SliverPadding(
+              padding: EdgeInsets.all(Utils.spaceScale(2)),
+              sliver: SliverToBoxAdapter(
+                child: AllCategoriesWidget(
+                  menuItemFragments: menuItemFragments,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
-  }
-
-  Widget _banner() {
-    return Container();
-  }
-
-  Widget _topProducts() {
-    return Container();
-  }
-
-  Widget _categories() {
-    return Container();
   }
 }

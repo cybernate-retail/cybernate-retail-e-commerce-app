@@ -4,6 +4,7 @@ import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:im_stepper/stepper.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:uuid/uuid.dart';
 
 class Utils {
@@ -256,11 +257,33 @@ class Utils {
       )),
       progressIndicatorBuilder: ((context, url, progress) {
         return Center(
-          child: CircularProgressIndicator(
-            value: progress.progress,
+          child: Shimmer.fromColors(
+            baseColor: UiConstants.shimmerBaseColor,
+            highlightColor: UiConstants.shimmerHighlightColor,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
+              ),
+            ),
           ),
         );
       }),
+    );
+  }
+
+  static Widget shimmerPlaceHolder() {
+    return Center(
+      child: Shimmer.fromColors(
+        baseColor: UiConstants.shimmerBaseColor,
+        highlightColor: UiConstants.shimmerHighlightColor,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
+          ),
+        ),
+      ),
     );
   }
 }

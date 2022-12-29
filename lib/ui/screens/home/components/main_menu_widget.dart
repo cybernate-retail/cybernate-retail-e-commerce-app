@@ -1,32 +1,26 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/MenuItemWithChildrenFragment.data.gql.dart';
+import 'package:cybernate_retail_mobile/ui/screens/home/components/all_categories.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/components/banner_widget.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/components/featured_products_widget.dart';
 import 'package:flutter/material.dart';
 
-class MainMenuWidget extends StatefulWidget {
-  BuiltList<GMenuItemWithChildrenFragment>? menuItemFragments = BuiltList();
+class MainMenuWidget extends StatelessWidget {
+  final BuiltList<GMenuItemWithChildrenFragment>? menuItemFragments;
 
-  MainMenuWidget({
+  const MainMenuWidget({
     super.key,
     required this.menuItemFragments,
   });
-
-  @override
-  State<MainMenuWidget> createState() => _MainMenuWidgetState();
-}
-
-class _MainMenuWidgetState extends State<MainMenuWidget> {
   @override
   Widget build(BuildContext context) {
     List<Widget> lists = [
       MainMenuBannerWidget(
-        menuItemFragments: widget.menuItemFragments,
+        menuItemFragments: menuItemFragments,
       ),
       FeaturedProductWidget(
-        menuItemFragments: widget.menuItemFragments,
+        menuItemFragments: menuItemFragments,
       ),
-      _allCatagories(),
     ];
 
     return SliverList(
@@ -35,9 +29,5 @@ class _MainMenuWidgetState extends State<MainMenuWidget> {
         (context, index) => lists[index],
       ),
     );
-  }
-
-  Widget _allCatagories() {
-    return Container();
   }
 }

@@ -254,7 +254,7 @@ class CustomFormFields {
         ),
       ),
       loadingWidget: (BuildContext context) {
-        return const CircularProgressIndicator();
+        return Utils.shimmerPlaceHolder();
       },
       decoration: const InputDecoration(
         label: Padding(

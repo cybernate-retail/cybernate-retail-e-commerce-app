@@ -44,19 +44,21 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
           const EdgeInsets.symmetric(horizontal: UiConstants.globalPadding),
       child: Operation(
         client: client,
-        builder: (BuildContext context,
-            OperationResponse<GProductByIdWithSimilarProductsData,
-                    GProductByIdWithSimilarProductsVars>?
-                response,
-            Object? error) {
+        builder: (
+          BuildContext context,
+          OperationResponse<GProductByIdWithSimilarProductsData,
+                  GProductByIdWithSimilarProductsVars>?
+              response,
+          Object? error,
+        ) {
           if (response == null || response.loading) {
-            return const CircularProgressIndicator();
+            return Utils.shimmerPlaceHolder();
           }
           if (response.linkException != null) {}
           return ListView(
             children: [
               _imageWidget(response.data?.product?.media),
-              _productDescription(),
+              _productDescription(response.data?.product),
               // _aboutProduct(),
               _similarProducts(
                   response.data?.product?.category?.products?.edges),
@@ -146,7 +148,8 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
     );
   }
 
-  Widget _productDescription() {
+  Widget _productDescription(
+      GProductByIdWithSimilarProductsData_product? product) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: Utils.spaceScale(1)),
       height: 120,
@@ -155,17 +158,19 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ProductNameWithQuantity(
-            productName: 'Apple Juice ',
+          ProductNameWithQuantity(
+            productName: product?.name ?? "",
             productViewType: ProductViewType.SCREEN,
             productQuantity: '200 ml',
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const ProductPriceWithDiscount(
+              ProductPriceWithDiscount(
                 productViewType: ProductViewType.SCREEN,
-                productPrice: '300',
+                productPrice: product?.pricing?.priceRange?.start?.gross.amount
+                        .toString() ??
+                    "",
                 productMrp: '200',
               ),
               CustomButtons.addButton(
@@ -243,10 +248,21 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
         itemCount: products?.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: ((context, index) {
+          final product = products?.elementAt(index).node;
+          if (product == null) {
+            return const Text("Error");
+          }
           return Padding(
             padding: EdgeInsets.only(right: Utils.spaceScale(1)),
             child: ProductWidget(
               productAddedCount: index % 2,
+              productId: product.id,
+              productUrl: product.thumbnail?.url ?? "",
+              productName: product.name,
+              productQuantity: "",
+              productPrice:
+                  product.variants?.first.pricing?.price?.gross.amount,
+              productDiscountedPrice: 200,
             ),
           );
         }),

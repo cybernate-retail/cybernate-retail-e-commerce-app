@@ -6,6 +6,7 @@ import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/MenuItemWithChildrenFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MainMenuBannerWidget extends StatefulWidget {
   BuiltList<GMenuItemWithChildrenFragment>? menuItemFragments = BuiltList();
@@ -18,7 +19,7 @@ class MainMenuBannerWidget extends StatefulWidget {
 
 class _MainMenuBannerWidgetState extends State<MainMenuBannerWidget> {
   final PageController _pageController = PageController(
-    viewportFraction: 0.85,
+    viewportFraction: 0.9,
     initialPage: 0,
   );
   late Timer _timer;
@@ -59,7 +60,7 @@ class _MainMenuBannerWidgetState extends State<MainMenuBannerWidget> {
     // });
 
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.175,
+      height: MediaQuery.of(context).size.height * 0.2,
       child: PageView.builder(
         controller: _pageController,
         scrollDirection: Axis.horizontal,
@@ -89,8 +90,15 @@ class _MainMenuBannerWidgetState extends State<MainMenuBannerWidget> {
           const Center(child: Text("Error 😕")),
       progressIndicatorBuilder: ((context, url, progress) {
         return Center(
-          child: CircularProgressIndicator(
-            value: progress.progress,
+          child: Shimmer.fromColors(
+            baseColor: UiConstants.shimmerBaseColor,
+            highlightColor: UiConstants.shimmerHighlightColor,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
+              ),
+            ),
           ),
         );
       }),

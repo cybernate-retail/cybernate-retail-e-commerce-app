@@ -86,9 +86,10 @@ class MyApp extends StatelessWidget {
             //         nextRoute: Routes.home,
             //       )
             //     : const SplashLogo(nextRoute: Routes.signup),
-            home: const ProductViewScreen(
-              productId: "UHJvZHVjdDoxNTI=",
-            ),
+            // home: const ProductViewScreen(
+            //   productId: "UHJvZHVjdDoxNTI=",
+            // ),
+            home: HomeScreen(),
 
             routes: Routes.routes,
             supportedLocales: const [

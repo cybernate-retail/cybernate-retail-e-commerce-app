@@ -23,6 +23,7 @@ class GlobalConstants {
   static const String contactPhoneNumber = "+919573860738";
   static const String mainMenuNameSlug = "mainmenu";
   static const String adBannerSlug = 'ad-banners';
+  static const String allCategories = 'All Categories';
   static const String featuredProductsSlug = 'featured-products';
   static const int adBannerDuration = 10;
   static const String appUrl = "http://localhost:8000/graphql/";

@@ -55,18 +55,28 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
       ),
       builder: ((context, response, error) {
         if (response == null || response.loading) {
-          return const CircularProgressIndicator();
+          return Utils.shimmerPlaceHolder();
         }
+
         return SizedBox(
           height: UiConstants.productSize.height,
           child: ListView.builder(
             itemCount: response.data?.collection?.products?.edges.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: ((context, index) {
+              final product = response.data?.collection?.products?.edges
+                  .elementAt(index)
+                  .node;
               return Padding(
                 padding: EdgeInsets.only(right: Utils.spaceScale(1)),
                 child: ProductWidget(
                   productAddedCount: index % 2,
+                  productId: product?.id ?? "",
+                  productUrl: product?.thumbnail?.url ?? "",
+                  productQuantity: "2Kg",
+                  productPrice: 200,
+                  productDiscountedPrice: 0,
+                  productName: product?.name ?? "",
                 ),
               );
             }),

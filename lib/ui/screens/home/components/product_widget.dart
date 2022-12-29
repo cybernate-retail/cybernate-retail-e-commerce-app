@@ -6,12 +6,25 @@ import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
-const temp =
-    "http://localhost:8000/media/thumbnails/products/saleor-white-cubes-tee-front_thumbnail_256.png";
-
 class ProductWidget extends StatefulWidget {
   final int productAddedCount;
-  const ProductWidget({super.key, this.productAddedCount = 0});
+  final String productId;
+  final String productUrl;
+  final String productName;
+  final String productQuantity;
+  final double? productPrice;
+  final double? productDiscountedPrice;
+
+  const ProductWidget({
+    super.key,
+    this.productAddedCount = 0,
+    required this.productId,
+    required this.productUrl,
+    required this.productName,
+    required this.productQuantity,
+    required this.productPrice,
+    required this.productDiscountedPrice,
+  });
 
   @override
   State<ProductWidget> createState() => _ProductWidgetState();
@@ -35,7 +48,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         ),
         child: InkWell(
           onTap: () {
-            InAppNavigation.viewProduct(context, "UHJvZHVjdDoxNTI=");
+            InAppNavigation.viewProduct(context, widget.productId);
           },
           borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
           child: Ink(
@@ -63,7 +76,8 @@ class _ProductWidgetState extends State<ProductWidget> {
         ),
         color: Colors.white,
       ),
-      child: Center(child: Utils.renderNetworkImageWithLoader(temp)),
+      child:
+          Center(child: Utils.renderNetworkImageWithLoader(widget.productUrl)),
     );
   }
 
@@ -78,16 +92,16 @@ class _ProductWidgetState extends State<ProductWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _productNameWithQuantity(
-            "T Shirt asdf f fdsfs",
-            "2 kg",
+            widget.productName,
+            widget.productQuantity,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const ProductPriceWithDiscount(
+              ProductPriceWithDiscount(
                 productViewType: ProductViewType.CARD,
-                productPrice: '300',
-                productMrp: '200',
+                productPrice: widget.productPrice.toString(),
+                productMrp: widget.productDiscountedPrice.toString(),
               ),
               widget.productAddedCount == 0
                   ? CustomButtons.addButton(
@@ -124,7 +138,7 @@ class _ProductWidgetState extends State<ProductWidget> {
           style: const TextStyle(
             color: Colors.grey,
             fontWeight: FontWeight.bold,
-            fontSize: 9,
+            fontSize: 10,
           ),
         ),
       ],

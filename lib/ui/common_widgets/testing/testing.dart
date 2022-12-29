@@ -2,6 +2,7 @@ import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/ProductCollection.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/ProductCollection.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/ProductCollection.var.gql.dart';
+import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -41,7 +42,7 @@ class _TestingScreenState extends State<TestingScreen> {
             Object? error,
           ) {
             if (response == null || response.loading) {
-              return const Center(child: CircularProgressIndicator());
+              return Utils.shimmerPlaceHolder();
             }
             if (response.data == null) {
               return Center(

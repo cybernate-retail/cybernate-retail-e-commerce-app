@@ -1,52 +1,54 @@
 # import 'CategoryBasicFragment.graphql'
 # import 'ImageFragment.graphql'
 # import 'PageInfoFragment.graphql'
+# import 'SelectedAttributeDetailsFragment.graphql'
+# import 'ProductVariantDetailsFragment.graphql'
 fragment CategoryDetailsWithSimilarProductsFragment on Category {
-  id
-  ...CategoryBasicFragment
-  seoTitle
-  seoDescription
-  description
-  translation(languageCode: $locale) {
-    id
-    description
-  }
-  backgroundImage {
-    ...ImageFragment
-  }
-  ancestors(first: 5) {
-    edges {
-      node {
-        ...CategoryBasicFragment
-      }
-    }
-  }
-  children(first: 10) {
-    edges {
-      node {
-        ...CategoryBasicFragment
-      }
-    }
-  }
-      products(first: 10,channel:$channel) {
-      pageInfo {
-        ...PageInfoFragment
-        
-      }
-      edges {
-        cursor
-        node {
-          id
-          name
-          thumbnail {
-            url
-            
-          }
-          
-        }
-        
-      }
-      
-    }
-    
+	id
+	...CategoryBasicFragment
+	seoTitle
+	seoDescription
+	description
+	translation(languageCode: $locale) {
+		id
+		description
+	}
+	backgroundImage {
+		...ImageFragment
+	}
+	ancestors(first: 5) {
+		edges {
+			node {
+				...CategoryBasicFragment
+			}
+		}
+	}
+	children(first: 10) {
+		edges {
+			node {
+				...CategoryBasicFragment
+			}
+		}
+	}
+	products(first: 10, channel: $channel) {
+		pageInfo {
+			...PageInfoFragment
+		}
+		edges {
+			cursor
+			node {
+				id
+				name
+				attributes {
+					...SelectedAttributeDetailsFragment
+				}
+				variants {
+					...ProductVariantDetailsFragment
+				}
+				thumbnail {
+					url
+				}
+			}
+		}
+	}
 }
