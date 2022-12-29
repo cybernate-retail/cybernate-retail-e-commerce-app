@@ -66,4 +66,6 @@ class AssetsDb {
   static String get settingIcon => "assets/icons/settings-sliders.svg";
   static String get phoneCallIcon => "assets/icons/phone-call.svg";
   static String get chatIcon => "assets/icons/chat.svg";
+  static String get discountBanner => "assets/icons/discount_banner.png";
+  static String get discountBannerIcon => "assets/icons/discount_icon.svg";
 }

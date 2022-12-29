@@ -17,9 +17,9 @@ class ProductPriceWithDiscount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (productViewType == ProductViewType.CARD) {
-      return _productPrice(context, 13, 9, 4);
+      return _productPrice(context, 13, 8, 2);
     }
-    return _productPrice(context, 20, 16, 8);
+    return _productPrice(context, 20, 12, 8);
   }
 
   Widget _productPrice(
@@ -28,23 +28,24 @@ class ProductPriceWithDiscount extends StatelessWidget {
     double productMrpFontSize,
     double spaceBetween,
   ) {
-    return Row(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          '\$$productPrice',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: productPriceFontSize,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Utils.horizontalSizedBox(spaceBetween),
         Text(
           '\$$productMrp',
           style: TextStyle(
             color: Colors.grey,
             decoration: TextDecoration.lineThrough,
             fontSize: productMrpFontSize,
+          ),
+        ),
+        Text(
+          '\$$productPrice',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: productPriceFontSize,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ],

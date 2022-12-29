@@ -198,29 +198,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        TextButton(
-          onPressed: () {},
-          child: RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: "See All",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: Theme.of(context).textTheme.labelMedium?.fontSize,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                const WidgetSpan(
-                  child: Icon(
-                    Icons.navigate_next_rounded,
-                    size: 15,
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
+        Utils.seeAllButton(Theme.of(context).primaryColor, 12),
       ],
     );
   }
@@ -259,10 +237,13 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
               productId: product.id,
               productUrl: product.thumbnail?.url ?? "",
               productName: product.name,
-              productQuantity: "",
+              productQuantity: "200ml",
               productPrice:
                   product.variants?.first.pricing?.price?.gross.amount,
               productDiscountedPrice: 200,
+              onTap: () {
+                InAppNavigation.popAndViewProduct(context, product.id);
+              },
             ),
           );
         }),

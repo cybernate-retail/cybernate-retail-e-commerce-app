@@ -2,6 +2,7 @@ import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/add_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/view_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/cart/cart.dart';
+import 'package:cybernate_retail_mobile/ui/screens/categories/category_view.dart';
 import 'package:cybernate_retail_mobile/ui/screens/contact_us/contact_us.dart';
 import 'package:cybernate_retail_mobile/ui/screens/contact_us/contact_us_chat.dart';
 import 'package:cybernate_retail_mobile/ui/screens/coupons/coupons.dart';
@@ -32,12 +33,23 @@ class InAppNavigation {
       context,
       PageTransition(
         child: screen,
-        type: PageTransitionType.scale,
+        type: PageTransitionType.fade,
         curve: Curves.easeIn,
         alignment: Alignment.center,
       ),
     );
-    // Get.to(screen, transition: Transition.cupertino);
+  }
+
+  static void _pushReplacement(BuildContext context, Widget screen) {
+    Navigator.pushReplacement(
+      context,
+      PageTransition(
+        child: screen,
+        type: PageTransitionType.fade,
+        curve: Curves.easeIn,
+        alignment: Alignment.center,
+      ),
+    );
   }
 
   static void _popAllAndPush(BuildContext context, String screen) {
@@ -143,11 +155,30 @@ class InAppNavigation {
     _push(context, const ContactUsChat());
   }
 
-  static void viewProduct(BuildContext context, String productId) {
+  static void viewProduct(BuildContext context, String id) {
     _push(
-        context,
-        ProductViewScreen(
-          productId: productId,
-        ));
+      context,
+      ProductViewScreen(
+        productId: id,
+      ),
+    );
+  }
+
+  static void popAndViewProduct(BuildContext context, String id) {
+    _pushReplacement(
+      context,
+      ProductViewScreen(
+        productId: id,
+      ),
+    );
+  }
+
+  static void viewCategory(BuildContext context, String id) {
+    _push(
+      context,
+      CategoryViewScreen(
+        categoryId: id,
+      ),
+    );
   }
 }

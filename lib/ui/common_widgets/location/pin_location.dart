@@ -37,7 +37,7 @@ class PinLocationWidget extends StatelessWidget {
             size: 24,
             color: Theme.of(context).primaryColor,
           ),
-        )
+        ),
       ],
     );
   }

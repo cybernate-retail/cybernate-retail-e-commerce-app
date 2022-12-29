@@ -1,5 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/MenuItemWithChildrenFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/CollectionProductById.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/CollectionProductById.req.gql.dart';
@@ -67,17 +68,17 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
               final product = response.data?.collection?.products?.edges
                   .elementAt(index)
                   .node;
-              return Padding(
-                padding: EdgeInsets.only(right: Utils.spaceScale(1)),
-                child: ProductWidget(
-                  productAddedCount: index % 2,
-                  productId: product?.id ?? "",
-                  productUrl: product?.thumbnail?.url ?? "",
-                  productQuantity: "2Kg",
-                  productPrice: 200,
-                  productDiscountedPrice: 0,
-                  productName: product?.name ?? "",
-                ),
+              return ProductWidget(
+                productAddedCount: index % 2,
+                productId: product?.id ?? "",
+                productUrl: product?.thumbnail?.url ?? "",
+                productQuantity: "2Kg",
+                productPrice: 200,
+                productDiscountedPrice: 0,
+                productName: product?.name ?? "",
+                onTap: () {
+                  InAppNavigation.viewProduct(context, product?.id ?? "");
+                },
               );
             }),
           ),
@@ -92,36 +93,14 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "Featured Products",
+          " Featured Products",
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurface,
             fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
             fontWeight: FontWeight.bold,
           ),
         ),
-        TextButton(
-          onPressed: () {},
-          child: RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: "See All",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: Theme.of(context).textTheme.labelMedium?.fontSize,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                const WidgetSpan(
-                  child: Icon(
-                    Icons.navigate_next_rounded,
-                    size: 15,
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
+        Utils.seeAllButton(Theme.of(context).primaryColor, 12),
       ],
     );
   }

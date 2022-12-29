@@ -14,6 +14,7 @@ class ProductWidget extends StatefulWidget {
   final String productQuantity;
   final double? productPrice;
   final double? productDiscountedPrice;
+  final Function onTap;
 
   const ProductWidget({
     super.key,
@@ -24,6 +25,7 @@ class ProductWidget extends StatefulWidget {
     required this.productQuantity,
     required this.productPrice,
     required this.productDiscountedPrice,
+    this.onTap = Utils.emptyFunction,
   });
 
   @override
@@ -33,42 +35,60 @@ class ProductWidget extends StatefulWidget {
 class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: UiConstants.productSize.width,
-      height: UiConstants.productSize.height,
-      //has a margin of 4 careful with that
-      child: Card(
-        elevation: 4,
-        surfaceTintColor: Theme.of(context).colorScheme.primary,
-        shadowColor: Theme.of(context).colorScheme.tertiaryContainer,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            UiConstants.edgeRadius,
-          ),
-        ),
-        child: InkWell(
-          onTap: () {
-            InAppNavigation.viewProduct(context, widget.productId);
-          },
-          borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
-          child: Ink(
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _productImage(),
-                _productDescription(),
-              ],
+    return Stack(
+      children: [
+        SizedBox(
+          width: UiConstants.productSize.width,
+          height: UiConstants.productSize.height,
+          //has a margin of 4 careful with that
+          child: Card(
+            elevation: 4,
+            surfaceTintColor: Theme.of(context).colorScheme.primary,
+            shadowColor: Theme.of(context).colorScheme.tertiaryContainer,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                UiConstants.edgeRadius,
+              ),
+            ),
+            child: InkWell(
+              onTap: () {
+                widget.onTap();
+              },
+              borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
+              child: Ink(
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _productImage(),
+                    _productDescription(),
+                  ],
+                ),
+              ),
             ),
           ),
         ),
-      ),
+        SizedBox(
+          width: 160,
+          child: Align(
+            alignment: Alignment.topRight,
+            child: Utils.discountBanner(
+              discount: Utils.calculateDiscount(
+                widget.productPrice,
+                widget.productDiscountedPrice,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
   Widget _productImage() {
     return Container(
       height: 80,
-      margin: EdgeInsets.all(Utils.spaceScale(1)),
+      margin: EdgeInsets.all(
+        Utils.spaceScale(1),
+      ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
         border: Border.all(
@@ -129,7 +149,7 @@ class _ProductWidgetState extends State<ProductWidget> {
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             color: Theme.of(context).colorScheme.onBackground,
-            fontSize: 13,
+            fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
         ),

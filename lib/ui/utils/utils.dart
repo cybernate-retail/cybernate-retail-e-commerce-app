@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
@@ -246,10 +248,11 @@ class Utils {
     );
   }
 
-  static CachedNetworkImage renderNetworkImageWithLoader(String url) {
+  static CachedNetworkImage renderNetworkImageWithLoader(String url,
+      {BoxFit boxFit = BoxFit.fitHeight}) {
     return CachedNetworkImage(
       imageUrl: url,
-      fit: BoxFit.fitHeight,
+      fit: boxFit,
       errorWidget: (context, error, stackTrace) => const Center(
           child: Icon(
         Icons.error,
@@ -285,5 +288,76 @@ class Utils {
         ),
       ),
     );
+  }
+
+  static Widget seeAllButton(Color color, double fontSize) {
+    return TextButton(
+      onPressed: () {},
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: "See more",
+              style: TextStyle(
+                color: color,
+                fontSize: fontSize,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            // const WidgetSpan(
+            //   child: Icon(
+            //     Icons.navigate_next_rounded,
+            //     size: 15,
+            //   ),
+            // )
+          ],
+        ),
+      ),
+    );
+  }
+
+  static Widget discountBanner({double? discount}) {
+    return SizedBox(
+      height: 14,
+      width: 70,
+      child: discount != null
+          ? Stack(
+              children: [
+                Image.asset(
+                  AssetsDb.discountBanner,
+                  fit: BoxFit.fitHeight,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text(
+                      "$discount% OFF",
+                      style: const TextStyle(
+                        fontSize: 7.5,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            )
+          : Container(),
+    );
+  }
+
+  static double? calculateDiscount(
+      double? actualPrice, double? discountedPrice) {
+    if (actualPrice == null || discountedPrice == null) {
+      return null;
+    }
+    final val = ((actualPrice - discountedPrice) / actualPrice) * 100;
+    return roundOffDouble(val, 1);
+  }
+
+  static double roundOffDouble(double val, int places) {
+    num mod = pow(10.0, places);
+    return ((val * mod).round().toDouble() / mod);
   }
 }
