@@ -116,9 +116,11 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
           height: MediaQuery.of(context).size.height * 0.35,
           child: PageView.builder(
             onPageChanged: ((value) {
-              setState(() {
-                currentStepperValue = value;
-              });
+              setState(
+                () {
+                  currentStepperValue = value;
+                },
+              );
             }),
             itemCount: imageUrls?.length,
             itemBuilder: ((context, index) {
@@ -241,6 +243,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
               productPrice:
                   product.variants?.first.pricing?.price?.gross.amount,
               productDiscountedPrice: 200,
+              enableDiscountBanner: true,
               onTap: () {
                 InAppNavigation.popAndViewProduct(context, product.id);
               },

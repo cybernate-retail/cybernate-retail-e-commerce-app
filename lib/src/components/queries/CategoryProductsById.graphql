@@ -1,0 +1,90 @@
+query CategoryProductsById(
+	$id: ID!
+	$first: Int
+	$after: String
+	$last: Int
+	$before: String
+    $channel: String!
+    $locale:LanguageCodeEnum!
+) {
+	category(id: $id) {
+		...CategoryDetails
+	}
+}
+
+fragment CategoryDetails on Category {
+	id
+	backgroundImage {
+		alt
+		url
+	}
+	name
+	slug
+	description
+	seoDescription
+	seoTitle
+	parent {
+		id
+	}
+    products(
+		channel: $channel
+		first: $first
+		after: $after
+		last: $last
+		before: $before
+
+	) {
+		pageInfo {
+			...PageInfo
+		}
+		edges {
+			cursor
+			node {
+				...ProductDetailsFragment
+			}
+		}
+	}
+}
+fragment PageInfo on PageInfo {
+	endCursor
+	hasNextPage
+	hasPreviousPage
+	startCursor
+}
+
+fragment ProductDetailsFragment on Product{
+  id
+  name
+  slug
+  description
+  seoDescription
+  seoTitle
+  isAvailableForPurchase
+  translation(languageCode: $locale) {
+    id
+    description
+    name
+  }
+  pricing {
+    priceRange {
+      start {
+        gross {
+          ...PriceFragment
+        }
+      }
+    }
+  }
+  thumbnail {
+    ...ImageFragment
+  }
+}
+
+fragment PriceFragment on Money {
+  currency
+  amount
+}
+
+fragment ImageFragment on Image {
+  url
+  alt
+}

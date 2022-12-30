@@ -15,6 +15,7 @@ class ProductWidget extends StatefulWidget {
   final double? productPrice;
   final double? productDiscountedPrice;
   final Function onTap;
+  final bool enableDiscountBanner;
 
   const ProductWidget({
     super.key,
@@ -26,6 +27,7 @@ class ProductWidget extends StatefulWidget {
     required this.productPrice,
     required this.productDiscountedPrice,
     this.onTap = Utils.emptyFunction,
+    this.enableDiscountBanner = false,
   });
 
   @override
@@ -67,18 +69,20 @@ class _ProductWidgetState extends State<ProductWidget> {
             ),
           ),
         ),
-        SizedBox(
-          width: 160,
-          child: Align(
-            alignment: Alignment.topRight,
-            child: Utils.discountBanner(
-              discount: Utils.calculateDiscount(
-                widget.productPrice,
-                widget.productDiscountedPrice,
-              ),
-            ),
-          ),
-        ),
+        widget.enableDiscountBanner
+            ? SizedBox(
+                width: 160,
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Utils.discountBanner(
+                    discount: Utils.calculateDiscount(
+                      widget.productPrice,
+                      widget.productDiscountedPrice,
+                    ),
+                  ),
+                ),
+              )
+            : Container()
       ],
     );
   }

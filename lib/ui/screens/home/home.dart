@@ -8,7 +8,6 @@ import 'package:cybernate_retail_mobile/ui/common_widgets/location/pin_location.
 import 'package:cybernate_retail_mobile/ui/screens/home/components/all_categories.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/components/banner_widget.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/components/featured_products_widget.dart';
-import 'package:cybernate_retail_mobile/ui/screens/home/components/main_menu_widget.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/shimmer/home_shimmer.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:ferry/ferry.dart';

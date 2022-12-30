@@ -248,31 +248,38 @@ class Utils {
     );
   }
 
-  static CachedNetworkImage renderNetworkImageWithLoader(String url,
+  static Widget renderNetworkImageWithLoader(String? url,
       {BoxFit boxFit = BoxFit.fitHeight}) {
-    return CachedNetworkImage(
-      imageUrl: url,
-      fit: boxFit,
-      errorWidget: (context, error, stackTrace) => const Center(
-          child: Icon(
-        Icons.error,
-        color: Colors.red,
-      )),
-      progressIndicatorBuilder: ((context, url, progress) {
-        return Center(
-          child: Shimmer.fromColors(
-            baseColor: UiConstants.shimmerBaseColor,
-            highlightColor: UiConstants.shimmerHighlightColor,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
-              ),
-            ),
-          ),
-        );
-      }),
-    );
+    return url == null
+        ? const Center(
+            child: Icon(
+            Icons.error,
+            color: Colors.red,
+          ))
+        : CachedNetworkImage(
+            imageUrl: url,
+            fit: boxFit,
+            errorWidget: (context, error, stackTrace) => const Center(
+                child: Icon(
+              Icons.error,
+              color: Colors.red,
+            )),
+            progressIndicatorBuilder: ((context, url, progress) {
+              return Center(
+                child: Shimmer.fromColors(
+                  baseColor: UiConstants.shimmerBaseColor,
+                  highlightColor: UiConstants.shimmerHighlightColor,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                          BorderRadius.circular(UiConstants.edgeRadius),
+                    ),
+                  ),
+                ),
+              );
+            }),
+          );
   }
 
   static Widget shimmerPlaceHolder() {

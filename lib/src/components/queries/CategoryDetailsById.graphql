@@ -1,0 +1,43 @@
+query CategoryDetailsById(
+	$id: ID!
+	$first: Int
+	$after: String
+	$last: Int
+	$before: String
+) {
+	category(id: $id) {
+		...CategoryDetails
+		children(first: $first, after: $after, last: $last, before: $before) {
+			edges {
+				node {
+					...CategoryDetails
+				}
+			}
+			pageInfo {
+				...PageInfo
+			}
+		}
+	}
+}
+
+fragment CategoryDetails on Category {
+	id
+	backgroundImage {
+		alt
+		url
+	}
+	name
+	slug
+	description
+	seoDescription
+	seoTitle
+	parent {
+		id
+	}
+}
+fragment PageInfo on PageInfo {
+	endCursor
+	hasNextPage
+	hasPreviousPage
+	startCursor
+}

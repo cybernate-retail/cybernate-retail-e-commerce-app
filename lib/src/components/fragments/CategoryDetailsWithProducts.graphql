@@ -1,0 +1,37 @@
+# import './PageInfoFragment.graphql'
+fragment CategoryDetailsWithProducts on Category {
+	id
+	backgroundImage {
+		alt
+		url
+	}
+	name
+	slug
+	description
+	seoDescription
+	seoTitle
+	parent {
+		id
+	}
+    products(
+		channel: $channel
+		first: $first
+		after: $after
+		last: $last
+		before: $before
+	) {
+		pageInfo {
+			...PageInfoFragment
+		}
+		edges {
+			cursor
+			node {
+				id
+				name
+				thumbnail {
+					url
+				}
+			}
+		}
+	}
+}

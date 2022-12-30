@@ -13,6 +13,7 @@ import 'package:cybernate_retail_mobile/mobx_stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/theme/theme.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/add_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/view_address.dart';
+import 'package:cybernate_retail_mobile/ui/screens/categories/category_view.dart';
 import 'package:cybernate_retail_mobile/ui/screens/coupons/coupons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/home.dart';
 import 'package:cybernate_retail_mobile/ui/screens/notifications/notifications.dart';
@@ -89,7 +90,9 @@ class MyApp extends StatelessWidget {
             // home: const ProductViewScreen(
             //   productId: "UHJvZHVjdDoxNTI=",
             // ),
-            home: HomeScreen(),
+            home: const CategoryViewScreen(
+              categoryId: "Q2F0ZWdvcnk6MjU=",
+            ),
 
             routes: Routes.routes,
             supportedLocales: const [

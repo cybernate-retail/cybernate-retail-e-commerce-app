@@ -1,0 +1,13 @@
+# import '../fragments/CategoryDetailsWithProducts.graphql'
+query CategoryDetailsWithProductsById(
+	$id: ID!
+	$first: Int
+	$after: String
+	$last: Int
+	$before: String
+	$channel: String
+) {
+	category(id: $id) {
+		...CategoryDetailsWithProducts
+	}
+}
