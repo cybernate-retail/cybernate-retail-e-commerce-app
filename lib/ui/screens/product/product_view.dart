@@ -170,10 +170,14 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
             children: [
               ProductPriceWithDiscount(
                 productViewType: ProductViewType.SCREEN,
-                productPrice: product?.pricing?.priceRange?.start?.gross.amount
+                productPrice: product
+                        ?.variants?.first.pricing?.price?.gross.amount
                         .toString() ??
                     "",
-                productMrp: '200',
+                productUndiscountedPrice: product?.variants?.first.pricing
+                        ?.priceUndiscounted?.gross.amount
+                        .toString() ??
+                    "",
               ),
               CustomButtons.addButton(
                 32,
@@ -239,10 +243,12 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
               productId: product.id,
               productUrl: product.thumbnail?.url ?? "",
               productName: product.name,
-              productQuantity: "200ml",
-              productPrice:
-                  product.variants?.first.pricing?.price?.gross.amount,
-              productDiscountedPrice: 200,
+              productVariant: product.variants,
+              productPrice: product.variants?.first.pricing?.price?.gross.amount
+                  .toDouble(),
+              productUnDiscountedPrice: product
+                  .variants?.first.pricing?.priceUndiscounted?.gross.amount
+                  .toDouble(),
               enableDiscountBanner: true,
               onTap: () {
                 InAppNavigation.popAndViewProduct(context, product.id);

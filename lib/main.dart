@@ -11,18 +11,7 @@ import 'package:cybernate_retail_mobile/mobx_stores/login/login.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/theme/theme.dart';
-import 'package:cybernate_retail_mobile/ui/screens/address/add_address.dart';
-import 'package:cybernate_retail_mobile/ui/screens/address/view_address.dart';
-import 'package:cybernate_retail_mobile/ui/screens/categories/category_view.dart';
-import 'package:cybernate_retail_mobile/ui/screens/coupons/coupons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/home.dart';
-import 'package:cybernate_retail_mobile/ui/screens/notifications/notifications.dart';
-
-import 'package:cybernate_retail_mobile/ui/screens/orders/order.dart';
-import 'package:cybernate_retail_mobile/ui/screens/orders/order_details.dart';
-import 'package:cybernate_retail_mobile/ui/screens/product/product_view.dart';
-import 'package:cybernate_retail_mobile/ui/screens/profile/profile.dart';
-import 'package:cybernate_retail_mobile/ui/screens/search/search.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
@@ -87,13 +76,7 @@ class MyApp extends StatelessWidget {
             //         nextRoute: Routes.home,
             //       )
             //     : const SplashLogo(nextRoute: Routes.signup),
-            // home: const ProductViewScreen(
-            //   productId: "UHJvZHVjdDoxNTI=",
-            // ),
-            home: const CategoryViewScreen(
-              categoryId: "Q2F0ZWdvcnk6MjU=",
-            ),
-
+            home: HomeScreen(),
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),

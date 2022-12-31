@@ -1,5 +1,6 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
-import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
+import 'package:cybernate_retail_mobile/src/components/fragments/models/ProductVariantDetailsFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/buttons/custom_buttons.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/product/product_price_with_discount.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
@@ -11,9 +12,9 @@ class ProductWidget extends StatefulWidget {
   final String productId;
   final String productUrl;
   final String productName;
-  final String productQuantity;
+  final BuiltList<GProductVariantDetailsFragment>? productVariant;
   final double? productPrice;
-  final double? productDiscountedPrice;
+  final double? productUnDiscountedPrice;
   final Function onTap;
   final bool enableDiscountBanner;
 
@@ -23,9 +24,9 @@ class ProductWidget extends StatefulWidget {
     required this.productId,
     required this.productUrl,
     required this.productName,
-    required this.productQuantity,
+    required this.productVariant,
     required this.productPrice,
-    required this.productDiscountedPrice,
+    required this.productUnDiscountedPrice,
     this.onTap = Utils.emptyFunction,
     this.enableDiscountBanner = false,
   });
@@ -69,20 +70,21 @@ class _ProductWidgetState extends State<ProductWidget> {
             ),
           ),
         ),
-        widget.enableDiscountBanner
-            ? SizedBox(
-                width: 160,
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: Utils.discountBanner(
+        SizedBox(
+          width: 160,
+          child: Align(
+            alignment: Alignment.topRight,
+            child: widget.enableDiscountBanner &&
+                    widget.productUnDiscountedPrice != widget.productPrice
+                ? Utils.discountBanner(
                     discount: Utils.calculateDiscount(
+                      widget.productUnDiscountedPrice,
                       widget.productPrice,
-                      widget.productDiscountedPrice,
                     ),
-                  ),
-                ),
-              )
-            : Container()
+                  )
+                : Container(),
+          ),
+        )
       ],
     );
   }
@@ -108,7 +110,9 @@ class _ProductWidgetState extends State<ProductWidget> {
   Widget _productDescription() {
     return Container(
       margin: EdgeInsets.symmetric(
-          horizontal: Utils.spaceScale(1), vertical: Utils.spaceScale(1)),
+        horizontal: Utils.spaceScale(1),
+        vertical: Utils.spaceScale(1),
+      ),
       height: 80,
       // padding: EdgeInsets.only(bottom: Utils.spaceScale(1)),
       child: Column(
@@ -117,7 +121,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         children: [
           _productNameWithQuantity(
             widget.productName,
-            widget.productQuantity,
+            "",
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,7 +129,8 @@ class _ProductWidgetState extends State<ProductWidget> {
               ProductPriceWithDiscount(
                 productViewType: ProductViewType.CARD,
                 productPrice: widget.productPrice.toString(),
-                productMrp: widget.productDiscountedPrice.toString(),
+                productUndiscountedPrice:
+                    widget.productUnDiscountedPrice.toString(),
               ),
               widget.productAddedCount == 0
                   ? CustomButtons.addButton(

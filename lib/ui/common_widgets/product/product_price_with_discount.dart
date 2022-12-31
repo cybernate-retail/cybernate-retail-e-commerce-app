@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 class ProductPriceWithDiscount extends StatelessWidget {
   final ProductViewType productViewType;
   final String productPrice;
-  final String productMrp;
+  final String productUndiscountedPrice;
 
   const ProductPriceWithDiscount({
     super.key,
     required this.productViewType,
     required this.productPrice,
-    required this.productMrp,
+    required this.productUndiscountedPrice,
   });
 
   @override
@@ -33,10 +33,11 @@ class ProductPriceWithDiscount extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '\$$productMrp',
+          '\$$productUndiscountedPrice',
           style: TextStyle(
-            color: Colors.grey,
-            decoration: TextDecoration.lineThrough,
+            color: productPrice != productUndiscountedPrice
+                ? Colors.grey
+                : Colors.transparent,
             fontSize: productMrpFontSize,
           ),
         ),

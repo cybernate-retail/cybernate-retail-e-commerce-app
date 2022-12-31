@@ -23,17 +23,24 @@ class _MainMenuBannerWidgetState extends State<MainMenuBannerWidget> {
     initialPage: 0,
   );
   late Timer _timer;
-  int currentBannerLocation = 0;
 
   @override
   void initState() {
     super.initState();
+    _timer = Timer.periodic(
+        const Duration(seconds: GlobalConstants.adBannerDuration), (timer) {
+      _pageController.nextPage(
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeIn,
+      );
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
     _pageController.dispose();
+    _timer.cancel();
   }
 
   @override
@@ -47,18 +54,9 @@ class _MainMenuBannerWidgetState extends State<MainMenuBannerWidget> {
             .where((element) => element != null)
             .toBuiltList() ??
         BuiltList();
-    // TODO enable for production
-    // _timer = Timer.periodic(
-    //     const Duration(seconds: GlobalConstants.adBannerDuration),
-    //     (timer) async {
-    //   currentBannerLocation = (currentBannerLocation + 1) % banners.length;
-
-    //   await _pageController.nextPage(
-    //     duration: const Duration(seconds: 1),
-    //     curve: Curves.easeIn,
-    //   );
-    // });
-
+    if (banners.isEmpty) {
+      return Container();
+    }
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.2,
       child: PageView.builder(

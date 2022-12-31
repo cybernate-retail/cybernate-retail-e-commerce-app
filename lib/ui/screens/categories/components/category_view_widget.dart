@@ -1,5 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/CategoryDetailsById.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/CategoryProductsById.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/CategoryProductsById.req.gql.dart';
@@ -38,7 +39,7 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
 
   Widget _categoryList() {
     return Container(
-      padding: const EdgeInsets.only(left: 6, bottom: 4),
+      padding: const EdgeInsets.only(left: 6, bottom: 8),
       color: Theme.of(context).colorScheme.background,
       width: MediaQuery.of(context).size.width * 0.2,
       height: MediaQuery.of(context).size.height * 0.8,
@@ -67,10 +68,11 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                         color: selectedCategory?.id == widget.activeCategoryId
                             ? Theme.of(context).primaryColor
                             : Colors.transparent,
-                        width: 2,
+                        width: 1,
                       ),
                     ),
                     child: InkWell(
+                      borderRadius: BorderRadius.circular(100),
                       onTap: () {
                         setState(() {
                           widget.activeCategoryId = selectedCategory?.id ?? "";
@@ -79,14 +81,17 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                       child: Ink(
                         child: Container(
                           height: MediaQuery.of(context).size.width * 0.2 - 36,
+                          width: MediaQuery.of(context).size.width * 0.2 - 36,
                           margin: EdgeInsets.all(Utils.spaceScale(1 / 2)),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Colors.white,
+                          ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(100),
-                            child: Container(
-                              color: Colors.white,
-                              child: Utils.renderNetworkImageWithLoader(
-                                  selectedCategory?.backgroundImage?.url),
-                            ),
+                            child: Utils.renderNetworkImageWithLoader(
+                                selectedCategory?.backgroundImage?.url,
+                                boxFit: BoxFit.fitWidth),
                           ),
                         ),
                       ),
@@ -155,13 +160,18 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                 productAddedCount: index % 2,
                 productId: currentProduct.id,
                 productUrl: currentProduct.thumbnail?.url ?? "",
+                productVariant: currentProduct.variants,
+                productPrice: currentProduct
+                    .variants?.first.pricing?.price?.gross.amount
+                    .toDouble(),
+                productUnDiscountedPrice: currentProduct
+                    .variants?.first.pricing?.priceUndiscounted?.gross.amount
+                    .toDouble(),
                 productName: currentProduct.name,
-                productQuantity: "2",
-                productPrice:
-                    currentProduct.pricing?.priceRange?.start?.gross.amount ??
-                        0.0,
-                productDiscountedPrice: 1,
                 enableDiscountBanner: true,
+                onTap: () {
+                  InAppNavigation.viewProduct(context, currentProduct.id);
+                },
               );
             },
           );

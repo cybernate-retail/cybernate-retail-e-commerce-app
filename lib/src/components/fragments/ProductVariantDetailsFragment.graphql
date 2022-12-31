@@ -1,6 +1,6 @@
 # import './SelectedAttributeDetailsFragment.graphql'
 # import './ProductMediaFragment.graphql'
-# import './PriceFragment.graphql'
+# import './PriceWithTaxFragment.graphql'
 fragment ProductVariantDetailsFragment on ProductVariant {
   id
   name
@@ -16,10 +16,16 @@ fragment ProductVariantDetailsFragment on ProductVariant {
     ...ProductMediaFragment
   }
   pricing {
-    price {
-      gross {
-        ...PriceFragment
-      }
+    onSale
+    discount{
+        ...PriceWithTaxFragment
     }
+    priceUndiscounted{
+        ...PriceWithTaxFragment
+    }
+    
+    price {
+        ...PriceWithTaxFragment
   }
+}
 }

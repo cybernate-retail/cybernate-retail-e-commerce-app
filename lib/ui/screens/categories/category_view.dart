@@ -17,7 +17,7 @@ import 'package:get_it/get_it.dart';
 import '../../../src/components/queries/models/CategoryDetailsById.var.gql.dart';
 
 class CategoryViewScreen extends StatefulWidget {
-  final String categoryId;
+  final String? categoryId;
   const CategoryViewScreen({super.key, required this.categoryId});
 
   @override
@@ -58,6 +58,9 @@ class _CategoryViewScreenState extends State<CategoryViewScreen> {
   }
 
   Widget _body() {
+    if (widget.categoryId == null) {
+      return Container();
+    }
     return Operation(
       client: client,
       operationRequest: GCategoryDetailsByIdReq((b) => b

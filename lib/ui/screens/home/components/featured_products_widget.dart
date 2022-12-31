@@ -2,7 +2,6 @@ import 'package:built_collection/built_collection.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/MenuItemWithChildrenFragment.data.gql.dart';
-import 'package:cybernate_retail_mobile/src/components/queries/models/CollectionProductById.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/CollectionProductById.req.gql.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/components/product_widget.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
@@ -52,6 +51,7 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
         (b) => b
           ..vars.channel = GlobalConstants.defaultChannel
           ..vars.id = featuredProductCollectionId
+          ..vars.locale = GlobalConstants.defaultLanguage
           ..vars.first = 100,
       ),
       builder: ((context, response, error) {
@@ -72,9 +72,13 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
                 productAddedCount: index % 2,
                 productId: product?.id ?? "",
                 productUrl: product?.thumbnail?.url ?? "",
-                productQuantity: "2Kg",
-                productPrice: 200,
-                productDiscountedPrice: 0,
+                productVariant: product?.variants,
+                productPrice: product
+                    ?.variants?.first.pricing?.price?.gross.amount
+                    .toDouble(),
+                productUnDiscountedPrice: product
+                    ?.variants?.first.pricing?.priceUndiscounted?.gross.amount
+                    .toDouble(),
                 productName: product?.name ?? "",
                 enableDiscountBanner: true,
                 onTap: () {

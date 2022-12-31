@@ -1,0 +1,13 @@
+# import './PriceFragment.graphql'
+fragment PriceWithTaxFragment on TaxedMoney{
+    currency
+      gross {
+        ...PriceFragment
+      }
+      net{
+          ...PriceFragment
+      }
+      tax{
+          ...PriceFragment
+      }
+}

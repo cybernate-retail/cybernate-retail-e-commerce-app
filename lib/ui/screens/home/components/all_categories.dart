@@ -102,7 +102,7 @@ class AllCategoriesWidget extends StatelessWidget {
             ),
             child: InkWell(
               onTap: () {
-                InAppNavigation.viewCategory(context, item.id);
+                InAppNavigation.viewCategory(context, item.category?.id);
               },
               borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
               child: Ink(
@@ -201,7 +201,7 @@ class AllCategoriesWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
         child: Utils.renderNetworkImageWithLoader(
           url,
-          boxFit: BoxFit.fitWidth,
+          boxFit: BoxFit.fitHeight,
         ),
       ),
     );

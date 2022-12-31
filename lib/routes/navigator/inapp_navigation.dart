@@ -173,7 +173,7 @@ class InAppNavigation {
     );
   }
 
-  static void viewCategory(BuildContext context, String id) {
+  static void viewCategory(BuildContext context, String? id) {
     _push(
       context,
       CategoryViewScreen(

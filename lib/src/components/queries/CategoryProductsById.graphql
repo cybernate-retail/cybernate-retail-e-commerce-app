@@ -1,11 +1,13 @@
+# import '../fragments/ProductDetailsFragment.graphql'
+
 query CategoryProductsById(
 	$id: ID!
 	$first: Int
 	$after: String
 	$last: Int
 	$before: String
-    $channel: String!
-    $locale:LanguageCodeEnum!
+	$channel: String!
+	$locale: LanguageCodeEnum!
 ) {
 	category(id: $id) {
 		...CategoryDetails
@@ -26,13 +28,12 @@ fragment CategoryDetails on Category {
 	parent {
 		id
 	}
-    products(
+	products(
 		channel: $channel
 		first: $first
 		after: $after
 		last: $last
 		before: $before
-
 	) {
 		pageInfo {
 			...PageInfo
@@ -52,39 +53,4 @@ fragment PageInfo on PageInfo {
 	startCursor
 }
 
-fragment ProductDetailsFragment on Product{
-  id
-  name
-  slug
-  description
-  seoDescription
-  seoTitle
-  isAvailableForPurchase
-  translation(languageCode: $locale) {
-    id
-    description
-    name
-  }
-  pricing {
-    priceRange {
-      start {
-        gross {
-          ...PriceFragment
-        }
-      }
-    }
-  }
-  thumbnail {
-    ...ImageFragment
-  }
-}
 
-fragment PriceFragment on Money {
-  currency
-  amount
-}
-
-fragment ImageFragment on Image {
-  url
-  alt
-}

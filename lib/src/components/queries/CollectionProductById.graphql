@@ -1,5 +1,5 @@
 # import '../fragments/CollectionProduct.graphql'
-query CollectionProductById($id: ID!, $first: Int, $after: String, $last: Int, $before: String,$channel: String) {
+query CollectionProductById($id: ID!, $first: Int, $after: String, $last: Int, $before: String,$channel: String, $locale: LanguageCodeEnum!) {
   collection(id: $id,channel: $channel) {
     products(first: $first, after: $after, before: $before, last: $last) {
       edges {

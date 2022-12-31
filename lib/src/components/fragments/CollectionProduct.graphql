@@ -1,11 +1,15 @@
+# import './ProductVariantDetailsFragment.graphql'
 fragment CollectionProduct on Product {
-  id
-  name
-  productType {
-    id
-    name
-  }
-  thumbnail {
-    url 
-  }  
+	id
+	name
+	productType {
+		id
+		name
+	}
+	thumbnail {
+		url
+	}
+	variants {
+		...ProductVariantDetailsFragment
+	}
 }
