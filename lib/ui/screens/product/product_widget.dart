@@ -3,6 +3,7 @@ import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/ProductVariantDetailsFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/buttons/custom_buttons.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/product/product_price_with_discount.dart';
+import 'package:cybernate_retail_mobile/ui/common_widgets/product/product_varient_dropdown.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -13,8 +14,6 @@ class ProductWidget extends StatefulWidget {
   final String productUrl;
   final String productName;
   final BuiltList<GProductVariantDetailsFragment>? productVariant;
-  final double? productPrice;
-  final double? productUnDiscountedPrice;
   final Function onTap;
   final bool enableDiscountBanner;
 
@@ -25,8 +24,6 @@ class ProductWidget extends StatefulWidget {
     required this.productUrl,
     required this.productName,
     required this.productVariant,
-    required this.productPrice,
-    required this.productUnDiscountedPrice,
     this.onTap = Utils.emptyFunction,
     this.enableDiscountBanner = false,
   });
@@ -38,6 +35,12 @@ class ProductWidget extends StatefulWidget {
 class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
+    GProductVariantDetailsFragment? selectedProductVariant =
+        widget.productVariant?.first;
+    if (selectedProductVariant == null) {
+      return Container();
+    }
+
     return Stack(
       children: [
         SizedBox(
@@ -63,7 +66,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _productImage(),
-                    _productDescription(),
+                    _productDescription(selectedProductVariant),
                   ],
                 ),
               ),
@@ -75,11 +78,14 @@ class _ProductWidgetState extends State<ProductWidget> {
           child: Align(
             alignment: Alignment.topRight,
             child: widget.enableDiscountBanner &&
-                    widget.productUnDiscountedPrice != widget.productPrice
+                    selectedProductVariant
+                            .pricing?.priceUndiscounted?.gross.amount !=
+                        selectedProductVariant.pricing?.price?.gross.amount
                 ? Utils.discountBanner(
                     discount: Utils.calculateDiscount(
-                      widget.productUnDiscountedPrice,
-                      widget.productPrice,
+                      selectedProductVariant
+                          .pricing?.priceUndiscounted?.gross.amount,
+                      selectedProductVariant.pricing?.price?.gross.amount,
                     ),
                   )
                 : Container(),
@@ -107,7 +113,8 @@ class _ProductWidgetState extends State<ProductWidget> {
     );
   }
 
-  Widget _productDescription() {
+  Widget _productDescription(
+      GProductVariantDetailsFragment? selectedProductVariant) {
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: Utils.spaceScale(1),
@@ -121,16 +128,21 @@ class _ProductWidgetState extends State<ProductWidget> {
         children: [
           _productNameWithQuantity(
             widget.productName,
-            "",
+            widget.productVariant,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ProductPriceWithDiscount(
                 productViewType: ProductViewType.CARD,
-                productPrice: widget.productPrice.toString(),
-                productUndiscountedPrice:
-                    widget.productUnDiscountedPrice.toString(),
+                productPrice: selectedProductVariant
+                        ?.pricing?.price?.gross.amount
+                        .toString() ??
+                    "",
+                productUndiscountedPrice: selectedProductVariant
+                        ?.pricing?.priceUndiscounted?.gross.amount
+                        .toString() ??
+                    "",
               ),
               widget.productAddedCount == 0
                   ? CustomButtons.addButton(
@@ -147,9 +159,11 @@ class _ProductWidgetState extends State<ProductWidget> {
     );
   }
 
-  Widget _productNameWithQuantity(String productName, String productQuantity) {
+  Widget _productNameWithQuantity(
+      String productName, BuiltList<GProductVariantDetailsFragment>? variant) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
           productName,
@@ -162,14 +176,24 @@ class _ProductWidgetState extends State<ProductWidget> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        Text(
-          productQuantity,
-          style: const TextStyle(
-            color: Colors.grey,
-            fontWeight: FontWeight.bold,
-            fontSize: 10,
+        // Text(
+        //   variant?.name ?? "",
+        //   maxLines: 1,
+        //   softWrap: true,
+        //   overflow: TextOverflow.ellipsis,
+        // style: const TextStyle(
+        //   color: Colors.grey,
+        //   fontWeight: FontWeight.bold,
+        //   fontSize: 10,
+        // ),
+        // ),
+        SizedBox(
+          height: 15,
+          child: ProductVariantDropDown(
+            variants: variant,
+            selectedVariant: variant?.first,
           ),
-        ),
+        )
       ],
     );
   }

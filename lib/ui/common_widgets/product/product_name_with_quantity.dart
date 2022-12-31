@@ -1,26 +1,28 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/src/components/fragments/models/ProductVariantDetailsFragment.data.gql.dart';
 import 'package:flutter/material.dart';
 
 class ProductNameWithQuantity extends StatelessWidget {
   final ProductViewType productViewType;
   final String productName;
-  final String productQuantity;
+  final BuiltList<GProductVariantDetailsFragment>? productVariant;
 
   const ProductNameWithQuantity({
     super.key,
     required this.productViewType,
     required this.productName,
-    required this.productQuantity,
+    required this.productVariant,
   });
 
   @override
   Widget build(BuildContext context) {
     if (productViewType == ProductViewType.CARD) {
       return _productNameWithQuantity(
-          context, productName, 13, productQuantity, 9);
+          context, productName, 13, productVariant?.first.name ?? "", 9);
     }
     return _productNameWithQuantity(
-        context, productName, 20, productQuantity, 16);
+        context, productName, 20, productVariant?.first.name ?? "", 16);
   }
 
   Widget _productNameWithQuantity(

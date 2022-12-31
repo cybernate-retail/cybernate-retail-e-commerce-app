@@ -163,7 +163,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
           ProductNameWithQuantity(
             productName: product?.name ?? "",
             productViewType: ProductViewType.SCREEN,
-            productQuantity: '200 ml',
+            productVariant: product?.variants,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -244,11 +244,6 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
               productUrl: product.thumbnail?.url ?? "",
               productName: product.name,
               productVariant: product.variants,
-              productPrice: product.variants?.first.pricing?.price?.gross.amount
-                  .toDouble(),
-              productUnDiscountedPrice: product
-                  .variants?.first.pricing?.priceUndiscounted?.gross.amount
-                  .toDouble(),
               enableDiscountBanner: true,
               onTap: () {
                 InAppNavigation.popAndViewProduct(context, product.id);

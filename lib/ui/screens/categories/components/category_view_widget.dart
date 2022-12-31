@@ -161,12 +161,6 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                 productId: currentProduct.id,
                 productUrl: currentProduct.thumbnail?.url ?? "",
                 productVariant: currentProduct.variants,
-                productPrice: currentProduct
-                    .variants?.first.pricing?.price?.gross.amount
-                    .toDouble(),
-                productUnDiscountedPrice: currentProduct
-                    .variants?.first.pricing?.priceUndiscounted?.gross.amount
-                    .toDouble(),
                 productName: currentProduct.name,
                 enableDiscountBanner: true,
                 onTap: () {

@@ -73,12 +73,6 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
                 productId: product?.id ?? "",
                 productUrl: product?.thumbnail?.url ?? "",
                 productVariant: product?.variants,
-                productPrice: product
-                    ?.variants?.first.pricing?.price?.gross.amount
-                    .toDouble(),
-                productUnDiscountedPrice: product
-                    ?.variants?.first.pricing?.priceUndiscounted?.gross.amount
-                    .toDouble(),
                 productName: product?.name ?? "",
                 enableDiscountBanner: true,
                 onTap: () {
