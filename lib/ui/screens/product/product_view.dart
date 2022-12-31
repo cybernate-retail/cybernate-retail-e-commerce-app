@@ -10,7 +10,7 @@ import 'package:cybernate_retail_mobile/ui/common_widgets/product/product_price_
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/cart/components/cart_widget.dart';
-import 'package:cybernate_retail_mobile/ui/screens/profile/components/product_widget.dart';
+import 'package:cybernate_retail_mobile/ui/screens/product/product_widget.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
