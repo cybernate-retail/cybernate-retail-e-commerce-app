@@ -6,7 +6,7 @@ import 'package:cybernate_retail_mobile/src/components/queries/models/CategoryPr
 import 'package:cybernate_retail_mobile/src/components/queries/models/CategoryProductsById.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/CategoryProductsById.var.gql.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
-import 'package:cybernate_retail_mobile/ui/screens/home/components/product_widget.dart';
+import 'package:cybernate_retail_mobile/ui/screens/profile/components/product_widget.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';

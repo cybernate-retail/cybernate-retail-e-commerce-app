@@ -3,7 +3,7 @@ import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/MenuItemWithChildrenFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/CollectionProductById.req.gql.dart';
-import 'package:cybernate_retail_mobile/ui/screens/home/components/product_widget.dart';
+import 'package:cybernate_retail_mobile/ui/screens/profile/components/product_widget.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:ferry/ferry.dart';
