@@ -1,16 +1,20 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/ProductVariantDetailsFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:flutter/material.dart';
 
 class ProductVariantDropDown extends StatefulWidget {
   final BuiltList<GProductVariantDetailsFragment>? variants;
-  GProductVariantDetailsFragment? selectedVariant;
+
+  final ProductViewType productViewType;
+  final Function(GProductVariantDetailsFragment?) onVariantChange;
 
   ProductVariantDropDown({
     super.key,
     required this.variants,
-    required this.selectedVariant,
+    required this.onVariantChange,
+    this.productViewType = ProductViewType.CARD,
   });
 
   @override
@@ -18,11 +22,19 @@ class ProductVariantDropDown extends StatefulWidget {
 }
 
 class _ProductVariantDropDownState extends State<ProductVariantDropDown> {
+  GProductVariantDetailsFragment? selectedVariant;
+  @override
+  void dispose() {
+    super.dispose();
+    selectedVariant = null;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.variants?.first == null) {
       return Container();
     }
+
     if (widget.variants?.length == 1) {
       return Text(
         widget.variants?.first.name ?? "",
@@ -32,33 +44,33 @@ class _ProductVariantDropDownState extends State<ProductVariantDropDown> {
         style: TextStyle(
           color: Theme.of(context).primaryColor,
           fontWeight: FontWeight.bold,
-          fontSize: 10,
+          fontSize: widget.productViewType == ProductViewType.CARD ? 10 : 16,
         ),
       );
     }
     return DropdownButton<GProductVariantDetailsFragment>(
-      value: widget.selectedVariant,
+      value: selectedVariant ?? widget.variants?.first,
       icon: Icon(
         Icons.keyboard_arrow_down,
-        size: 18,
+        size: widget.productViewType == ProductViewType.CARD ? 18 : 24,
         color: Theme.of(context).primaryColor,
       ),
-      isExpanded: true,
+      isExpanded: widget.productViewType == ProductViewType.CARD ? true : false,
       underline: Container(),
       isDense: true,
       elevation: 8,
       style: TextStyle(
         color: Theme.of(context).primaryColor,
         fontWeight: FontWeight.bold,
-        fontSize: 10,
+        fontSize: widget.productViewType == ProductViewType.CARD ? 10 : 16,
         overflow: TextOverflow.ellipsis,
       ),
       borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
       onChanged: (GProductVariantDetailsFragment? value) {
-        // This is called when the user selects an item.
         setState(() {
-          widget.selectedVariant = value;
+          selectedVariant = value;
         });
+        widget.onVariantChange(value);
       },
       items: widget.variants
           ?.map<DropdownMenuItem<GProductVariantDetailsFragment>>(
@@ -66,16 +78,17 @@ class _ProductVariantDropDownState extends State<ProductVariantDropDown> {
         return DropdownMenuItem<GProductVariantDetailsFragment>(
           value: value,
           child: SizedBox(
-            height: 12,
+            height: widget.productViewType == ProductViewType.CARD ? 12 : 20,
             child: Text(
-              value.name,
+              value.name.toString(),
               maxLines: 1,
               softWrap: true,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.bold,
-                fontSize: 10,
+                fontSize:
+                    widget.productViewType == ProductViewType.CARD ? 10 : 16,
               ),
             ),
           ),

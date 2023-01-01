@@ -1,16 +1,15 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
+import 'package:cybernate_retail_mobile/src/components/fragments/models/ProductVariantDetailsFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/ProductByIdWithSimilarProducts.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/ProductByIdWithSimilarProducts.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/ProductByIdWithSimilarProducts.var.gql.dart';
-import 'package:cybernate_retail_mobile/ui/common_widgets/buttons/custom_buttons.dart';
-import 'package:cybernate_retail_mobile/ui/common_widgets/product/product_name_with_quantity.dart';
-import 'package:cybernate_retail_mobile/ui/common_widgets/product/product_price_with_discount.dart';
+import 'package:cybernate_retail_mobile/ui/screens/product/components/product_description.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/cart/components/cart_widget.dart';
-import 'package:cybernate_retail_mobile/ui/screens/product/product_widget.dart';
+import 'package:cybernate_retail_mobile/ui/screens/product/components/product_widget.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
@@ -19,8 +18,9 @@ import 'package:get_it/get_it.dart';
 
 class ProductViewScreen extends StatefulWidget {
   final String productId;
+  GProductVariantDetailsFragment? selectedProductVariant;
 
-  const ProductViewScreen({super.key, required this.productId});
+  ProductViewScreen({super.key, required this.productId});
 
   @override
   State<ProductViewScreen> createState() => _ProductViewScreenState();
@@ -55,13 +55,21 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
             return Utils.shimmerPlaceHolder();
           }
           if (response.linkException != null) {}
+          widget.selectedProductVariant ??=
+              response.data?.product?.variants?.first;
           return ListView(
             children: [
               _imageWidget(response.data?.product?.media),
-              _productDescription(response.data?.product),
+              Utils.verticalSpace(1),
+              ProductDescription(
+                productName: response.data?.product?.name ?? "",
+                productVariant: response.data?.product?.variants,
+                productViewType: ProductViewType.SCREEN,
+              ),
               // _aboutProduct(),
               _similarProducts(
-                  response.data?.product?.category?.products?.edges),
+                response.data?.product?.category?.products?.edges,
+              ),
               // _mightLikeProducts(),
             ],
           );
@@ -146,48 +154,6 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
         child: Utils.renderNetworkImageWithLoader(imageUrl),
-      ),
-    );
-  }
-
-  Widget _productDescription(
-      GProductByIdWithSimilarProductsData_product? product) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: Utils.spaceScale(1)),
-      height: 120,
-      // padding: EdgeInsets.only(bottom: Utils.spaceScale(1)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ProductNameWithQuantity(
-            productName: product?.name ?? "",
-            productViewType: ProductViewType.SCREEN,
-            productVariant: product?.variants,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ProductPriceWithDiscount(
-                productViewType: ProductViewType.SCREEN,
-                productPrice: product
-                        ?.variants?.first.pricing?.price?.gross.amount
-                        .toString() ??
-                    "",
-                productUndiscountedPrice: product?.variants?.first.pricing
-                        ?.priceUndiscounted?.gross.amount
-                        .toString() ??
-                    "",
-              ),
-              CustomButtons.addButton(
-                32,
-                Theme.of(context).primaryColor,
-                Theme.of(context).colorScheme.onPrimary,
-                16,
-              )
-            ],
-          ),
-        ],
       ),
     );
   }

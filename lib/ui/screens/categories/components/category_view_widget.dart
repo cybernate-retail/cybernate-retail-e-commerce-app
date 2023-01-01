@@ -6,7 +6,7 @@ import 'package:cybernate_retail_mobile/src/components/queries/models/CategoryPr
 import 'package:cybernate_retail_mobile/src/components/queries/models/CategoryProductsById.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/CategoryProductsById.var.gql.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
-import 'package:cybernate_retail_mobile/ui/screens/product/product_widget.dart';
+import 'package:cybernate_retail_mobile/ui/screens/product/components/product_widget.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
@@ -14,10 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 class CategoryViewWidget extends StatefulWidget {
-  String activeCategoryId;
-  BuiltList<GCategoryDetailsByIdData_category_children_edges>? categories;
-  CategoryViewWidget(
-      {super.key, required this.activeCategoryId, required this.categories});
+  final BuiltList<GCategoryDetailsByIdData_category_children_edges>? categories;
+  const CategoryViewWidget({super.key, required this.categories});
 
   @override
   State<CategoryViewWidget> createState() => _CategoryViewWidgetState();
@@ -25,15 +23,16 @@ class CategoryViewWidget extends StatefulWidget {
 
 class _CategoryViewWidgetState extends State<CategoryViewWidget> {
   final Client client = GetIt.I<Client>();
+  String? activeCategoryId;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          _categoryList(),
-          _productsGrid(),
-        ],
-      ),
+    activeCategoryId ??= widget.categories?.first.node.id;
+
+    return Row(
+      children: [
+        _categoryList(),
+        _productsGrid(),
+      ],
     );
   }
 
@@ -65,7 +64,7 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       border: Border.all(
-                        color: selectedCategory?.id == widget.activeCategoryId
+                        color: selectedCategory?.id == activeCategoryId
                             ? Theme.of(context).primaryColor
                             : Colors.transparent,
                         width: 1,
@@ -75,7 +74,7 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                       borderRadius: BorderRadius.circular(100),
                       onTap: () {
                         setState(() {
-                          widget.activeCategoryId = selectedCategory?.id ?? "";
+                          activeCategoryId = selectedCategory?.id ?? "";
                         });
                       },
                       child: Ink(
@@ -125,11 +124,11 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
       child: Operation(
         client: client,
         operationRequest: GCategoryProductsByIdReq(
-          ((b) => b
+          (b) => b
             ..vars.first = 100
-            ..vars.id = widget.activeCategoryId
+            ..vars.id = activeCategoryId
             ..vars.channel = GlobalConstants.defaultChannel
-            ..vars.locale = GlobalConstants.defaultLanguage),
+            ..vars.locale = GlobalConstants.defaultLanguage,
         ),
         builder: ((
           context,

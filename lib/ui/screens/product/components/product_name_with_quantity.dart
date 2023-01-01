@@ -1,36 +1,50 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/ProductVariantDetailsFragment.data.gql.dart';
+import 'package:cybernate_retail_mobile/ui/screens/product/components/product_variant_dropdown.dart';
 import 'package:flutter/material.dart';
 
-class ProductNameWithQuantity extends StatelessWidget {
+class ProductNameWithQuantity extends StatefulWidget {
   final ProductViewType productViewType;
   final String productName;
   final BuiltList<GProductVariantDetailsFragment>? productVariant;
-
-  const ProductNameWithQuantity({
+  final Function(GProductVariantDetailsFragment?) onVariantChange;
+  ProductNameWithQuantity({
     super.key,
     required this.productViewType,
     required this.productName,
     required this.productVariant,
+    required this.onVariantChange,
   });
 
   @override
+  State<ProductNameWithQuantity> createState() =>
+      _ProductNameWithQuantityState();
+}
+
+class _ProductNameWithQuantityState extends State<ProductNameWithQuantity> {
+  GProductVariantDetailsFragment? selectedVariant;
+
+  @override
   Widget build(BuildContext context) {
-    if (productViewType == ProductViewType.CARD) {
+    if (widget.productViewType == ProductViewType.CARD) {
       return _productNameWithQuantity(
-          context, productName, 13, productVariant?.first.name ?? "", 9);
+        context,
+        widget.productName,
+        12,
+      );
     }
     return _productNameWithQuantity(
-        context, productName, 20, productVariant?.first.name ?? "", 16);
+      context,
+      widget.productName,
+      18,
+    );
   }
 
   Widget _productNameWithQuantity(
     BuildContext context,
     String productName,
     double productNameSize,
-    String productQuantity,
-    double productQuantitySize,
   ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,14 +60,14 @@ class ProductNameWithQuantity extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        Text(
-          productQuantity,
-          style: TextStyle(
-            color: Colors.grey,
-            fontWeight: FontWeight.bold,
-            fontSize: productQuantitySize,
+        SizedBox(
+          height: widget.productViewType == ProductViewType.CARD ? 15 : 30,
+          child: ProductVariantDropDown(
+            variants: widget.productVariant,
+            productViewType: widget.productViewType,
+            onVariantChange: widget.onVariantChange,
           ),
-        ),
+        )
       ],
     );
   }

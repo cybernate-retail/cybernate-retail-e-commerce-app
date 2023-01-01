@@ -25,7 +25,7 @@ class GlobalConstants {
   static const String adBannerSlug = 'ad-banners';
   static const String allCategories = 'All Categories';
   static const String featuredProductsSlug = 'featured-products';
-  static const int adBannerDuration = 10;
+  static const int adBannerDuration = 15;
   static const String appUrl = "http://localhost:8000/graphql/";
   static const String defaultChannel = "default-channel";
   static const defaultLanguage = GLanguageCodeEnum.EN_US;

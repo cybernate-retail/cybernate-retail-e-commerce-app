@@ -1,9 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/ProductVariantDetailsFragment.data.gql.dart';
-import 'package:cybernate_retail_mobile/ui/common_widgets/buttons/custom_buttons.dart';
-import 'package:cybernate_retail_mobile/ui/common_widgets/product/product_price_with_discount.dart';
-import 'package:cybernate_retail_mobile/ui/common_widgets/product/product_varient_dropdown.dart';
+import 'package:cybernate_retail_mobile/ui/screens/product/components/product_description.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -16,8 +14,9 @@ class ProductWidget extends StatefulWidget {
   final BuiltList<GProductVariantDetailsFragment>? productVariant;
   final Function onTap;
   final bool enableDiscountBanner;
+  GProductVariantDetailsFragment? selectedProductVariant;
 
-  const ProductWidget({
+  ProductWidget({
     super.key,
     this.productAddedCount = 0,
     required this.productId,
@@ -35,9 +34,8 @@ class ProductWidget extends StatefulWidget {
 class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
-    GProductVariantDetailsFragment? selectedProductVariant =
-        widget.productVariant?.first;
-    if (selectedProductVariant == null) {
+    widget.selectedProductVariant ??= widget.productVariant?.first;
+    if (widget.productVariant?.first == null) {
       return Container();
     }
 
@@ -66,7 +64,11 @@ class _ProductWidgetState extends State<ProductWidget> {
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _productImage(),
-                    _productDescription(selectedProductVariant),
+                    ProductDescription(
+                      productName: widget.productName,
+                      productVariant: widget.productVariant,
+                      productViewType: ProductViewType.CARD,
+                    ),
                   ],
                 ),
               ),
@@ -78,14 +80,16 @@ class _ProductWidgetState extends State<ProductWidget> {
           child: Align(
             alignment: Alignment.topRight,
             child: widget.enableDiscountBanner &&
-                    selectedProductVariant
-                            .pricing?.priceUndiscounted?.gross.amount !=
-                        selectedProductVariant.pricing?.price?.gross.amount
+                    widget.selectedProductVariant?.pricing?.priceUndiscounted
+                            ?.gross.amount !=
+                        widget.selectedProductVariant?.pricing?.price?.gross
+                            .amount
                 ? Utils.discountBanner(
                     discount: Utils.calculateDiscount(
-                      selectedProductVariant
-                          .pricing?.priceUndiscounted?.gross.amount,
-                      selectedProductVariant.pricing?.price?.gross.amount,
+                      widget.selectedProductVariant?.pricing?.priceUndiscounted
+                          ?.gross.amount,
+                      widget
+                          .selectedProductVariant?.pricing?.price?.gross.amount,
                     ),
                   )
                 : Container(),
@@ -110,91 +114,6 @@ class _ProductWidgetState extends State<ProductWidget> {
       ),
       child:
           Center(child: Utils.renderNetworkImageWithLoader(widget.productUrl)),
-    );
-  }
-
-  Widget _productDescription(
-      GProductVariantDetailsFragment? selectedProductVariant) {
-    return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: Utils.spaceScale(1),
-        vertical: Utils.spaceScale(1),
-      ),
-      height: 80,
-      // padding: EdgeInsets.only(bottom: Utils.spaceScale(1)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _productNameWithQuantity(
-            widget.productName,
-            widget.productVariant,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ProductPriceWithDiscount(
-                productViewType: ProductViewType.CARD,
-                productPrice: selectedProductVariant
-                        ?.pricing?.price?.gross.amount
-                        .toString() ??
-                    "",
-                productUndiscountedPrice: selectedProductVariant
-                        ?.pricing?.priceUndiscounted?.gross.amount
-                        .toString() ??
-                    "",
-              ),
-              widget.productAddedCount == 0
-                  ? CustomButtons.addButton(
-                      24,
-                      Theme.of(context).primaryColor,
-                      Theme.of(context).colorScheme.onPrimary,
-                      10,
-                    )
-                  : _quantityController(),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _productNameWithQuantity(
-      String productName, BuiltList<GProductVariantDetailsFragment>? variant) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(
-          productName,
-          maxLines: 2,
-          softWrap: true,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onBackground,
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        // Text(
-        //   variant?.name ?? "",
-        //   maxLines: 1,
-        //   softWrap: true,
-        //   overflow: TextOverflow.ellipsis,
-        // style: const TextStyle(
-        //   color: Colors.grey,
-        //   fontWeight: FontWeight.bold,
-        //   fontSize: 10,
-        // ),
-        // ),
-        SizedBox(
-          height: 15,
-          child: ProductVariantDropDown(
-            variants: variant,
-            selectedVariant: variant?.first,
-          ),
-        )
-      ],
     );
   }
 
