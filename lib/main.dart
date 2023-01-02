@@ -11,7 +11,7 @@ import 'package:cybernate_retail_mobile/mobx_stores/login/login.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/theme/theme.dart';
-import 'package:cybernate_retail_mobile/ui/screens/home/home.dart';
+import 'package:cybernate_retail_mobile/ui/screens/splash/splash.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
@@ -71,12 +71,12 @@ class MyApp extends StatelessWidget {
             theme: _themeStore.darkMode
                 ? AppThemeData.darkThemeData
                 : AppThemeData.lightThemeData,
-            // home: _loginStore.getLoggedIn()
-            //     ? const SplashLogo(
-            //         nextRoute: Routes.home,
-            //       )
-            //     : const SplashLogo(nextRoute: Routes.signup),
-            home: HomeScreen(),
+            home: _loginStore.getLoggedIn()
+                ? const SplashLogo(
+                    nextRoute: Routes.home,
+                  )
+                : const SplashLogo(nextRoute: Routes.signup),
+            // home: HomeScreen(),
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),

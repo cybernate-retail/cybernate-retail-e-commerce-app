@@ -3,7 +3,6 @@ import 'package:cybernate_retail_mobile/ui/screens/home/home.dart';
 import 'package:cybernate_retail_mobile/ui/screens/orders/order.dart';
 import 'package:cybernate_retail_mobile/ui/screens/payments/payments.dart';
 import 'package:cybernate_retail_mobile/ui/screens/payments/view_payments.dart';
-import 'package:cybernate_retail_mobile/ui/screens/product/product_view.dart';
 import 'package:cybernate_retail_mobile/ui/screens/profile/profile.dart';
 import 'package:cybernate_retail_mobile/ui/screens/signup/otp.dart';
 import 'package:cybernate_retail_mobile/ui/screens/signup/signup.dart';
