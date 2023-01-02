@@ -10,7 +10,7 @@ class ProductVariantDropDown extends StatefulWidget {
   final ProductViewType productViewType;
   final Function(GProductVariantDetailsFragment?) onVariantChange;
 
-  ProductVariantDropDown({
+  const ProductVariantDropDown({
     super.key,
     required this.variants,
     required this.onVariantChange,

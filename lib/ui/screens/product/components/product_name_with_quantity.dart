@@ -9,7 +9,7 @@ class ProductNameWithQuantity extends StatefulWidget {
   final String productName;
   final BuiltList<GProductVariantDetailsFragment>? productVariant;
   final Function(GProductVariantDetailsFragment?) onVariantChange;
-  ProductNameWithQuantity({
+  const ProductNameWithQuantity({
     super.key,
     required this.productViewType,
     required this.productName,

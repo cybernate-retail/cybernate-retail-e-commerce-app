@@ -4,7 +4,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 class ConnectivityCheck extends StatelessWidget {
   final Widget child;
 
-  ConnectivityCheck({required this.child});
+  const ConnectivityCheck({required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class ConnectivityCheck extends StatelessWidget {
         stream: Connectivity().onConnectivityChanged,
         builder: (context, snapshot) {
           if (!snapshot.hasData || snapshot.data == ConnectivityResult.none) {
-            return Center(
+            return const Center(
               child: Text("No Network"),
             );
           } else {

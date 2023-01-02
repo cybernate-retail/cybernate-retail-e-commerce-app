@@ -6,7 +6,6 @@ import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactUsScreen extends StatelessWidget {

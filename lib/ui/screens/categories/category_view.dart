@@ -1,13 +1,9 @@
-import 'package:built_collection/built_collection.dart';
-import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/CategoryDetailsById.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/CategoryDetailsById.req.gql.dart';
-import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/cart/components/cart_widget.dart';
 import 'package:cybernate_retail_mobile/ui/screens/categories/components/category_view_widget.dart';
-import 'package:cybernate_retail_mobile/ui/screens/product/components/product_widget.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
