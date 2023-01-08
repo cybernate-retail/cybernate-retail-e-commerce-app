@@ -67,21 +67,16 @@ class _ProductDescriptionState extends State<ProductDescription> {
   }
 
   void onPlusOrAdd() async {
-    final profile = await _profileStore.getProfileData();
-    if (profile != null && widget.selectedVariant != null) {
-      _cartStore.add(
-        email: profile.phoneNumber,
-        variantId: widget.selectedVariant?.id ?? "",
-        quantity: 1,
-        price: widget.selectedVariant?.pricing?.price?.gross.amount ?? 0,
-      );
-    }
+    _cartStore.add(
+      variantId: widget.selectedVariant?.id ?? "",
+      quantity: 1,
+      price: widget.selectedVariant?.pricing?.price?.gross.amount ?? 0,
+    );
   }
 
   void onMinus() {
-    _cartStore.update(
+    _cartStore.removeOneItem(
       variantId: widget.selectedVariant?.id ?? "",
-      quantity: quantityAddedToCart - 1,
       price: widget.selectedVariant?.pricing?.price?.gross.amount ?? 0,
     );
   }

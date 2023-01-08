@@ -24,11 +24,6 @@ class RemoteRepository {
     return _checkoutDataSource.createCheckout(email: email, items: items);
   }
 
-  Stream<OperationResponse<GCheckoutByTokenData, GCheckoutByTokenVars>>
-      checkoutByToken({required token}) {
-    return _checkoutDataSource.checkoutByToken(token: token);
-  }
-
   Stream<
       OperationResponse<GCheckoutAddProductLineData,
           GCheckoutAddProductLineVars>> checkoutAddProductLine(

@@ -47,11 +47,6 @@ abstract class _CartStore with Store {
     return 0;
   }
 
-  getCartItems() async {
-    final response =
-        await _remoteRepository.checkoutByToken(token: cartToken).first;
-  }
-
   @action
   createCheckout({
     required String email,
@@ -63,13 +58,16 @@ abstract class _CartStore with Store {
     );
     response.listen((event) {
       cartToken = event.data?.checkoutCreate?.checkout?.token;
-      if (cartToken != null) {}
+      if (cartToken != null) {
+        _amount =
+            event.data?.checkoutCreate?.checkout?.totalPrice.gross.amount ??
+                _amount;
+      }
     });
   }
 
   @action
   add({
-    required String email,
     required String variantId,
     required int quantity,
     required double? price,
@@ -83,10 +81,6 @@ abstract class _CartStore with Store {
       response.listen((event) {
         if (!event.hasErrors &&
             event.data?.checkoutLinesAdd?.errors == BuiltList()) {
-          // _itemsCount = event.data?.checkoutLinesAdd?.checkout?.lines
-          //         .map((p0) => p0.quantity)
-          //         .sum ??
-          //     _itemsCount;
           int temp = _variantsAddedToCart[variantId] ?? 0;
           updateVariantMap(variantId, temp + quantity, price);
           _amount =
@@ -98,11 +92,36 @@ abstract class _CartStore with Store {
   }
 
   @action
-  update(
-      {required String variantId,
-      required int quantity,
-      required double? price}) async {
-    if (cartToken != null) {
+  removeOneItem({
+    required String variantId,
+    required double? price,
+  }) async {
+    final currentQuantity = _variantsAddedToCart[variantId] ?? 0;
+    if (cartToken != null && currentQuantity > 0) {
+      final response = _remoteRepository.checkoutUpdateProductLine(
+        token: cartToken!,
+        variantId: variantId,
+        quantity: currentQuantity - 1,
+      );
+      response.listen((event) {
+        if (!event.hasErrors &&
+            event.data?.checkoutLinesUpdate?.errors == BuiltList()) {
+          updateVariantMap(variantId, currentQuantity - 1, price);
+          _amount = event.data?.checkoutLinesUpdate?.checkout?.totalPrice.gross
+                  .amount ??
+              _amount;
+        }
+      });
+    }
+  }
+
+  @action
+  update({
+    required String variantId,
+    required int quantity,
+    required double? price,
+  }) async {
+    if (cartToken != null && quantity >= 0) {
       final response = _remoteRepository.checkoutUpdateProductLine(
         token: cartToken!,
         variantId: variantId,
@@ -111,10 +130,6 @@ abstract class _CartStore with Store {
       response.listen((event) {
         if (!event.hasErrors &&
             event.data?.checkoutLinesUpdate?.errors == BuiltList()) {
-          // _itemsCount = event.data?.checkoutLinesUpdate?.checkout?.lines
-          //         .map((p0) => p0.quantity)
-          //         .sum ??
-          //     _itemsCount;
           updateVariantMap(variantId, quantity, price);
           _amount = event.data?.checkoutLinesUpdate?.checkout?.totalPrice.gross
                   .amount ??
@@ -126,15 +141,15 @@ abstract class _CartStore with Store {
     }
   }
 
-  updateVariantMap(String variantId, int quantity, double? price) {
+  void updateVariantMap(String variantId, int quantity, double? price) {
     if (price == null) {
       return;
     }
+    _amount += (quantity - (_variantsAddedToCart[variantId] ?? 0)) * price;
+    _amount = Utils.roundOffDouble(_amount, 2);
     if (quantity <= 0) {
       _variantsAddedToCart.remove(variantId);
     } else {
-      _amount += (quantity - (_variantsAddedToCart[variantId] ?? 0)) * price;
-      _amount = Utils.roundOffDouble(_amount, 2);
       _variantsAddedToCart[variantId] = quantity;
     }
   }

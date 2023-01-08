@@ -35,6 +35,7 @@ class CheckoutDataSource {
       ((b) => b
         ..vars.email = email
         ..vars.channel = GlobalConstants.defaultChannel
+        ..vars.locale = GlobalConstants.defaultLanguage
         ..vars.lines = _buildLine(items: items)),
     );
     return _client.request(request);
