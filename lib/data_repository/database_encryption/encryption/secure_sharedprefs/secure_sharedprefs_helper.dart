@@ -9,7 +9,7 @@ class SecureSharedPreferencesHelper {
 
   SecureSharedPreferencesHelper(this._secureStorage);
 
-  Future<dynamic> setKey(String value) async {
+  Future<dynamic> setEncryptKey(String value) async {
     return await _secureStorage.write(
         key: SecurePreferencesConstants.encryptKey, value: value);
   }
@@ -30,5 +30,16 @@ class SecureSharedPreferencesHelper {
     return stringToken == null
         ? null
         : TokenModel.fromJson(jsonDecode(stringToken));
+  }
+
+  Future<dynamic> setCartKey(String value) async {
+    return await _secureStorage.write(
+      key: SecurePreferencesConstants.cart,
+      value: value,
+    );
+  }
+
+  Future<String?> getCartKey() async {
+    return await _secureStorage.read(key: SecurePreferencesConstants.cart);
   }
 }

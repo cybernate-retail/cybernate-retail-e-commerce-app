@@ -1,9 +1,12 @@
+import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class CartWidget extends StatefulWidget {
   const CartWidget({super.key});
@@ -13,29 +16,51 @@ class CartWidget extends StatefulWidget {
 }
 
 class _CartWidgetState extends State<CartWidget> {
+  late CartStore _cartStore;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _cartStore = Provider.of<CartStore>(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-          left: UiConstants.globalPadding,
-          right: UiConstants.globalPadding,
-          bottom: Utils.spaceScale(3)),
-      child: InkWell(
-        onTap: () {
-          InAppNavigation.cart(context);
-        },
-        child: Ink(
-          height: MediaQuery.of(context).size.height * 0.08,
-          decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(UiConstants.edgeRadius)),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(2)),
-            child: cartTabs(),
+    return Observer(builder: (_) {
+      return AnimatedCrossFade(
+        duration:
+            const Duration(milliseconds: UiConstants.globalAnimationDuration),
+        crossFadeState:
+            _cartStore.cartToken != null && _cartStore.itemsCount > 0
+                ? CrossFadeState.showFirst
+                : CrossFadeState.showSecond,
+        // transitionBuilder: (Widget child, Animation<double> animation) {
+        //   return ScaleTransition(scale: animation, child: child);
+        // },
+        firstChild: Padding(
+          padding: EdgeInsets.only(
+              left: UiConstants.globalPadding,
+              right: UiConstants.globalPadding,
+              bottom: Utils.spaceScale(3)),
+          child: InkWell(
+            onTap: () {
+              InAppNavigation.cart(context);
+            },
+            child: Ink(
+              height: MediaQuery.of(context).size.height * 0.08,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(UiConstants.edgeRadius)),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(2)),
+                child: cartTabs(),
+              ),
+            ),
           ),
         ),
-      ),
-    );
+        secondChild: Utils.verticalSizedBox(0),
+      );
+    });
   }
 
   Widget cartTabs() {
@@ -47,7 +72,7 @@ class _CartWidgetState extends State<CartWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              "₹20000 |",
+              "₹${_cartStore.amount} |",
               style: TextStyle(
                 fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
                 color: Theme.of(context).colorScheme.onPrimary,
@@ -56,7 +81,7 @@ class _CartWidgetState extends State<CartWidget> {
             ),
             // Utils.horizontalSpace(1),
             Text(
-              " 6 items",
+              " ${_cartStore.itemsCount} items",
               style: TextStyle(
                 fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
                 color: Theme.of(context).colorScheme.onPrimary,

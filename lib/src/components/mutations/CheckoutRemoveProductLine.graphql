@@ -1,0 +1,17 @@
+# import '../fragments/CheckoutDetailsFragment.graphql'
+mutation CheckoutUpdateProductLine(
+  $checkoutToken: UUID!
+  $variantId: ID!
+  $quantity: Int!
+  $locale: LanguageCodeEnum!
+) {
+  checkoutLinesUpdate(token: $checkoutToken, lines: [{ quantity: $quantity, variantId: $variantId }]) {
+    checkout {
+      ...CheckoutDetailsFragment
+    }
+    errors {
+      message
+      code
+    }
+  }
+}

@@ -3,6 +3,7 @@ import 'package:cybernate_retail_mobile/data_repository/database_encryption/encr
 import 'package:cybernate_retail_mobile/data_repository/remote_repository.dart';
 import 'package:cybernate_retail_mobile/data_repository/repository.dart';
 import 'package:cybernate_retail_mobile/dependency_injection/services.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
 import 'package:cybernate_retail_mobile/ui/global_theme/apptheme.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/introduction/introduction.dart';
@@ -50,9 +51,12 @@ class MyApp extends StatelessWidget {
       LoginStore(getIt<Repository>(), getIt<SecureSharedPreferencesHelper>());
   final TestingStore _testingStore =
       TestingStore(getIt<RemoteRepository>(), getIt<Repository>());
+  final CartStore _cartStore =
+      CartStore(getIt<Repository>(), getIt<RemoteRepository>());
 
   @override
   Widget build(BuildContext context) {
+    // todo connect s3 image storage to cdn
     return MultiProvider(
       providers: [
         Provider(create: (_) => _introductionStore),
@@ -61,6 +65,7 @@ class MyApp extends StatelessWidget {
         Provider(create: (_) => _profileStore),
         Provider(create: (_) => _testingStore),
         Provider(create: (_) => _loginStore),
+        Provider(create: (_) => _cartStore),
       ],
       child: Observer(
         name: 'global-observer',

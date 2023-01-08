@@ -156,7 +156,6 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
               final currentProduct = products?.elementAt(index).node;
               if (currentProduct == null) return Container();
               return ProductWidget(
-                productAddedCount: index % 2,
                 productId: currentProduct.id,
                 productUrl: currentProduct.thumbnail?.url ?? "",
                 productVariant: currentProduct.variants,

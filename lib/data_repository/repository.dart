@@ -78,4 +78,13 @@ class Repository {
   Future<dynamic> setTokens(TokenModel tokens) {
     return _secureSharedPreferencesHelper.setTokens(tokens);
   }
+
+  //CART-----------------------------------------
+  Future<String?> getCartKey() {
+    return _secureSharedPreferencesHelper.getCartKey();
+  }
+
+  Future<dynamic> setCartKey(String key) {
+    return _secureSharedPreferencesHelper.setCartKey(key);
+  }
 }

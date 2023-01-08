@@ -70,6 +70,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
               _similarProducts(
                 response.data?.product?.category?.products?.edges,
               ),
+              Utils.verticalSpace(2),
               // _mightLikeProducts(),
             ],
           );

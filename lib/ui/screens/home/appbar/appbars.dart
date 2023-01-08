@@ -41,7 +41,7 @@ PreferredSizeWidget customAppBar(BuildContext context) {
           onPressed: () {
             InAppNavigation.profile(context);
           }),
-      Utils.horizontalSpace(1),
+      Utils.horizontalSpace(1 / 2),
     ];
   }
 

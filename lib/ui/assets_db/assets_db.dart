@@ -23,6 +23,7 @@ class AssetsDb {
   static String get rejectedAnimation => "assets/animations/rejected.json";
 
   static String get locationAnimation => "assets/animations/location.json";
+  static String get plusAnimation => "assets/icons/plus-circle.json";
 
   //Logos or icons
   static String get logo => "assets/logo/logo.png";

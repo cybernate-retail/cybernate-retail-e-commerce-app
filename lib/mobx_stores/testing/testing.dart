@@ -11,8 +11,4 @@ abstract class _TestingStore with Store {
   // ignore: unused_field
   final Repository _repository;
   _TestingStore(this._remoteRepository, this._repository);
-
-  product() {
-    return _remoteRepository.product();
-  }
 }

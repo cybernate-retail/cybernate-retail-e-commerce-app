@@ -1,5 +1,7 @@
+import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
+import 'package:cybernate_retail_mobile/ui/common_widgets/buttons/quantity_controller.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/cart/components/cart_checkout_button.dart';
@@ -141,7 +143,10 @@ class _CartScreenState extends State<CartScreen> {
             padding: EdgeInsets.only(
               right: Utils.spaceScale(2),
             ),
-            child: _quantityController(),
+            child: const QuantityControllerWidget(
+              currentQuantity: 8,
+              productViewType: ProductViewType.CARD,
+            ),
           ),
         ],
       ),
@@ -183,52 +188,52 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget _quantityController() {
-    return Container(
-      height: 32,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(UiConstants.edgeRadius / 2),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.tertiaryContainer,
-        ),
-        color: Theme.of(context).primaryColor,
-      ),
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: () {},
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.remove,
-                size: Utils.spaceScale(2),
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-            ),
-          ),
-          Text(
-            "1",
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimary,
-              fontWeight: FontWeight.bold,
-              fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
-            ),
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.add,
-                size: Utils.spaceScale(2),
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _quantityController() {
+  //   return Container(
+  //     height: 32,
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(UiConstants.edgeRadius / 2),
+  //       border: Border.all(
+  //         color: Theme.of(context).colorScheme.tertiaryContainer,
+  //       ),
+  //       color: Theme.of(context).primaryColor,
+  //     ),
+  //     child: Row(
+  //       children: [
+  //         GestureDetector(
+  //           onTap: () {},
+  //           child: Padding(
+  //             padding: const EdgeInsets.all(8.0),
+  //             child: Icon(
+  //               Icons.remove,
+  //               size: Utils.spaceScale(2),
+  //               color: Theme.of(context).colorScheme.onPrimary,
+  //             ),
+  //           ),
+  //         ),
+  //         Text(
+  //           "1",
+  //           style: TextStyle(
+  //             color: Theme.of(context).colorScheme.onPrimary,
+  //             fontWeight: FontWeight.bold,
+  //             fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+  //           ),
+  //         ),
+  //         GestureDetector(
+  //           onTap: () {},
+  //           child: Padding(
+  //             padding: const EdgeInsets.all(8.0),
+  //             child: Icon(
+  //               Icons.add,
+  //               size: Utils.spaceScale(2),
+  //               color: Theme.of(context).colorScheme.onPrimary,
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _couponsWidget() {
     return Container(
