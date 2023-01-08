@@ -22,6 +22,7 @@ abstract class _CartStore with Store {
   );
 
   @observable
+  // ignore: prefer_final_fields
   ObservableMap<String, int> _variantsAddedToCart =
       ObservableMap<String, int>();
 

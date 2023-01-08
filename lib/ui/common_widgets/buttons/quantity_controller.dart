@@ -30,7 +30,7 @@ class _QuantityControllerWidgetState extends State<QuantityControllerWidget> {
 
   Widget _quantityController() {
     return Container(
-      height: widget.productViewType == ProductViewType.CARD ? 24 : 32,
+      height: widget.productViewType == ProductViewType.CARD ? 28 : 32,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(UiConstants.edgeRadius / 2),
         border: Border.all(
@@ -59,7 +59,7 @@ class _QuantityControllerWidgetState extends State<QuantityControllerWidget> {
           ),
           widget.productViewType == ProductViewType.SCREEN
               ? Utils.horizontalSpace(1 / 2)
-              : Utils.horizontalSpace(0),
+              : Utils.horizontalSpace(1 / 4),
           Text(
             widget.currentQuantity.toString(),
             style: TextStyle(

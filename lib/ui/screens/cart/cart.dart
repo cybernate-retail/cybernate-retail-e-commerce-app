@@ -2,13 +2,11 @@ import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
-import 'package:cybernate_retail_mobile/src/components/queries/models/CheckoutByToken.ast.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/CheckoutByToken.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/CheckoutByToken.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/CheckoutByToken.var.gql.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/buttons/add_to_cart_button.dart';
-import 'package:cybernate_retail_mobile/ui/common_widgets/buttons/quantity_controller.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/cart/components/cart_checkout_button.dart';
@@ -38,9 +36,11 @@ class _CartScreenState extends State<CartScreen> {
     super.didChangeDependencies();
     _cartStore = Provider.of<CartStore>(context);
     _profileStore = Provider.of<ProfileStore>(context);
-    await _cartStore.createCheckout(
-      email: _profileStore.profile?.phoneNumber ?? "",
-    );
+    if (_cartStore.cartToken == null) {
+      await _cartStore.createCheckout(
+        email: _profileStore.profile?.phoneNumber ?? "",
+      );
+    }
   }
 
   @override
@@ -87,29 +87,32 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget _body() {
-    return CustomScrollView(
-      slivers: [
-        // SliverAppBar(
-        //   automaticallyImplyLeading: false,
-        //   pinned: true,
-        //   toolbarHeight: 30,
-        //   shape: RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
-        //   ),
-        //   title: Container(
-        //     alignment: Alignment.topRight,
-        //     child: const Text(
-        //       "₹345 saved",
-        //       style: TextStyle(
-        //         fontSize: 16,
-        //         color: Color.fromARGB(255, 5, 140, 10),
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        Observer(builder: (_) {
-          return _cartStore.cartToken != null
-              ? Operation(
+    return Observer(builder: (_) {
+      return _cartStore.cartToken == null
+          ? SizedBox(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Center(child: Utils.shimmerPlaceHolder()))
+          : CustomScrollView(
+              slivers: [
+                // SliverAppBar(
+                //   automaticallyImplyLeading: false,
+                //   pinned: true,
+                //   toolbarHeight: 30,
+                //   shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
+                //   ),
+                //   title: Container(
+                //     alignment: Alignment.topRight,
+                //     child: const Text(
+                //       "₹345 saved",
+                //       style: TextStyle(
+                //         fontSize: 16,
+                //         color: Color.fromARGB(255, 5, 140, 10),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                Operation(
                   operationRequest: GCheckoutByTokenReq(
                     ((b) => b
                       ..vars.locale = GlobalConstants.defaultLanguage
@@ -124,7 +127,11 @@ class _CartScreenState extends State<CartScreen> {
                   ) {
                     if (response == null || response.loading) {
                       return SliverToBoxAdapter(
-                          child: Utils.shimmerPlaceHolder());
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.8,
+                          child: Utils.shimmerPlaceHolder(),
+                        ),
+                      );
                     }
                     if (response.linkException != null) {
                       return SliverToBoxAdapter(
@@ -161,23 +168,22 @@ class _CartScreenState extends State<CartScreen> {
                     );
                   },
                   client: client,
-                )
-              : SliverToBoxAdapter(
-                  child: Container(),
-                );
-        }),
-        SliverToBoxAdapter(
-            child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(2)),
-          child: _couponsWidget(),
-        )),
-        SliverToBoxAdapter(
-            child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(2)),
-          child: _billWidget(),
-        )),
-      ],
-    );
+                ),
+                SliverToBoxAdapter(
+                    child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: Utils.spaceScale(2)),
+                  child: _couponsWidget(),
+                )),
+                SliverToBoxAdapter(
+                    child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: Utils.spaceScale(2)),
+                  child: _billWidget(),
+                )),
+              ],
+            );
+    });
   }
 
   Widget _emptyCart() {
@@ -409,7 +415,9 @@ class _CartScreenState extends State<CartScreen> {
                     fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
                   ),
                 ),
-                const Text("₹967"),
+                Observer(builder: (_) {
+                  return Text("₹${_cartStore.amount.toString()}");
+                }),
               ],
             ),
             Row(
@@ -422,7 +430,7 @@ class _CartScreenState extends State<CartScreen> {
                     color: Colors.grey,
                   ),
                 ),
-                const Text("0"),
+                const Text("₹0"),
               ],
             ),
             Row(
@@ -435,7 +443,7 @@ class _CartScreenState extends State<CartScreen> {
                     color: Colors.grey,
                   ),
                 ),
-                const Text("₹10"),
+                const Text("₹0"),
               ],
             ),
             Utils.verticalSpace(1),
@@ -454,14 +462,16 @@ class _CartScreenState extends State<CartScreen> {
                     color: Theme.of(context).colorScheme.onBackground,
                   ),
                 ),
-                Text(
-                  "₹1000",
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Theme.of(context).colorScheme.onBackground,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Observer(builder: (_) {
+                  return Text(
+                    "₹${_cartStore.amount}",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Theme.of(context).colorScheme.onBackground,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                }),
               ],
             ),
           ],

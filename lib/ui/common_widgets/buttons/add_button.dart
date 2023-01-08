@@ -23,10 +23,10 @@ class AddButtonWidget extends StatelessWidget {
             onTap: onTap,
           )
         : addButton(
-            24,
+            28,
             Theme.of(context).primaryColor,
             Theme.of(context).colorScheme.onPrimary,
-            10,
+            12,
             onTap: onTap,
           );
   }
