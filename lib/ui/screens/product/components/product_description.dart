@@ -8,6 +8,7 @@ import 'package:cybernate_retail_mobile/ui/screens/product/components/product_na
 import 'package:cybernate_retail_mobile/ui/screens/product/components/product_price_with_discount.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 class ProductDescription extends StatefulWidget {
@@ -72,22 +73,17 @@ class _ProductDescriptionState extends State<ProductDescription> {
         email: profile.phoneNumber,
         variantId: widget.selectedVariant?.id ?? "",
         quantity: 1,
-        onDone: (int value) {
-          quantityAddedToCart += value;
-          setState(() {});
-        },
+        price: widget.selectedVariant?.pricing?.price?.gross.amount ?? 0,
       );
     }
   }
 
   void onMinus() {
     _cartStore.update(
-        variantId: widget.selectedVariant?.id ?? "",
-        quantity: quantityAddedToCart - 1,
-        onDone: (int value) {
-          quantityAddedToCart -= 1;
-          setState(() {});
-        });
+      variantId: widget.selectedVariant?.id ?? "",
+      quantity: quantityAddedToCart - 1,
+      price: widget.selectedVariant?.pricing?.price?.gross.amount ?? 0,
+    );
   }
 
   Widget _productDescription() {
@@ -127,14 +123,16 @@ class _ProductDescriptionState extends State<ProductDescription> {
                         .toString() ??
                     "",
               ),
-              AddToCartButton(
-                productViewType: widget.productViewType,
-                onMinus: onMinus,
-                onPlus: onPlusOrAdd,
-                quantityAddedToCart: _cartStore
-                        .variantsAddedToCart[widget.selectedVariant?.id] ??
-                    0,
-              )
+              Observer(builder: (_) {
+                return AddToCartButton(
+                  productViewType: widget.productViewType,
+                  onMinus: onMinus,
+                  onPlus: onPlusOrAdd,
+                  quantityAddedToCart: _cartStore
+                          .variantsAddedToCart[widget.selectedVariant?.id] ??
+                      0,
+                );
+              })
             ],
           ),
         ],

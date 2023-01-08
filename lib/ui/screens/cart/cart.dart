@@ -1,4 +1,6 @@
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/buttons/quantity_controller.dart';
@@ -7,7 +9,9 @@ import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/cart/components/cart_checkout_button.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -17,24 +21,39 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  late CartStore _cartStore;
+  late ProfileStore _profileStore;
+
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    _cartStore = Provider.of<CartStore>(context);
+    _profileStore = Provider.of<ProfileStore>(context);
+    await _cartStore.createCheckout(
+      email: _profileStore.profile?.phoneNumber ?? "",
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar("Cart(10)"),
+      appBar: _appBar(),
       body: _body(),
       bottomNavigationBar: const CartCheckoutButton(),
     );
   }
 
-  AppBar _appBar(String title) {
+  AppBar _appBar() {
     return AppBar(
-      title: Text(
-        title,
-        style: TextStyle(
-          fontSize: Theme.of(context).textTheme.titleLarge?.fontSize,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-      ),
+      title: Observer(builder: (_) {
+        return Text(
+          "Cart (${_cartStore.itemsCount})",
+          style: TextStyle(
+            fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        );
+      }),
       centerTitle: true,
       leading: UiIcons.back(
         color: Theme.of(context).colorScheme.primary,
@@ -69,24 +88,24 @@ class _CartScreenState extends State<CartScreen> {
     ];
     return CustomScrollView(
       slivers: [
-        SliverAppBar(
-          automaticallyImplyLeading: false,
-          pinned: true,
-          toolbarHeight: 30,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
-          ),
-          title: Container(
-            alignment: Alignment.center,
-            child: const Text(
-              "₹345 saved",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.green,
-              ),
-            ),
-          ),
-        ),
+        // SliverAppBar(
+        //   automaticallyImplyLeading: false,
+        //   pinned: true,
+        //   toolbarHeight: 30,
+        //   shape: RoundedRectangleBorder(
+        //     borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
+        //   ),
+        //   title: Container(
+        //     alignment: Alignment.topRight,
+        //     child: const Text(
+        //       "₹345 saved",
+        //       style: TextStyle(
+        //         fontSize: 16,
+        //         color: Color.fromARGB(255, 5, 140, 10),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             childCount: lists.length,
@@ -111,9 +130,10 @@ class _CartScreenState extends State<CartScreen> {
 
   Widget _emptyCart() {
     return Center(
-        child: Lottie.asset(
-      AssetsDb.emptyCartAnimations,
-    ));
+      child: Lottie.asset(
+        AssetsDb.emptyCartAnimations,
+      ),
+    );
   }
 
   Widget _cartItem(String productImage, String productName, int quantity) {
@@ -138,11 +158,10 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ),
           ),
-          Expanded(child: _productDescription("Saffolla Oil", "1Kg", "₹200")),
+          Expanded(child: _productDescription("Saffolla S Oil", "1Kg", "₹200")),
           Padding(
             padding: EdgeInsets.only(
-              right: Utils.spaceScale(2),
-            ),
+                right: Utils.spaceScale(2), left: Utils.spaceScale(2)),
             child: const QuantityControllerWidget(
               currentQuantity: 8,
               productViewType: ProductViewType.CARD,
@@ -161,6 +180,9 @@ class _CartScreenState extends State<CartScreen> {
       children: [
         Text(
           productName,
+          maxLines: 2,
+          softWrap: true,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
             fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
             color: Theme.of(context).primaryColor,

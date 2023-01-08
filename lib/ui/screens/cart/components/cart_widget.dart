@@ -30,10 +30,9 @@ class _CartWidgetState extends State<CartWidget> {
       return AnimatedCrossFade(
         duration:
             const Duration(milliseconds: UiConstants.globalAnimationDuration),
-        crossFadeState:
-            _cartStore.cartToken != null && _cartStore.itemsCount > 0
-                ? CrossFadeState.showFirst
-                : CrossFadeState.showSecond,
+        crossFadeState: _cartStore.itemsCount > 0
+            ? CrossFadeState.showFirst
+            : CrossFadeState.showSecond,
         // transitionBuilder: (Widget child, Animation<double> animation) {
         //   return ScaleTransition(scale: animation, child: child);
         // },

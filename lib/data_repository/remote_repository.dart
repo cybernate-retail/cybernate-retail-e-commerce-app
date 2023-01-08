@@ -20,13 +20,8 @@ class RemoteRepository {
 
   // CHeckout
   Stream<OperationResponse<GCreateCheckoutData, GCreateCheckoutVars>>
-      createCheckout(String email, String variantId, int quantity) {
-    return _checkoutDataSource.createCheckout(
-      email: email,
-      variantId: variantId,
-      quantity: quantity,
-      // price,
-    );
+      createCheckout(String email, Map<String, int> items) {
+    return _checkoutDataSource.createCheckout(email: email, items: items);
   }
 
   Stream<OperationResponse<GCheckoutByTokenData, GCheckoutByTokenVars>>

@@ -28,18 +28,14 @@ class CheckoutDataSource {
   }
 
   Stream<OperationResponse<GCreateCheckoutData, GCreateCheckoutVars>>
-      createCheckout({
-    required String email,
-    required String variantId,
-    required int quantity,
-  }
+      createCheckout({required String email, required Map<String, int> items}
           // String price,
           ) {
     final request = GCreateCheckoutReq(
       ((b) => b
         ..vars.email = email
         ..vars.channel = GlobalConstants.defaultChannel
-        ..vars.lines = _buildLine(variantId: variantId, quantity: quantity)),
+        ..vars.lines = _buildLine(items: items)),
     );
     return _client.request(request);
   }
@@ -75,22 +71,17 @@ class CheckoutDataSource {
     return _client.request(request);
   }
 
-  ListBuilder<GCheckoutLineInput>? _buildLine({
-    required String variantId,
-    required int quantity,
-  }
-      // String price,
-      ) {
-    // GPositiveDecimalBuilder priceBuilder = GPositiveDecimalBuilder()
-    //   ..value = price;
-    ListBuilder<GCheckoutLineInput>? lines;
-    lines?.add(
-      GCheckoutLineInput(
+  ListBuilder<GCheckoutLineInput> _buildLine(
+      {required Map<String, int> items}) {
+    ListBuilder<GCheckoutLineInput> lines = ListBuilder<GCheckoutLineInput>();
+    items.forEach((key, value) {
+      lines.add(GCheckoutLineInput(
         ((b) => b
-          ..quantity = quantity
-          ..variantId = variantId),
-      ),
-    );
+          ..quantity = value
+          ..variantId = key),
+      ));
+    });
+
     return lines;
   }
 }

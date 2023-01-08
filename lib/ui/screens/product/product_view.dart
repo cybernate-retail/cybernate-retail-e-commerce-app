@@ -206,7 +206,6 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
           return Padding(
             padding: EdgeInsets.only(right: Utils.spaceScale(1)),
             child: ProductWidget(
-              productAddedCount: index % 2,
               productId: product.id,
               productUrl: product.thumbnail?.url ?? "",
               productName: product.name,
