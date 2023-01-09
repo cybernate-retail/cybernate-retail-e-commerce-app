@@ -69,7 +69,6 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
                   .elementAt(index)
                   .node;
               return ProductWidget(
-                productAddedCount: index % 2,
                 productId: product?.id ?? "",
                 productUrl: product?.thumbnail?.url ?? "",
                 productVariant: product?.variants,

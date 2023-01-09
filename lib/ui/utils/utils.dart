@@ -65,6 +65,7 @@ class Utils {
 
   static void emptyFunction() {}
   static void emptyFunctionWithInt(int value) {}
+  static void emptyFunctionWithString(String value) {}
 
   static Widget elevatedButton(String text, {onPressed = emptyFunction}) {
     return ElevatedButton(

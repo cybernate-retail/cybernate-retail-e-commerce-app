@@ -10,7 +10,7 @@ class SearchShimmer extends StatelessWidget {
   Widget trendingShimmer(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.15,
-      width: MediaQuery.of(context).size.width * 0.285,
+      width: MediaQuery.of(context).size.width * 0.25,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
@@ -21,7 +21,7 @@ class SearchShimmer extends StatelessWidget {
   Widget categoryShimmer(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.15,
-      width: MediaQuery.of(context).size.width * 0.44,
+      width: MediaQuery.of(context).size.width * 0.38,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(UiConstants.edgeRadius),

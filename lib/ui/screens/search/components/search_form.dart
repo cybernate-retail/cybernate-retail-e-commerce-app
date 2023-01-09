@@ -15,15 +15,19 @@ const OutlineInputBorder focusedOutlineInputBorder = OutlineInputBorder(
 );
 
 class SearchForm extends StatelessWidget {
-  const SearchForm({
-    Key? key,
-  }) : super(key: key);
+  final Function onChanged;
+
+  const SearchForm({Key? key, this.onChanged = Utils.emptyFunctionWithString})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Form(
       child: TextFormField(
         onSaved: (value) {},
+        onChanged: (value) {
+          onChanged(value);
+        },
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,

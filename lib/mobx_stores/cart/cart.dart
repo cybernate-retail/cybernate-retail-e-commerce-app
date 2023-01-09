@@ -113,6 +113,10 @@ abstract class _CartStore with Store {
               _amount;
         }
       });
+    } else {
+      if (currentQuantity > 0) {
+        updateVariantMap(variantId, currentQuantity - 1, price);
+      }
     }
   }
 

@@ -1,0 +1,29 @@
+# import '../fragments/CollectionProduct.graphql'
+query SearchPlaceholder(
+	$slug: String!
+	$channel: String!
+	$locale: LanguageCodeEnum!
+	$first: Int
+	$after: String
+	$last: Int
+	$before: String
+) {
+	collection(slug: $slug, channel: $channel) {
+		id
+
+		products(first: $first, after: $after, before: $before, last: $last) {
+			edges {
+				node {
+					...CollectionProduct
+				}
+			}
+			pageInfo {
+				endCursor
+				hasNextPage
+				hasPreviousPage
+				startCursor
+			}
+		}
+	}
+	
+}
