@@ -1,10 +1,20 @@
 import 'dart:async';
 
+import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
+import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
+import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
+import 'package:cybernate_retail_mobile/ui/screens/address/components/address_pick_and_confirm.dart';
+import 'package:cybernate_retail_mobile/ui/screens/address/components/address_search_widget.dart';
+import 'package:cybernate_retail_mobile/ui/screens/address/components/get_geolocation.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lottie/lottie.dart';
+import 'package:google_maps_flutter_platform_interface/src/types/marker.dart'
+    as marker;
 
 class PickAddressOnMap extends StatefulWidget {
   const PickAddressOnMap({super.key});
@@ -14,38 +24,89 @@ class PickAddressOnMap extends StatefulWidget {
 }
 
 class _PickAddressOnMapState extends State<PickAddressOnMap> {
+  // ignore: non_constant_identifier_names
+
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
+  LatLng? markerPosition;
+  BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
+  @override
+  void initState() {
+    super.initState();
 
-  static const CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+    determinePosition().then((value) {
+      _goToLocation(value);
+    }).onError((error, stackTrace) {
+      showDialog(
+        context: context,
+        builder: (_) => _enableLocationPopup(context),
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar("Pick Address"),
-      body: GoogleMap(
-        mapType: MapType.terrain,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: const Text('To the lake!'),
-        icon: const Icon(Icons.directions_boat),
-      ),
+      body: _body(),
     );
   }
+
+  Widget _body() {
+    return Stack(
+      children: [
+        GoogleMap(
+          mapType: MapType.terrain,
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height * 0.2,
+          ),
+          zoomGesturesEnabled: true,
+          zoomControlsEnabled: true,
+          compassEnabled: false,
+          initialCameraPosition: const CameraPosition(
+            target: GlobalConstants.currentCountryLocation,
+            zoom: 5,
+          ),
+          onMapCreated: (GoogleMapController controller) {
+            _controller.complete(controller);
+          },
+          onCameraMove: ((CameraPosition position) {
+            setState(() {
+              markerPosition = position.target;
+            });
+          }),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(UiConstants.globalPadding),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              const AddressSearchWidget(),
+              AddressPickAndConfirm(
+                currentMarker: markerPosition,
+                onClick: onPick,
+              ),
+            ],
+          ),
+        ),
+        Center(
+          child: UiIcons.icon(
+            AssetsDb.locationMarkerIcon,
+            color: Colors.red,
+            size: 40,
+          ),
+        ),
+      ],
+    );
+  }
+
+  onPick() {}
 
   AppBar _appBar(String title) {
     return AppBar(
@@ -76,8 +137,86 @@ class _PickAddressOnMapState extends State<PickAddressOnMap> {
     );
   }
 
-  Future<void> _goToTheLake() async {
+  CameraPosition _convertToCameraPosition(Position position) {
+    return CameraPosition(
+      bearing: 192.8334901395799,
+      target: LatLng(position.latitude, position.longitude),
+      // tilt: 10.440717697143555,
+      zoom: 18,
+    );
+  }
+
+  Future<void> _goToLocation(Position position) async {
+    final CameraPosition cameraPosition = _convertToCameraPosition(position);
     final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+    controller.animateCamera(
+      CameraUpdate.newCameraPosition(cameraPosition),
+    );
+  }
+
+  Widget _enableLocationPopup(BuildContext context) {
+    return AlertDialog(
+      icon: Stack(
+        children: [
+          Center(
+            child: Lottie.asset(
+              AssetsDb.locationEarthAnimation,
+              // width: MediaQuery.of(context).size.width * 0.75,
+              height: 150,
+            ),
+          ),
+          _getCloseButton(context),
+        ],
+      ),
+      title: Text(
+        "Need location permissions for better delivery assistance",
+        style: TextStyle(
+          fontSize: Theme.of(context).textTheme.titleSmall?.fontSize,
+          color: Colors.black,
+        ),
+      ),
+      actions: [
+        SizedBox(
+          height: 40,
+          child: Utils.neumorphicActionButtonWithIcon(
+            context,
+            "Enable location",
+            buttonColor: Theme.of(context).primaryColor,
+            onClick: () async {
+              Navigator.of(context, rootNavigator: true).pop();
+              await Geolocator.requestPermission().then(
+                (value) => determinePosition().then(
+                  (value) {
+                    setState(() {
+                      markerPosition = LatLng(value.latitude, value.longitude);
+                    });
+                    _goToLocation(value);
+                  },
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _getCloseButton(context) {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        alignment: FractionalOffset.topRight,
+        child: GestureDetector(
+          child: const Icon(
+            Icons.cancel_rounded,
+            size: 30,
+            color: Colors.red,
+          ),
+          onTap: () {
+            Navigator.of(context, rootNavigator: true).pop();
+          },
+        ),
+      ),
+    );
   }
 }

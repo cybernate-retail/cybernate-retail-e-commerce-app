@@ -1,5 +1,6 @@
 import 'package:cybernate_retail_mobile/ui/common_widgets/appbar/appbars.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
+import 'package:cybernate_retail_mobile/ui/screens/address/components/add_address_widget.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/components/view_address_widget.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class _ViewAddressState extends State<ViewAddress> {
     return Scaffold(
       appBar: justBackButtonWithTitleAppBar(context, "View Address"),
       body: _body(),
+      bottomNavigationBar: const AddAddressWidget(),
     );
   }
 
@@ -34,6 +36,51 @@ class _ViewAddressState extends State<ViewAddress> {
           Utils.verticalSpace(1),
           const ViewAddressWidget(
             addressType: 'Work',
+            addressLocation: 'Ayyappa Society\nC9XQ+XQ, Ayyappa Society..',
+          ),
+          Utils.verticalSpace(1),
+          const ViewAddressWidget(
+            addressType: 'My Friend',
+            addressLocation: 'Ayyappa Society\nC9XQ+XQ, Ayyappa Society..',
+          ),
+          Utils.verticalSpace(1),
+          const ViewAddressWidget(
+            addressType: 'My Friend',
+            addressLocation: 'Ayyappa Society\nC9XQ+XQ, Ayyappa Society..',
+          ),
+          Utils.verticalSpace(1),
+          const ViewAddressWidget(
+            addressType: 'My Friend',
+            addressLocation: 'Ayyappa Society\nC9XQ+XQ, Ayyappa Society..',
+          ),
+          Utils.verticalSpace(1),
+          const ViewAddressWidget(
+            addressType: 'My Friend',
+            addressLocation: 'Ayyappa Society\nC9XQ+XQ, Ayyappa Society..',
+          ),
+          Utils.verticalSpace(1),
+          const ViewAddressWidget(
+            addressType: 'My Friend',
+            addressLocation: 'Ayyappa Society\nC9XQ+XQ, Ayyappa Society..',
+          ),
+          Utils.verticalSpace(1),
+          const ViewAddressWidget(
+            addressType: 'My Friend',
+            addressLocation: 'Ayyappa Society\nC9XQ+XQ, Ayyappa Society..',
+          ),
+          Utils.verticalSpace(1),
+          const ViewAddressWidget(
+            addressType: 'My Friend',
+            addressLocation: 'Ayyappa Society\nC9XQ+XQ, Ayyappa Society..',
+          ),
+          Utils.verticalSpace(1),
+          const ViewAddressWidget(
+            addressType: 'My Friend',
+            addressLocation: 'Ayyappa Society\nC9XQ+XQ, Ayyappa Society..',
+          ),
+          Utils.verticalSpace(1),
+          const ViewAddressWidget(
+            addressType: 'My Friend',
             addressLocation: 'Ayyappa Society\nC9XQ+XQ, Ayyappa Society..',
           ),
           Utils.verticalSpace(1),

@@ -1,16 +1,13 @@
+import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 
-enum EnumSortBy {
-  recommended,
-  recentlyAdded,
-  priceLowToHigh,
-  priceHighToLow,
-  topRated
-}
-
-searchFilter(BuildContext context) {
+searchFilter({
+  required BuildContext context,
+  GProductOrderField? sort,
+  Function(GProductOrderField?)? onChange,
+}) {
   return showModalBottomSheet(
     context: context,
     enableDrag: false,
@@ -26,17 +23,21 @@ searchFilter(BuildContext context) {
         ),
       ),
       padding: EdgeInsets.all(Utils.spaceScale(1)),
-      child: _filterRadioButtons(context),
+      child:
+          _filterRadioButtons(context: context, sort: sort, onChange: onChange),
     ),
   );
 }
 
-ListView _filterRadioButtons(BuildContext context) {
-  EnumSortBy? sort = EnumSortBy.priceHighToLow;
+ListView _filterRadioButtons({
+  required BuildContext context,
+  GProductOrderField? sort,
+  Function(GProductOrderField?)? onChange,
+}) {
   return ListView(
     children: [
-      RadioListTile<EnumSortBy>(
-          value: EnumSortBy.recommended,
+      RadioListTile<GProductOrderField>(
+          value: GProductOrderField.NAME,
           groupValue: sort,
           title: const Text(
             "Recommended",
@@ -46,9 +47,11 @@ ListView _filterRadioButtons(BuildContext context) {
           ),
           controlAffinity: ListTileControlAffinity.trailing,
           activeColor: Theme.of(context).primaryColor,
-          onChanged: (v) {}),
-      RadioListTile<EnumSortBy>(
-        value: EnumSortBy.recentlyAdded,
+          onChanged: (v) {
+            if (onChange != null) onChange(v);
+          }),
+      RadioListTile<GProductOrderField>(
+        value: GProductOrderField.PUBLICATION_DATE,
         groupValue: sort,
         title: const Text(
           "Recently Added",
@@ -58,10 +61,12 @@ ListView _filterRadioButtons(BuildContext context) {
         ),
         activeColor: Theme.of(context).primaryColor,
         controlAffinity: ListTileControlAffinity.trailing,
-        onChanged: (v) {},
+        onChanged: (v) {
+          if (onChange != null) onChange(v);
+        },
       ),
-      RadioListTile<EnumSortBy>(
-        value: EnumSortBy.priceLowToHigh,
+      RadioListTile<GProductOrderField>(
+        value: GProductOrderField.MINIMAL_PRICE,
         groupValue: sort,
         title: const Text(
           "Price: Low to High",
@@ -71,10 +76,12 @@ ListView _filterRadioButtons(BuildContext context) {
         ),
         activeColor: Theme.of(context).primaryColor,
         controlAffinity: ListTileControlAffinity.trailing,
-        onChanged: (v) {},
+        onChanged: (v) {
+          if (onChange != null) onChange(v);
+        },
       ),
-      RadioListTile<EnumSortBy>(
-        value: EnumSortBy.priceHighToLow,
+      RadioListTile<GProductOrderField>(
+        value: GProductOrderField.PRICE,
         groupValue: sort,
         title: const Text(
           "Price: High to Low",
@@ -84,10 +91,12 @@ ListView _filterRadioButtons(BuildContext context) {
         ),
         activeColor: Theme.of(context).primaryColor,
         controlAffinity: ListTileControlAffinity.trailing,
-        onChanged: (v) {},
+        onChanged: (v) {
+          if (onChange != null) onChange(v);
+        },
       ),
-      RadioListTile<EnumSortBy>(
-        value: EnumSortBy.topRated,
+      RadioListTile<GProductOrderField>(
+        value: GProductOrderField.RATING,
         groupValue: sort,
         title: const Text(
           "Top rated",
@@ -97,7 +106,9 @@ ListView _filterRadioButtons(BuildContext context) {
         ),
         activeColor: Theme.of(context).primaryColor,
         controlAffinity: ListTileControlAffinity.trailing,
-        onChanged: (v) {},
+        onChanged: (v) {
+          if (onChange != null) onChange(v);
+        },
       )
     ],
   );

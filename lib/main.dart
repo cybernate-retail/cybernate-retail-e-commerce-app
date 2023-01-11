@@ -4,6 +4,7 @@ import 'package:cybernate_retail_mobile/data_repository/remote_repository.dart';
 import 'package:cybernate_retail_mobile/data_repository/repository.dart';
 import 'package:cybernate_retail_mobile/dependency_injection/services.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/search/search.dart';
 import 'package:cybernate_retail_mobile/ui/global_theme/apptheme.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/introduction/introduction.dart';
@@ -12,6 +13,7 @@ import 'package:cybernate_retail_mobile/mobx_stores/login/login.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/theme/theme.dart';
+import 'package:cybernate_retail_mobile/ui/screens/address/pick_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/splash/splash.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -53,6 +55,7 @@ class MyApp extends StatelessWidget {
       TestingStore(getIt<RemoteRepository>(), getIt<Repository>());
   final CartStore _cartStore =
       CartStore(getIt<Repository>(), getIt<RemoteRepository>());
+  final SearchStore _searchStore = SearchStore();
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +69,7 @@ class MyApp extends StatelessWidget {
         Provider(create: (_) => _testingStore),
         Provider(create: (_) => _loginStore),
         Provider(create: (_) => _cartStore),
+        Provider(create: (_) => _searchStore),
       ],
       child: Observer(
         name: 'global-observer',
@@ -76,12 +80,12 @@ class MyApp extends StatelessWidget {
             theme: _themeStore.darkMode
                 ? AppThemeData.darkThemeData
                 : AppThemeData.lightThemeData,
-            home: _loginStore.getLoggedIn()
-                ? const SplashLogo(
-                    nextRoute: Routes.home,
-                  )
-                : const SplashLogo(nextRoute: Routes.signup),
-            // home: HomeScreen(),
+            // home: _loginStore.getLoggedIn()
+            //     ? const SplashLogo(
+            //         nextRoute: Routes.home,
+            //       )
+            //     : const SplashLogo(nextRoute: Routes.signup),
+            home: PickAddressOnMap(),
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),

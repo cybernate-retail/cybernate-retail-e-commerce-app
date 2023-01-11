@@ -1,5 +1,6 @@
 import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/add_address.dart';
+import 'package:cybernate_retail_mobile/ui/screens/address/pick_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/view_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/cart/cart.dart';
 import 'package:cybernate_retail_mobile/ui/screens/categories/category_view.dart';
@@ -99,6 +100,10 @@ class InAppNavigation {
 
   static void viewAddress(BuildContext context, String title) {
     _push(context, ViewAddress(title: title));
+  }
+
+  static void pickAddress(BuildContext context) {
+    _push(context, const PickAddressOnMap());
   }
 
   static void addAddress(BuildContext context) {

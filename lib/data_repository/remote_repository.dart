@@ -6,8 +6,6 @@ import 'package:cybernate_retail_mobile/src/components/mutations/models/Checkout
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutCreate.var.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutRemoveProductLine.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutRemoveProductLine.var.gql.dart';
-import 'package:cybernate_retail_mobile/src/components/queries/models/CheckoutByToken.data.gql.dart';
-import 'package:cybernate_retail_mobile/src/components/queries/models/CheckoutByToken.var.gql.dart';
 import 'package:ferry/ferry.dart';
 
 import '../models/schema.schema.gql.dart';

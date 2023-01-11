@@ -72,12 +72,20 @@ dependencies:
   built_collection: ^5.1.1
   cached_network_image: ^3.2.3
   connectivity_plus: ^3.0.2
+  geolocator: ^9.0.2
+  geocoding: ^2.0.5
+  envied: ^0.3.0
+  dio: ^4.0.6
+  google_maps_webservice: ^0.0.19
+  google_api_headers: ^1.5.0
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
   ferry_generator: ^0.7.0
+  envied_generator: ^0.3.0
   
 flutter:
 

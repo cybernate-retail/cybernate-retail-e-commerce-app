@@ -113,8 +113,9 @@ class Utils {
               TextSpan(
                 text: buttonText,
                 style: TextStyle(
-                  fontSize: Theme.of(context).textTheme.headline6?.fontSize,
+                  fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
                   color: Theme.of(context).colorScheme.onPrimary,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               if (iconData != null)

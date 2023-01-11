@@ -69,20 +69,17 @@ class _AddAddressState extends State<AddAddress> {
   onSavePressed() {}
 
   Widget _bottomNavigationBar() {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: UiConstants.globalPadding,
-        vertical: Utils.spaceScale(3),
-      ),
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.8,
-        height: MediaQuery.of(context).size.height * 0.08,
-        child: Utils.neumorphicActionButtonWithIcon(
-          context,
-          "Save",
-          buttonColor: Theme.of(context).primaryColor,
-          onClick: onSavePressed,
-        ),
+    return Container(
+      padding: const EdgeInsets.all(UiConstants.globalPadding),
+      height: MediaQuery.of(context).size.height *
+          UiConstants.neumorphicButtonHeight,
+      child: Utils.neumorphicActionButtonWithIcon(
+        context,
+        "Save",
+        buttonColor: Theme.of(context).primaryColor,
+        onClick: () {
+          InAppNavigation.addAddress(context);
+        },
       ),
     );
   }
@@ -100,13 +97,15 @@ class _AddAddressState extends State<AddAddress> {
             Utils.verticalSpace(1),
             _landmarkField(),
             Utils.verticalSpace(3),
-            _addressType()
+            _addressType(),
+            Utils.verticalSpace(3),
           ],
         ));
   }
 
   _location() {
     return ListTile(
+      onTap: () {},
       tileColor: Theme.of(context).primaryColor,
       leading: SizedBox(
         width: 50,
@@ -131,7 +130,7 @@ class _AddAddressState extends State<AddAddress> {
       subtitle: Padding(
         padding: EdgeInsets.only(bottom: Utils.spaceScale(2)),
         child: Text(
-          "C9XQ+XQ,\nAyyappa Society..",
+          "C9XQ+XQ, Ayyappa Society..",
           style: TextStyle(
             color: Theme.of(context).colorScheme.onPrimary,
             fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
@@ -139,7 +138,6 @@ class _AddAddressState extends State<AddAddress> {
           ),
         ),
       ),
-      visualDensity: const VisualDensity(vertical: 4),
       shape: RoundedRectangleBorder(
         side: BorderSide(
           color: Theme.of(context).colorScheme.tertiaryContainer,

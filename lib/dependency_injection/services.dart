@@ -10,6 +10,7 @@ import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/introduction/introduction.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/language/language.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/login/login.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/search/search.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/theme/theme.dart';
 // ignore: library_prefixes
@@ -56,6 +57,7 @@ Future<void> setupLocator() async {
   getIt.registerSingleton(IntroductionStore(getIt<Repository>()));
   getIt.registerSingleton(LanguageStore(getIt<Repository>()));
   getIt.registerSingleton(ThemeStore(getIt<Repository>()));
+  getIt.registerSingleton(SearchStore());
   getIt.registerSingleton(CartStore(
     getIt<Repository>(),
     getIt<RemoteRepository>(),

@@ -51,7 +51,7 @@ class ViewAddressWidget extends StatelessWidget {
       isThreeLine: true,
       visualDensity: const VisualDensity(vertical: 4),
       trailing: SizedBox(
-        width: 20,
+        width: 50,
         child: Center(
           child: IconButton(
             onPressed: () {},

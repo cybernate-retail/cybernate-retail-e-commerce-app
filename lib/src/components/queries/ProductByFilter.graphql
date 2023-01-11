@@ -1,0 +1,16 @@
+# import '../fragments/ProductDetailsFragment.graphql'
+query SearchProducts(
+	$first: Int!
+	$channel: String!
+	$locale: LanguageCodeEnum!
+	$filter: ProductFilterInput
+	$sortBy: ProductOrder
+) {
+	products(first: $first, channel: $channel, filter: $filter, sortBy: $sortBy) {
+		edges {
+			node {
+				...ProductDetailsFragment
+			}
+		}
+	}
+}

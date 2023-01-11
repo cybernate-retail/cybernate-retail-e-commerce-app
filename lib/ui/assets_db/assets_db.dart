@@ -23,7 +23,10 @@ class AssetsDb {
   static String get rejectedAnimation => "assets/animations/rejected.json";
 
   static String get locationAnimation => "assets/animations/location.json";
+  static String get emptyBoxAnimation => "assets/animations/empty-cart.json";
   static String get plusAnimation => "assets/icons/plus-circle.json";
+  static String get locationEarthAnimation =>
+      "assets/animations/location-earth.json";
 
   //Logos or icons
   static String get logo => "assets/logo/logo.png";
@@ -69,4 +72,5 @@ class AssetsDb {
   static String get chatIcon => "assets/icons/chat.svg";
   static String get discountBanner => "assets/icons/discount_banner.png";
   static String get discountBannerIcon => "assets/icons/discount_icon.svg";
+  static String get locationMarkerIcon => "assets/icons/location_marker.svg";
 }
