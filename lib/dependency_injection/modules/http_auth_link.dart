@@ -10,7 +10,7 @@ class HttpAuthLink extends Link {
   final String graphQLEndpoint;
   final Future<String> Function() getToken;
   late Link _link;
-  late String _token;
+  String? _token;
 
   Future<void> updateToken() async => _token = await getToken();
 
@@ -46,7 +46,7 @@ class HttpAuthLink extends Link {
       (headers) => HttpLinkHeaders(
         headers: <String, String>{
           ...headers?.headers ?? <String, String>{},
-          'Authorization': _token,
+          'Authorization': _token ?? "",
         },
       ),
     );

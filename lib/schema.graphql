@@ -361,6 +361,15 @@ input AddressInput {
 
   """Phone number."""
   phone: String
+
+  """formatted address"""
+  formattedAddress: String
+
+  """Latitude"""
+  lat: Float
+
+  """Longitude"""
+  lon: Float
 }
 
 """

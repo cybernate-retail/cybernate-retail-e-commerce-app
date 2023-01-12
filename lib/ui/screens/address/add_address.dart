@@ -9,9 +9,11 @@ import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/components/address_form_keys.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
+import 'package:ferry/ferry.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:get_it/get_it.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class AddAddress extends StatefulWidget {
@@ -24,6 +26,7 @@ class AddAddress extends StatefulWidget {
 
 class _AddAddressState extends State<AddAddress> {
   SubmitState _submitState = SubmitState.NOTTOUCHED;
+  final client = GetIt.I<TypedLink>();
   final _addressFormKey = GlobalKey<FormBuilderState>();
 
   @override
@@ -53,7 +56,7 @@ class _AddAddressState extends State<AddAddress> {
       ),
       actions: [
         UiIcons.cancel(
-          color: Theme.of(context).colorScheme.error,
+          color: Colors.red,
           size: 24,
           onPressed: () {
             InAppNavigation.pop(context);
@@ -94,11 +97,20 @@ class _AddAddressState extends State<AddAddress> {
       final addressInputBuilder = GAddressInputBuilder()
         ..lastName = familyName
         ..streetAddress1 = houseNo
-        ..streetAddress2 = landmark;
+        ..streetAddress2 = landmark
+        ..formattedAddress =
+            widget.locationModel?.results?.first.formattedAddress
+        ..lat = widget.locationModel?.results?.first.geometry?.location?.lat
+        ..lon = widget.locationModel?.results?.first.geometry?.location?.lng;
 
       final request = GcreateAccountAddressReq(
         ((b) => b..vars.input = addressInputBuilder),
       );
+      client.request(request).listen((event) {
+        if (!event.hasErrors) {
+          print(event);
+        }
+      });
     }
   }
 
@@ -107,12 +119,18 @@ class _AddAddressState extends State<AddAddress> {
       padding: const EdgeInsets.all(UiConstants.globalPadding),
       height: MediaQuery.of(context).size.height *
           UiConstants.neumorphicButtonHeight,
-      child: Utils.neumorphicActionButtonWithIcon(
-        context,
-        "Save",
-        buttonColor: Theme.of(context).primaryColor,
-        onClick: () {},
-      ),
+      child: _submitState == SubmitState.NOTTOUCHED
+          ? Utils.neumorphicActionButtonWithIcon(
+              context,
+              "Save",
+              buttonColor: Theme.of(context).primaryColor,
+              onClick: () {
+                onSavePressed();
+              },
+            )
+          : const Center(
+              child: CircularProgressIndicator(),
+            ),
     );
   }
 
@@ -197,8 +215,8 @@ class _AddAddressState extends State<AddAddress> {
         size: 20,
         color: Theme.of(context).colorScheme.tertiary,
       ),
-      "Family name",
-      CustomFormFieldValidators.buildingFieldValidator(),
+      "Family name*",
+      CustomFormFieldValidators.nameFieldValidator(),
     );
   }
 

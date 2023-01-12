@@ -3,7 +3,13 @@ import 'package:cybernate_retail_mobile/data_repository/database_encryption/encr
 import 'package:cybernate_retail_mobile/data_repository/localdb/constants/db_constants.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/models/tokens.dart';
+import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
+import 'package:cybernate_retail_mobile/src/components/mutations/models/RefreshToken.req.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/mutations/models/RefreshTokenWithUser.data.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/mutations/models/RefreshTokenWithUser.req.gql.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sembast/sembast.dart';
 import 'dart:convert';
@@ -58,8 +64,21 @@ abstract class LocalModule {
     return database;
   }
 
-  static Future<TypedLink> initClient(
-      FlutterSecureStorage flutterSecureStorage) async {
+  static Client initClient() {
+    final link = HttpLink(GlobalConstants.appUrl);
+    final client = Client(
+      link: link,
+      defaultFetchPolicies: {
+        OperationType.query: FetchPolicy.NoCache,
+        OperationType.mutation: FetchPolicy.NoCache,
+      },
+    );
+    return client;
+  }
+
+  static Future<TypedLink> initAuthClient(
+    FlutterSecureStorage flutterSecureStorage,
+  ) async {
     await Hive.initFlutter();
 
     final box = await Hive.openBox("graphql");
@@ -72,18 +91,13 @@ abstract class LocalModule {
     final link = HttpAuthLink(
       graphQLEndpoint: GlobalConstants.appUrl,
       getToken: () async {
-        var stringToken = await flutterSecureStorage.read(
-            key: SecurePreferencesConstants.token);
-        final tokens = stringToken == null
-            ? null
-            : TokenModel.fromJson(jsonDecode(stringToken));
-        return tokens?.jwtToken ?? "";
+        return _getToken(flutterSecureStorage);
       },
     );
 
     final client = Client(
       link: link,
-      // cache: cache,
+      cache: cache,
       defaultFetchPolicies: {
         OperationType.query: FetchPolicy.NoCache,
         OperationType.mutation: FetchPolicy.NoCache,
@@ -91,5 +105,47 @@ abstract class LocalModule {
     );
 
     return client;
+  }
+
+  static Future<String> _getToken(
+    FlutterSecureStorage flutterSecureStorage,
+  ) async {
+    late TokenModel tokenModel;
+
+    try {
+      var stringToken = await flutterSecureStorage.read(
+        key: SecurePreferencesConstants.token,
+      );
+      tokenModel = TokenModel.fromJson(jsonDecode(stringToken.toString()));
+      if (JwtDecoder.isExpired(tokenModel.jwtToken)) {
+        throw Exception("token expired");
+      }
+      return tokenModel.jwtToken;
+    } catch (e) {
+      final tempClient = Client(
+        link: HttpLink(
+          GlobalConstants.appUrl,
+          defaultHeaders: {'Cookie': 'refreshToken=${tokenModel.refreshToken}'},
+        ),
+      );
+
+      final response = await tempClient
+          .request(
+            GrefreshTokenReq(
+              ((b) => b..vars.csrfToken = tokenModel.csrfToken),
+            ),
+          )
+          .first;
+      await flutterSecureStorage.write(
+          key: SecurePreferencesConstants.token,
+          value: jsonEncode(TokenModel(
+              jwtToken:
+                  response.data?.tokenRefresh?.token ?? tokenModel.jwtToken,
+              refreshToken: tokenModel.refreshToken,
+              csrfToken: tokenModel.csrfToken)));
+      tempClient.dispose();
+
+      return "Bearer ${response.data?.tokenRefresh?.token ?? tokenModel.jwtToken}";
+    }
   }
 }

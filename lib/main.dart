@@ -81,12 +81,11 @@ class MyApp extends StatelessWidget {
             theme: _themeStore.darkMode
                 ? AppThemeData.darkThemeData
                 : AppThemeData.lightThemeData,
-            // home: _loginStore.getLoggedIn()
-            //     ? const SplashLogo(
-            //         nextRoute: Routes.home,
-            //       )
-            //     : const SplashLogo(nextRoute: Routes.signup),
-            home: HomeScreen(),
+            home: _loginStore.getLoggedIn()
+                ? const SplashLogo(
+                    nextRoute: Routes.home,
+                  )
+                : const SplashLogo(nextRoute: Routes.signup),
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),

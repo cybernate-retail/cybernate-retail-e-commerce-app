@@ -28,8 +28,9 @@ Future<void> setupLocator() async {
   getIt.registerSingletonAsync<SharedPreferences>(
       () => LocalModule.provideSharedPreferences());
   getIt.registerSingleton<FlutterSecureStorage>(const FlutterSecureStorage());
+  getIt.registerLazySingleton<Ferry.Client>(() => LocalModule.initClient());
   getIt.registerLazySingletonAsync<TypedLink>(
-    () => LocalModule.initClient(getIt.get<FlutterSecureStorage>()),
+    () => LocalModule.initAuthClient(getIt.get<FlutterSecureStorage>()),
   );
 
   // ---------------------Local------------------------------------------------//

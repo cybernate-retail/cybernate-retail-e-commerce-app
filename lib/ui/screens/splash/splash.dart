@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:cybernate_retail_mobile/mobx_stores/login/login.dart';
+import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class SplashLogo extends StatefulWidget {
   final String nextRoute;
@@ -17,16 +20,33 @@ class SplashLogo extends StatefulWidget {
 }
 
 class _SplashLogoState extends State<SplashLogo> {
+  late LoginStore _loginStore;
+
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance
-        .addPostFrameCallback((_) => scheduleTimeout(context, 10));
   }
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     super.didChangeDependencies();
+    _loginStore = Provider.of<LoginStore>(context);
+
+    try {
+      final tokens = await _loginStore.getTokens();
+      if (tokens == null) {
+        throw Exception("no tokens");
+      }
+      SchedulerBinding.instance.addPostFrameCallback(
+        (_) => scheduleTimeout(context, 3000),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      Navigator.popAndPushNamed(
+        context,
+        Routes.signup,
+      );
+    }
   }
 
   Timer scheduleTimeout(BuildContext context, [int milliseconds = 1000]) =>
@@ -37,17 +57,17 @@ class _SplashLogoState extends State<SplashLogo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Lottie.asset(
-            AssetsDb.appSplashLogo,
-          ),
-          const Text(
-            "Localdepo",
-          )
-        ],
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Lottie.asset(
+              AssetsDb.appSplashLogo,
+              width: MediaQuery.of(context).size.width * 0.75,
+            ),
+          ],
+        ),
       ),
     );
   }
