@@ -22,7 +22,7 @@ class CategoryViewWidget extends StatefulWidget {
 }
 
 class _CategoryViewWidgetState extends State<CategoryViewWidget> {
-  final Client client = GetIt.I<Client>();
+  final client = GetIt.I<TypedLink>();
   String? activeCategoryId;
   @override
   Widget build(BuildContext context) {

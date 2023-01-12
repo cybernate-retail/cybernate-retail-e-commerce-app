@@ -812,6 +812,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.0"
+  gql_error_link:
+    dependency: "direct main"
+    description:
+      name: gql_error_link
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.3+1"
   gql_exec:
     dependency: transitive
     description:
@@ -833,6 +840,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.0+1"
+  gql_transform_link:
+    dependency: "direct main"
+    description:
+      name: gql_transform_link
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.2+1"
   graphs:
     dependency: transitive
     description:

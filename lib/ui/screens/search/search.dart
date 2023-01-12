@@ -33,7 +33,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final Client client = GetIt.I<Client>();
+  final client = GetIt.I<TypedLink>();
   late CartStore _cartStore;
   late SearchStore _searchStore;
 

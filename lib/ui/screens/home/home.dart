@@ -23,7 +23,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final Client client = GetIt.I<Client>();
+  final client = GetIt.I<TypedLink>();
 
   @override
   Widget build(BuildContext context) {

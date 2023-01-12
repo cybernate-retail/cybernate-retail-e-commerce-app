@@ -2,7 +2,7 @@ import 'package:cybernate_retail_mobile/src/components/queries/models/ProductCol
 import 'package:ferry/ferry.dart';
 
 class ProductDataSource {
-  final Client _client;
+  final TypedLink _client;
 
   ProductDataSource(this._client);
 

@@ -8,10 +8,11 @@ class TokenModel {
   final String refreshToken;
   final String csrfToken;
 
-  TokenModel(
-      {required this.jwtToken,
-      required this.refreshToken,
-      required this.csrfToken});
+  TokenModel({
+    required this.jwtToken,
+    required this.refreshToken,
+    required this.csrfToken,
+  });
 
   factory TokenModel.fromJson(Map<String, dynamic> json) =>
       _$TokenModelFromJson(json);

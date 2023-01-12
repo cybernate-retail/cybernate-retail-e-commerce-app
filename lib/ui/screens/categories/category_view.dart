@@ -21,7 +21,7 @@ class CategoryViewScreen extends StatefulWidget {
 }
 
 class _CategoryViewScreenState extends State<CategoryViewScreen> {
-  final Client client = GetIt.I<Client>();
+  final client = GetIt.I<TypedLink>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

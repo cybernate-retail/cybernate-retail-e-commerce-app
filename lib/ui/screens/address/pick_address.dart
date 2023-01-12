@@ -90,7 +90,6 @@ class _PickAddressOnMapState extends State<PickAddressOnMap> {
               const AddressSearchWidget(),
               AddressPickAndConfirm(
                 currentMarker: markerPosition,
-                onClick: onPick,
               ),
             ],
           ),
@@ -105,8 +104,6 @@ class _PickAddressOnMapState extends State<PickAddressOnMap> {
       ],
     );
   }
-
-  onPick() {}
 
   AppBar _appBar(String title) {
     return AppBar(

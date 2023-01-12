@@ -14,6 +14,7 @@ import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/theme/theme.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/pick_address.dart';
+import 'package:cybernate_retail_mobile/ui/screens/home/home.dart';
 import 'package:cybernate_retail_mobile/ui/screens/splash/splash.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -85,7 +86,7 @@ class MyApp extends StatelessWidget {
             //         nextRoute: Routes.home,
             //       )
             //     : const SplashLogo(nextRoute: Routes.signup),
-            home: PickAddressOnMap(),
+            home: HomeScreen(),
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),

@@ -21,7 +21,7 @@ class FeaturedProductWidget extends StatefulWidget {
 }
 
 class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
-  final Client client = GetIt.I<Client>();
+  final client = GetIt.I<TypedLink>();
   @override
   Widget build(BuildContext context) {
     return Padding(

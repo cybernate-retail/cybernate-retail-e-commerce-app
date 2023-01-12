@@ -1,3 +1,4 @@
+import 'package:cybernate_retail_mobile/models/location.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/add_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/pick_address.dart';
@@ -106,8 +107,13 @@ class InAppNavigation {
     _push(context, const PickAddressOnMap());
   }
 
-  static void addAddress(BuildContext context) {
-    _push(context, const AddAddress());
+  static void addAddress(BuildContext context, LocationModel? locationModel) {
+    _push(
+      context,
+      AddAddress(
+        locationModel: locationModel,
+      ),
+    );
   }
 
   static void search(BuildContext context) {

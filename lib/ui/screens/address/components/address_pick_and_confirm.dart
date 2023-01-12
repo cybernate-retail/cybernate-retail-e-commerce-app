@@ -1,4 +1,6 @@
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/models/location.dart';
+import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/components/get_street_address.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
@@ -7,11 +9,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AddressPickAndConfirm extends StatelessWidget {
   final GOOGLE_MAPS_API_KEY = "AIzaSyCQ0572IuGkapSaYgPjwhWcB5EeHUnD3ZU";
-  final Function onClick;
+  LocationModel? locationModel;
   final LatLng? currentMarker;
-  const AddressPickAndConfirm({
+  AddressPickAndConfirm({
     super.key,
-    required this.onClick,
     required this.currentMarker,
   });
 
@@ -40,7 +41,9 @@ class AddressPickAndConfirm extends StatelessWidget {
               context,
               "Pick",
               buttonColor: Theme.of(context).primaryColor,
-              onClick: onClick,
+              onClick: () {
+                InAppNavigation.addAddress(context, locationModel);
+              },
             ),
           )
         ],
@@ -63,10 +66,12 @@ class AddressPickAndConfirm extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               }
+              locationModel = snapshot.data;
               final firstPlaceMark = snapshot.data?.results?.first;
               if (firstPlaceMark == null) {
                 return Container();
               }
+
               return Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

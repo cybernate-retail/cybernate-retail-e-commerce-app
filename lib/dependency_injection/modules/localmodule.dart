@@ -1,8 +1,13 @@
 import 'package:cybernate_retail_mobile/data_repository/database_encryption/encryption.dart';
+import 'package:cybernate_retail_mobile/data_repository/database_encryption/encryption/secure_sharedprefs/constants/secure_preferences_constants.dart';
 import 'package:cybernate_retail_mobile/data_repository/localdb/constants/db_constants.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/models/tokens.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sembast/sembast.dart';
+import 'dart:convert';
+
 import 'package:sembast/sembast_io.dart';
 // ignore: depend_on_referenced_packages
 import "package:path/path.dart" show join;
@@ -13,6 +18,8 @@ import 'package:ferry_hive_store/ferry_hive_store.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart'
     show possibleTypesMap;
+
+import 'http_auth_link.dart';
 
 abstract class LocalModule {
   /// A singleton preference provider.
@@ -51,7 +58,8 @@ abstract class LocalModule {
     return database;
   }
 
-  static Future<Client> initClient() async {
+  static Future<TypedLink> initClient(
+      FlutterSecureStorage flutterSecureStorage) async {
     await Hive.initFlutter();
 
     final box = await Hive.openBox("graphql");
@@ -60,7 +68,18 @@ abstract class LocalModule {
 
     final cache = Cache(store: store, possibleTypes: possibleTypesMap);
 
-    final link = HttpLink(GlobalConstants.appUrl);
+    // final link = HttpLink(GlobalConstants.appUrl);
+    final link = HttpAuthLink(
+      graphQLEndpoint: GlobalConstants.appUrl,
+      getToken: () async {
+        var stringToken = await flutterSecureStorage.read(
+            key: SecurePreferencesConstants.token);
+        final tokens = stringToken == null
+            ? null
+            : TokenModel.fromJson(jsonDecode(stringToken));
+        return tokens?.jwtToken ?? "";
+      },
+    );
 
     final client = Client(
       link: link,

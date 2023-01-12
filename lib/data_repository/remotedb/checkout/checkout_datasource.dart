@@ -16,7 +16,7 @@ import 'package:cybernate_retail_mobile/src/components/queries/models/CheckoutBy
 import 'package:ferry/ferry.dart';
 
 class CheckoutDataSource {
-  final Client _client;
+  final TypedLink _client;
   CheckoutDataSource(this._client);
 
   Stream<OperationResponse<GCheckoutByTokenData, GCheckoutByTokenVars>>

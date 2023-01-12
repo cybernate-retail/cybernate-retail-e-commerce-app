@@ -27,7 +27,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  final Client client = GetIt.I<Client>();
+  final client = GetIt.I<TypedLink>();
   late CartStore _cartStore;
   late ProfileStore _profileStore;
 

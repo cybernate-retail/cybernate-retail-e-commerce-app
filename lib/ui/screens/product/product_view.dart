@@ -27,7 +27,7 @@ class ProductViewScreen extends StatefulWidget {
 }
 
 class _ProductViewScreenState extends State<ProductViewScreen> {
-  final Client client = GetIt.I<Client>();
+  final client = GetIt.I<TypedLink>();
   int currentStepperValue = 0;
   @override
   Widget build(BuildContext context) {

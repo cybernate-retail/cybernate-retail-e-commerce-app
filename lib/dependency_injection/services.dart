@@ -15,6 +15,7 @@ import 'package:cybernate_retail_mobile/mobx_stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/theme/theme.dart';
 // ignore: library_prefixes
 import 'package:ferry/ferry.dart' as Ferry;
+import 'package:ferry/ferry.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sembast/sembast.dart';
@@ -27,7 +28,9 @@ Future<void> setupLocator() async {
   getIt.registerSingletonAsync<SharedPreferences>(
       () => LocalModule.provideSharedPreferences());
   getIt.registerSingleton<FlutterSecureStorage>(const FlutterSecureStorage());
-  getIt.registerSingletonAsync<Ferry.Client>(() => LocalModule.initClient());
+  getIt.registerLazySingletonAsync<TypedLink>(
+    () => LocalModule.initClient(getIt.get<FlutterSecureStorage>()),
+  );
 
   // ---------------------Local------------------------------------------------//
   getIt.registerSingleton(
@@ -44,10 +47,9 @@ Future<void> setupLocator() async {
   ));
 
   //------------------------Remote---------------------------------------------//
-  getIt.registerSingleton(
-      ProductDataSource(await getIt.getAsync<Ferry.Client>()));
-  getIt.registerSingleton(
-      CheckoutDataSource(await getIt.getAsync<Ferry.Client>()));
+  getIt.registerSingleton(ProductDataSource(await getIt.getAsync<TypedLink>()));
+  getIt
+      .registerSingleton(CheckoutDataSource(await getIt.getAsync<TypedLink>()));
   getIt.registerSingleton(RemoteRepository(
     getIt<ProductDataSource>(),
     getIt<CheckoutDataSource>(),
