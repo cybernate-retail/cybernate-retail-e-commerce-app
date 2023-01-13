@@ -252,6 +252,15 @@ type Address implements Node {
 
   """Address is user's default billing address."""
   isDefaultBillingAddress: Boolean
+
+  """formatted address"""
+  formattedAddress: String
+
+  """Latitude"""
+  lat: Float
+
+  """Longitude"""
+  lon: Float
 }
 
 """

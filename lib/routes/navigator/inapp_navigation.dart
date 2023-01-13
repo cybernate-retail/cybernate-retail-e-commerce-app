@@ -54,7 +54,7 @@ class InAppNavigation {
     );
   }
 
-  static void _popAllAndPush(BuildContext context, String screen) {
+  static void _popAndPush(BuildContext context, String screen) {
     Navigator.popAndPushNamed(context, screen);
   }
 
@@ -68,7 +68,7 @@ class InAppNavigation {
   }
 
   static void popAndPushHome(BuildContext context) {
-    _popAllAndPush(context, Routes.home);
+    _popAndPush(context, Routes.home);
   }
 
   //OTP
@@ -99,8 +99,10 @@ class InAppNavigation {
 
   //Address
 
-  static void viewAddress(BuildContext context, String title) {
-    _push(context, ViewAddress(title: title));
+  static void viewAddress(
+    BuildContext context,
+  ) {
+    _push(context, const ViewAddress());
   }
 
   static void pickAddress(BuildContext context) {

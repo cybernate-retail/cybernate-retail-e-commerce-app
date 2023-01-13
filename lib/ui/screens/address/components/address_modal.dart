@@ -7,9 +7,7 @@ class ShowAddressModal {
     return showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
-        return const ViewAddress(
-          title: "Pick",
-        );
+        return const ViewAddress();
       },
     );
   }

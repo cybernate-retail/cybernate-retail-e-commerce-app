@@ -1,10 +1,13 @@
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/models/countries.dart';
 import 'package:cybernate_retail_mobile/models/location.dart';
 import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
+import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CreateAccountAddress.req.gql.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/forms/custom_form_validators.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/forms/custom_forms.dart';
+import 'package:cybernate_retail_mobile/ui/common_widgets/toast/inapp_toast.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/components/address_form_keys.dart';
@@ -94,6 +97,18 @@ class _AddAddressState extends State<AddAddress> {
           .currentState!.value[AddressFormKeys.landmarkField]
           .toString();
 
+      // "city": "hyderabd",
+      // "postalCode": "509210",
+      // "country":"IN",
+      // "countryArea":"Telangana",
+
+      final city = extractLongNames("locality");
+      final country = widget.locationModel?.results?.first.addressComponents
+          ?.firstWhere((element) => element.types?.contains("country") ?? false)
+          .shortName;
+      final countryArea = extractLongNames("administrative_area_level_1");
+      final postalCode = extractLongNames("postal_code");
+
       final addressInputBuilder = GAddressInputBuilder()
         ..lastName = familyName
         ..streetAddress1 = houseNo
@@ -101,17 +116,42 @@ class _AddAddressState extends State<AddAddress> {
         ..formattedAddress =
             widget.locationModel?.results?.first.formattedAddress
         ..lat = widget.locationModel?.results?.first.geometry?.location?.lat
-        ..lon = widget.locationModel?.results?.first.geometry?.location?.lng;
+        ..lon = widget.locationModel?.results?.first.geometry?.location?.lng
+        ..city = city
+        ..country = GCountryCode.valueOf(country ?? "IN")
+        ..countryArea = countryArea
+        ..postalCode = postalCode;
 
       final request = GcreateAccountAddressReq(
         ((b) => b..vars.input = addressInputBuilder),
       );
       client.request(request).listen((event) {
-        if (!event.hasErrors) {
-          print(event);
+        if (event.hasErrors ||
+            event.data?.accountAddressCreate?.errors.isNotEmpty == true) {
+          setState(() {
+            _submitState = SubmitState.ERROR;
+          });
+          InAppToast.addressCreateFailed(context);
+          if (kDebugMode) {
+            print(event);
+          }
+        } else {
+          setState(() {
+            _submitState = SubmitState.DONE;
+          });
+          InAppToast.addressCreateSuccess(context);
+          Navigator.pop(context);
+          Navigator.pop(context);
         }
       });
     }
+  }
+
+  String extractLongNames(String type) {
+    final result = widget.locationModel?.results?.first.addressComponents
+        ?.firstWhere((element) => element.types?.contains(type) ?? false)
+        .longName;
+    return result ?? "";
   }
 
   Widget _bottomNavigationBar() {
@@ -119,7 +159,7 @@ class _AddAddressState extends State<AddAddress> {
       padding: const EdgeInsets.all(UiConstants.globalPadding),
       height: MediaQuery.of(context).size.height *
           UiConstants.neumorphicButtonHeight,
-      child: _submitState == SubmitState.NOTTOUCHED
+      child: _submitState != SubmitState.STARTED
           ? Utils.neumorphicActionButtonWithIcon(
               context,
               "Save",

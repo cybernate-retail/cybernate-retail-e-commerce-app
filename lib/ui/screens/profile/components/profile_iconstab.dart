@@ -84,7 +84,9 @@ Widget _addressWidget(BuildContext context) {
     UiIcons.address(
       color: Theme.of(context).colorScheme.primary,
       onPressed: () {
-        InAppNavigation.viewAddress(context, "ViewAddress");
+        InAppNavigation.viewAddress(
+          context,
+        );
       },
     ),
     "Address",

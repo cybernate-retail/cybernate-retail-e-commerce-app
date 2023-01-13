@@ -120,7 +120,7 @@ abstract class LocalModule {
       if (JwtDecoder.isExpired(tokenModel.jwtToken)) {
         throw Exception("token expired");
       }
-      return tokenModel.jwtToken;
+      return "Bearer ${tokenModel.jwtToken}";
     } catch (e) {
       final tempClient = Client(
         link: HttpLink(

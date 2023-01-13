@@ -1,18 +1,19 @@
+import 'package:cybernate_retail_mobile/src/components/fragments/models/AddressDetailsFragment.data.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/queries/models/UserAddress.data.gql.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
+import 'package:ferry/typed_links.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:lottie/lottie.dart';
 
 class ViewAddressWidget extends StatelessWidget {
-  final String addressType;
-  final String addressLocation;
-  const ViewAddressWidget({
-    super.key,
-    required this.addressType,
-    required this.addressLocation,
-  });
+  final GAddressDetailsFragment? address;
+  final Function onDelete;
+  ViewAddressWidget({super.key, required this.address, required this.onDelete});
 
+  final client = GetIt.I<TypedLink>();
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -29,7 +30,7 @@ class ViewAddressWidget extends StatelessWidget {
         padding: EdgeInsets.only(
             top: Utils.spaceScale(2), bottom: Utils.spaceScale(1)),
         child: Text(
-          addressType,
+          address?.city ?? "",
           style: TextStyle(
             color: Theme.of(context).colorScheme.primary,
             fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
@@ -40,7 +41,7 @@ class ViewAddressWidget extends StatelessWidget {
       subtitle: Padding(
         padding: EdgeInsets.only(bottom: Utils.spaceScale(2)),
         child: Text(
-          addressLocation,
+          address?.formattedAddress ?? "",
           style: TextStyle(
             color: Colors.black,
             fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
@@ -54,7 +55,9 @@ class ViewAddressWidget extends StatelessWidget {
         width: 50,
         child: Center(
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              onDelete();
+            },
             icon: const Icon(
               Icons.delete_outline,
               size: 20,
