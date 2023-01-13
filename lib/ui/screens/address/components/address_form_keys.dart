@@ -3,7 +3,7 @@ class AddressFormKeys {
 
   static const houseNoField = "HOUSE";
 
-  static const familyName = "FAMILY_NAME";
+  static const fullname = "NAME";
 
   static const landmarkField = "LANDMARK";
 }

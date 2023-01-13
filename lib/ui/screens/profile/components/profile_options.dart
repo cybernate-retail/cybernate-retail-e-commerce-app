@@ -31,7 +31,7 @@ class ProfileOptionsWidget extends StatelessWidget {
             AssetsDb.wishlistIcon,
             "Wishlist",
             onPressed: () {
-              InAppNavigation.wishlist(context);
+              // InAppNavigation.wishlist(context);
             },
           ),
           Utils.verticalSpace(1),

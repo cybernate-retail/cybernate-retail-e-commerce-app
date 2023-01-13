@@ -42,7 +42,7 @@ class InAppNavigation {
     );
   }
 
-  static void _pushReplacement(BuildContext context, Widget screen) {
+  static void pushReplacement(BuildContext context, Widget screen) {
     Navigator.pushReplacement(
       context,
       PageTransition(
@@ -178,7 +178,7 @@ class InAppNavigation {
   }
 
   static void popAndViewProduct(BuildContext context, String id) {
-    _pushReplacement(
+    pushReplacement(
       context,
       ProductViewScreen(
         productId: id,

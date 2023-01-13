@@ -16,6 +16,9 @@ class ViewAddressWidget extends StatelessWidget {
   final client = GetIt.I<TypedLink>();
   @override
   Widget build(BuildContext context) {
+    final String fullname = address?.firstName ?? "";
+    final formattedAddress = address?.formattedAddress ?? "";
+    final streetAddress = address?.streetAddress1 ?? "";
     return ListTile(
       leading: SizedBox(
         width: 60,
@@ -30,10 +33,10 @@ class ViewAddressWidget extends StatelessWidget {
         padding: EdgeInsets.only(
             top: Utils.spaceScale(2), bottom: Utils.spaceScale(1)),
         child: Text(
-          address?.city ?? "",
+          fullname,
           style: TextStyle(
             color: Theme.of(context).colorScheme.primary,
-            fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
+            fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -41,7 +44,7 @@ class ViewAddressWidget extends StatelessWidget {
       subtitle: Padding(
         padding: EdgeInsets.only(bottom: Utils.spaceScale(2)),
         child: Text(
-          address?.formattedAddress ?? "",
+          "$streetAddress\n$formattedAddress",
           style: TextStyle(
             color: Colors.black,
             fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,

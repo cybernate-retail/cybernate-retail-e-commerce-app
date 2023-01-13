@@ -1,9 +1,7 @@
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
-import 'package:cybernate_retail_mobile/models/countries.dart';
 import 'package:cybernate_retail_mobile/models/location.dart';
 import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
-import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CreateAccountAddress.req.gql.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/forms/custom_form_validators.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/forms/custom_forms.dart';
@@ -11,6 +9,7 @@ import 'package:cybernate_retail_mobile/ui/common_widgets/toast/inapp_toast.dart
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/components/address_form_keys.dart';
+import 'package:cybernate_retail_mobile/ui/screens/address/view_address.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter/foundation.dart';
@@ -85,22 +84,17 @@ class _AddAddressState extends State<AddAddress> {
       });
       _addressFormKey.currentState!.save();
 
-      String familyName = _addressFormKey
-          .currentState!.value[AddressFormKeys.familyName]
+      String fullname = _addressFormKey
+          .currentState!.value[AddressFormKeys.fullname]
           .toString();
 
       String houseNo = _addressFormKey
           .currentState!.value[AddressFormKeys.houseNoField]
           .toString();
 
-      String landmark = _addressFormKey
-          .currentState!.value[AddressFormKeys.landmarkField]
-          .toString();
-
-      // "city": "hyderabd",
-      // "postalCode": "509210",
-      // "country":"IN",
-      // "countryArea":"Telangana",
+      String landmark =
+          _addressFormKey.currentState!.value[AddressFormKeys.landmarkField] ??
+              "";
 
       final city = extractLongNames("locality");
       final country = widget.locationModel?.results?.first.addressComponents
@@ -110,9 +104,8 @@ class _AddAddressState extends State<AddAddress> {
       final postalCode = extractLongNames("postal_code");
 
       final addressInputBuilder = GAddressInputBuilder()
-        ..lastName = familyName
-        ..streetAddress1 = houseNo
-        ..streetAddress2 = landmark
+        ..firstName = fullname
+        ..streetAddress1 = "$houseNo $landmark"
         ..formattedAddress =
             widget.locationModel?.results?.first.formattedAddress
         ..lat = widget.locationModel?.results?.first.geometry?.location?.lat
@@ -142,6 +135,7 @@ class _AddAddressState extends State<AddAddress> {
           InAppToast.addressCreateSuccess(context);
           Navigator.pop(context);
           Navigator.pop(context);
+          InAppNavigation.pushReplacement(context, const ViewAddress());
         }
       });
     }
@@ -250,12 +244,12 @@ class _AddAddressState extends State<AddAddress> {
   _familyNameField() {
     return CustomFormFields.formTextField(
       context,
-      AddressFormKeys.familyName,
+      AddressFormKeys.fullname,
       UiIcons.person(
         size: 20,
         color: Theme.of(context).colorScheme.tertiary,
       ),
-      "Family name*",
+      "Full Name*",
       CustomFormFieldValidators.nameFieldValidator(),
     );
   }
