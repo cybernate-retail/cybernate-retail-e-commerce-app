@@ -73,4 +73,5 @@ class AssetsDb {
   static String get discountBanner => "assets/icons/discount_banner.png";
   static String get discountBannerIcon => "assets/icons/discount_icon.svg";
   static String get locationMarkerIcon => "assets/icons/location_marker.svg";
+  static String get outOfStockIcon => "assets/icons/out-of-stock.png";
 }

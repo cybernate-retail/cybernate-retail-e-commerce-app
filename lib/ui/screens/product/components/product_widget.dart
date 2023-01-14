@@ -1,6 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/ProductVariantDetailsFragment.data.gql.dart';
+import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/ui/screens/product/components/product_description.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
@@ -100,6 +101,8 @@ class _ProductWidgetState extends State<ProductWidget> {
   }
 
   Widget _productImage() {
+    final int quantityAvl =
+        widget.selectedProductVariant?.quantityAvailable ?? 0;
     return Container(
       height: 80,
       margin: EdgeInsets.all(
@@ -112,8 +115,10 @@ class _ProductWidgetState extends State<ProductWidget> {
         ),
         color: Colors.white,
       ),
-      child:
-          Center(child: Utils.renderNetworkImageWithLoader(widget.productUrl)),
+      child: Center(
+          child: quantityAvl <= 0
+              ? Image.asset(AssetsDb.outOfStockIcon)
+              : Utils.renderNetworkImageWithLoader(widget.productUrl)),
     );
   }
 }

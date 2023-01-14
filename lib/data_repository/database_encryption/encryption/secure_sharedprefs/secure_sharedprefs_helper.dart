@@ -24,6 +24,10 @@ class SecureSharedPreferencesHelper {
         key: SecurePreferencesConstants.token, value: jsonEncode(tokens));
   }
 
+  Future<void> deleteTokens() async {
+    return await _secureStorage.delete(key: SecurePreferencesConstants.token);
+  }
+
   Future<TokenModel?> getTokens() async {
     var stringToken =
         await _secureStorage.read(key: SecurePreferencesConstants.token);

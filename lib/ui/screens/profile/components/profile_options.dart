@@ -1,12 +1,29 @@
+import 'package:cybernate_retail_mobile/mobx_stores/login/login.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
+import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
+import 'package:cybernate_retail_mobile/ui/common_widgets/toast/inapp_toast.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class ProfileOptionsWidget extends StatelessWidget {
+class ProfileOptionsWidget extends StatefulWidget {
   const ProfileOptionsWidget({super.key});
+
+  @override
+  State<ProfileOptionsWidget> createState() => _ProfileOptionsWidgetState();
+}
+
+class _ProfileOptionsWidgetState extends State<ProfileOptionsWidget> {
+  late LoginStore _loginStore;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _loginStore = Provider.of<LoginStore>(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +148,18 @@ class ProfileOptionsWidget extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        _loginStore.logout().then((value) {
+          if (value) {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              Routes.signup,
+              (Route<dynamic> route) => false,
+            );
+          } else {
+            InAppToast.logoutFailed(context);
+          }
+        });
+      },
       child: const SizedBox(
         width: 100,
         height: 50,

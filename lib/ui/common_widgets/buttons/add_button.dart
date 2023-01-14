@@ -5,9 +5,11 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class AddButtonWidget extends StatelessWidget {
   final Function onTap;
+  final bool enable;
   final ProductViewType productViewType;
   const AddButtonWidget({
     super.key,
+    this.enable = true,
     required this.productViewType,
     this.onTap = Utils.emptyFunction,
   });
@@ -17,14 +19,14 @@ class AddButtonWidget extends StatelessWidget {
     return productViewType == ProductViewType.SCREEN
         ? addButton(
             32,
-            Theme.of(context).primaryColor,
+            enable ? Theme.of(context).primaryColor : Colors.grey,
             Theme.of(context).colorScheme.onPrimary,
             16,
             onTap: onTap,
           )
         : addButton(
             28,
-            Theme.of(context).primaryColor,
+            enable ? Theme.of(context).primaryColor : Colors.grey,
             Theme.of(context).colorScheme.onPrimary,
             12,
             onTap: onTap,

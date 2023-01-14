@@ -9,9 +9,10 @@ class AddToCartButton extends StatefulWidget {
   final Function onPlus;
   final Function onMinus;
   final int quantityAddedToCart;
-
+  final bool enable;
   const AddToCartButton({
     super.key,
+    this.enable = true,
     required this.productViewType,
     this.onMinus = Utils.emptyFunction,
     this.onPlus = Utils.emptyFunction,
@@ -43,7 +44,8 @@ class _AddToCartButtonState extends State<AddToCartButton> {
   Widget _addButtonWidget() {
     return AddButtonWidget(
       productViewType: widget.productViewType,
-      onTap: widget.onPlus,
+      onTap: widget.enable ? widget.onPlus : () {},
+      enable: widget.enable,
     );
   }
 

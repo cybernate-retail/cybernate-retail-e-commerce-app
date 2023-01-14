@@ -119,7 +119,10 @@ class _ProductDescriptionState extends State<ProductDescription> {
                     "",
               ),
               Observer(builder: (_) {
+                final int quantity =
+                    widget.selectedVariant?.quantityAvailable ?? 0;
                 return AddToCartButton(
+                  enable: quantity > 0,
                   productViewType: widget.productViewType,
                   onMinus: onMinus,
                   onPlus: onPlusOrAdd,

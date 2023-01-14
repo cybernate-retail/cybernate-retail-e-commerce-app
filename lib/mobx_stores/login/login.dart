@@ -30,6 +30,13 @@ abstract class _LoginStore with Store {
     return _repository.setLoggedIn(value);
   }
 
+  @action
+  Future<bool> logout() async {
+    _loggedIn = false;
+    await _secureSharedPreferencesHelper.deleteTokens();
+    return await _repository.setLoggedIn(false);
+  }
+
   Future<TokenModel?> getTokens() {
     return _secureSharedPreferencesHelper.getTokens();
   }

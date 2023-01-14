@@ -92,4 +92,19 @@ class InAppToast {
       toastBorderRadius: _toastRadius,
     );
   }
+
+  static void logoutFailed(BuildContext context) {
+    GFToast.showToast(
+      "Error occurred while logging out",
+      context,
+      toastDuration: 5,
+      toastPosition: _toastPosition,
+      trailing: const Icon(
+        Icons.cancel,
+        color: GFColors.DANGER,
+        size: _toastIconSize,
+      ),
+      toastBorderRadius: _toastRadius,
+    );
+  }
 }
