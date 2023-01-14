@@ -8,4 +8,5 @@ class PreferencesConstants {
   static const String darkMode = "darkMode";
   static const String profileInput = "profileInput";
   static const String loggedIn = "logggedIn";
+  static const String defaultDelivery = "delivery";
 }

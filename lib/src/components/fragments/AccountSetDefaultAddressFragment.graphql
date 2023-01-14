@@ -1,0 +1,15 @@
+#import './AccountErrorFragment.graphql'
+#import './UserDetailsFragment.graphql'
+#import './AddressFragment.graphql'
+
+fragment AccountSetDefaultAddressFragment on AccountSetDefaultAddress {
+	accountErrors {
+		...AccountErrorFragment
+	}
+	errors {
+		...AccountErrorFragment
+	}
+	user {
+		...UserDetailsFragment
+	}
+}

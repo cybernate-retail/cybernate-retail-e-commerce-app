@@ -87,4 +87,14 @@ class Repository {
   Future<dynamic> setCartKey(String key) {
     return _secureSharedPreferencesHelper.setCartKey(key);
   }
+
+  //Default  Delivery Address--------------------------------------
+
+  String? getDefaultDeliveryAddress() {
+    return _sharedPreferenceHelper.getDefaultDeliveryAddress();
+  }
+
+  Future<bool> setDefaultDeliveryAddress(String value) {
+    return _sharedPreferenceHelper.setDefaultDeliveryAddress(value);
+  }
 }

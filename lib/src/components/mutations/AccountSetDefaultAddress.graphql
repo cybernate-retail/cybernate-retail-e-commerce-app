@@ -1,0 +1,7 @@
+# import '../fragments/AccountSetDefaultAddressFragment.graphql'
+
+mutation AccountSetDefaultAddress($id: ID!, $type: AddressTypeEnum!) {
+	accountSetDefaultAddress(id: $id, type: $type) {
+		...AccountSetDefaultAddressFragment
+	}
+}

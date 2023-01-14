@@ -9,10 +9,8 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class SplashLogo extends StatefulWidget {
-  final String nextRoute;
   const SplashLogo({
     super.key,
-    required this.nextRoute,
   });
 
   @override
@@ -34,24 +32,26 @@ class _SplashLogoState extends State<SplashLogo> {
 
     try {
       final tokens = await _loginStore.getTokens();
-      if (tokens == null) {
-        throw Exception("no tokens");
-      }
       SchedulerBinding.instance.addPostFrameCallback(
-        (_) => scheduleTimeout(context, 3000),
+        (_) => scheduleTimeout(tokens == null, context, 2000),
       );
     } catch (e) {
       if (!mounted) return;
-      Navigator.popAndPushNamed(
-        context,
-        Routes.signup,
-      );
     }
   }
 
-  Timer scheduleTimeout(BuildContext context, [int milliseconds = 1000]) =>
+  Timer scheduleTimeout(bool navigateToSignup, BuildContext context,
+          [int milliseconds = 1000]) =>
       Timer(Duration(milliseconds: milliseconds), () {
-        handleTimeout(context);
+        navigateToSignup
+            ? Navigator.popAndPushNamed(
+                context,
+                Routes.signup,
+              )
+            : Navigator.popAndPushNamed(
+                context,
+                Routes.home,
+              );
       });
 
   @override
@@ -69,13 +69,6 @@ class _SplashLogoState extends State<SplashLogo> {
           ],
         ),
       ),
-    );
-  }
-
-  void handleTimeout(BuildContext context) {
-    Navigator.popAndPushNamed(
-      context,
-      widget.nextRoute,
     );
   }
 }

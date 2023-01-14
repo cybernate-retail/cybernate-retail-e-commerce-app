@@ -1,4 +1,5 @@
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/models/location.dart';
 import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
@@ -16,6 +17,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class AddAddress extends StatefulWidget {
@@ -30,6 +32,14 @@ class _AddAddressState extends State<AddAddress> {
   SubmitState _submitState = SubmitState.NOTTOUCHED;
   final client = GetIt.I<TypedLink>();
   final _addressFormKey = GlobalKey<FormBuilderState>();
+  late ProfileStore _profileStore;
+  bool isDefaultAddress = true;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _profileStore = Provider.of<ProfileStore>(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +123,8 @@ class _AddAddressState extends State<AddAddress> {
         ..city = city
         ..country = GCountryCode.valueOf(country ?? "IN")
         ..countryArea = countryArea
-        ..postalCode = postalCode;
+        ..postalCode = postalCode
+        ..phone = _profileStore.profile?.phoneNumber;
 
       final request = GcreateAccountAddressReq(
         ((b) => b..vars.input = addressInputBuilder),
@@ -184,6 +195,8 @@ class _AddAddressState extends State<AddAddress> {
             _landmarkField(),
             Utils.verticalSpace(3),
             _addressType(),
+            // Utils.verticalSpace(2),
+            // _checkBox(),
           ],
         ));
   }
@@ -297,4 +310,41 @@ class _AddAddressState extends State<AddAddress> {
       },
     );
   }
+
+  // _checkBox() {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: [
+  //       Checkbox(
+  //         checkColor: Colors.white,
+  //         fillColor: MaterialStateProperty.resolveWith(getColor),
+  //         value: isDefaultAddress,
+  //         shape: RoundedRectangleBorder(
+  //           side: BorderSide(
+  //             color: Theme.of(context).colorScheme.tertiaryContainer,
+  //           ),
+  //           borderRadius: BorderRadius.circular(UiConstants.edgeRadius / 2),
+  //         ),
+  //         onChanged: (bool? value) {
+  //           setState(() {
+  //             isDefaultAddress = value!;
+  //           });
+  //         },
+  //       ),
+  //       const Text("Make this as default address")
+  //     ],
+  //   );
+  // }
+
+  // Color getColor(Set<MaterialState> states) {
+  //   const Set<MaterialState> interactiveStates = <MaterialState>{
+  //     MaterialState.pressed,
+  //     MaterialState.hovered,
+  //     MaterialState.focused,
+  //   };
+  //   if (states.any(interactiveStates.contains)) {
+  //     return Theme.of(context).primaryColor;
+  //   }
+  //   return Theme.of(context).primaryColor;
+  // }
 }

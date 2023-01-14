@@ -2,7 +2,7 @@ import 'package:cybernate_retail_mobile/extended_library/google_places/places_au
 import 'package:flutter/material.dart';
 
 import 'package:google_maps_webservice/places.dart';
-import 'package:cybernate_retail_mobile/ui/extended_library/google_places/flutter_google_places.dart';
+import './flutter_google_places.dart';
 
 /// A [FormField] that contains a [PlacesAutocompleteField].
 ///

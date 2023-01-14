@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cybernate_retail_mobile/ui/extended_library/google_places/flutter_google_places.dart';
+import './flutter_google_places.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
 

@@ -1,11 +1,13 @@
 import 'package:cybernate_retail_mobile/data_repository/database_encryption/encryption/secure_sharedprefs/secure_sharedprefs_helper.dart';
 import 'package:cybernate_retail_mobile/data_repository/localdb/profile/profile_datasource.dart';
 import 'package:cybernate_retail_mobile/data_repository/remote_repository.dart';
+import 'package:cybernate_retail_mobile/data_repository/remotedb/address/address_datasource.dart';
 import 'package:cybernate_retail_mobile/data_repository/remotedb/checkout/checkout_datasource.dart';
 import 'package:cybernate_retail_mobile/data_repository/remotedb/product/product_datasource.dart';
 import 'package:cybernate_retail_mobile/data_repository/repository.dart';
 import 'package:cybernate_retail_mobile/data_repository/shared_prefs/sharedpref_helper.dart';
 import 'package:cybernate_retail_mobile/dependency_injection/modules/localmodule.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/address/address.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/introduction/introduction.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/language/language.dart';
@@ -51,15 +53,19 @@ Future<void> setupLocator() async {
   getIt.registerSingleton(ProductDataSource(await getIt.getAsync<TypedLink>()));
   getIt
       .registerSingleton(CheckoutDataSource(await getIt.getAsync<TypedLink>()));
+  getIt.registerSingleton(AddressDataSource(await getIt.getAsync<TypedLink>()));
   getIt.registerSingleton(RemoteRepository(
     getIt<ProductDataSource>(),
     getIt<CheckoutDataSource>(),
+    getIt<AddressDataSource>(),
   ));
 
   //------------------------Stores---------------------------------------------//
   getIt.registerSingleton(IntroductionStore(getIt<Repository>()));
   getIt.registerSingleton(LanguageStore(getIt<Repository>()));
   getIt.registerSingleton(ThemeStore(getIt<Repository>()));
+  getIt.registerSingleton(
+      AddressStore(getIt<RemoteRepository>(), getIt<Repository>()));
   getIt.registerSingleton(SearchStore());
   getIt.registerSingleton(CartStore(
     getIt<Repository>(),

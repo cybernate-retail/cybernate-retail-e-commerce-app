@@ -1,3 +1,4 @@
+import 'package:cybernate_retail_mobile/mobx_stores/address/address.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/AddressDetailsFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/AddressDelete.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/UserAddress.req.gql.dart';
@@ -9,6 +10,7 @@ import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:ferry/typed_links.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 
 class ViewAddress extends StatefulWidget {
   const ViewAddress({super.key});
@@ -20,6 +22,7 @@ class ViewAddress extends StatefulWidget {
 class _ViewAddressState extends State<ViewAddress> {
   final client = GetIt.I<TypedLink>();
   List<GAddressDetailsFragment>? allAddress;
+  late AddressStore _addressStore;
 
   @override
   void initState() {
@@ -28,6 +31,12 @@ class _ViewAddressState extends State<ViewAddress> {
       allAddress = event.data?.me?.addresses.asList();
       setState(() {});
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _addressStore = Provider.of<AddressStore>(context);
   }
 
   @override
@@ -69,6 +78,9 @@ class _ViewAddressState extends State<ViewAddress> {
                     allAddress = allAddress
                         ?.where((element) => element.id != addressId)
                         .toList();
+                    if (addressId == _addressStore.pinLocationAddress?.id) {
+                      _addressStore.deletePinAddress();
+                    }
                     setState(() {});
                   }
                 });

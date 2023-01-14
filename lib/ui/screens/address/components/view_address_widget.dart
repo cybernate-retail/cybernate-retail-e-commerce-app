@@ -1,5 +1,4 @@
 import 'package:cybernate_retail_mobile/src/components/fragments/models/AddressDetailsFragment.data.gql.dart';
-import 'package:cybernate_retail_mobile/src/components/queries/models/UserAddress.data.gql.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
@@ -11,7 +10,13 @@ import 'package:lottie/lottie.dart';
 class ViewAddressWidget extends StatelessWidget {
   final GAddressDetailsFragment? address;
   final Function onDelete;
-  ViewAddressWidget({super.key, required this.address, required this.onDelete});
+  final Function onTap;
+  ViewAddressWidget({
+    super.key,
+    required this.address,
+    this.onDelete = Utils.emptyFunction,
+    this.onTap = Utils.emptyFunction,
+  });
 
   final client = GetIt.I<TypedLink>();
   @override
@@ -20,6 +25,9 @@ class ViewAddressWidget extends StatelessWidget {
     final formattedAddress = address?.formattedAddress ?? "";
     final streetAddress = address?.streetAddress1 ?? "";
     return ListTile(
+      onTap: () {
+        onTap();
+      },
       leading: SizedBox(
         width: 60,
         child: Center(

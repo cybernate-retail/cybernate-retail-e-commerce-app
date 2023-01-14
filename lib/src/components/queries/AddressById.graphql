@@ -1,0 +1,7 @@
+#import '../fragments/AddressDetailsFragment.graphql'
+
+query AddressById($id : ID!){
+    address(id: $id){
+        ...AddressDetailsFragment
+    }
+}

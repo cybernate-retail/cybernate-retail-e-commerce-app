@@ -3,6 +3,7 @@ import 'package:cybernate_retail_mobile/data_repository/database_encryption/encr
 import 'package:cybernate_retail_mobile/data_repository/remote_repository.dart';
 import 'package:cybernate_retail_mobile/data_repository/repository.dart';
 import 'package:cybernate_retail_mobile/dependency_injection/services.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/address/address.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/search/search.dart';
 import 'package:cybernate_retail_mobile/ui/global_theme/apptheme.dart';
@@ -58,9 +59,12 @@ class MyApp extends StatelessWidget {
       CartStore(getIt<Repository>(), getIt<RemoteRepository>());
   final SearchStore _searchStore = SearchStore();
 
+  final AddressStore _addressStore =
+      AddressStore(getIt<RemoteRepository>(), getIt<Repository>());
+
   @override
   Widget build(BuildContext context) {
-    // todo connect s3 image storage to cdn
+    // TODO: connect s3 image storage to cdn
     return MultiProvider(
       providers: [
         Provider(create: (_) => _introductionStore),
@@ -71,6 +75,7 @@ class MyApp extends StatelessWidget {
         Provider(create: (_) => _loginStore),
         Provider(create: (_) => _cartStore),
         Provider(create: (_) => _searchStore),
+        Provider(create: (_) => _addressStore),
       ],
       child: Observer(
         name: 'global-observer',
@@ -81,11 +86,7 @@ class MyApp extends StatelessWidget {
             theme: _themeStore.darkMode
                 ? AppThemeData.darkThemeData
                 : AppThemeData.lightThemeData,
-            home: _loginStore.getLoggedIn()
-                ? const SplashLogo(
-                    nextRoute: Routes.home,
-                  )
-                : const SplashLogo(nextRoute: Routes.signup),
+            home: const SplashLogo(),
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),

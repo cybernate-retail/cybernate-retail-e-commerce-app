@@ -70,4 +70,14 @@ class SharedPreferenceHelper {
   Future<bool> setLoggedIn(bool value) {
     return _sharedPreference.setBool(PreferencesConstants.loggedIn, value);
   }
+
+  //Default Delivery address-------------------------------------
+  String? getDefaultDeliveryAddress() {
+    return _sharedPreference.getString(PreferencesConstants.defaultDelivery);
+  }
+
+  Future<bool> setDefaultDeliveryAddress(String value) {
+    return _sharedPreference.setString(
+        PreferencesConstants.defaultDelivery, value);
+  }
 }
