@@ -9,21 +9,8 @@ import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProfileOptionsWidget extends StatefulWidget {
+class ProfileOptionsWidget extends StatelessWidget {
   const ProfileOptionsWidget({super.key});
-
-  @override
-  State<ProfileOptionsWidget> createState() => _ProfileOptionsWidgetState();
-}
-
-class _ProfileOptionsWidgetState extends State<ProfileOptionsWidget> {
-  late LoginStore _loginStore;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _loginStore = Provider.of<LoginStore>(context);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +75,6 @@ class _ProfileOptionsWidgetState extends State<ProfileOptionsWidget> {
             },
           ),
           Utils.verticalSpace(4),
-          _logoutButton(context),
         ],
       ),
     );
@@ -133,45 +119,6 @@ class _ProfileOptionsWidgetState extends State<ProfileOptionsWidget> {
         //   color: Theme.of(context).colorScheme.tertiaryContainer,
         // ),
         borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
-      ),
-    );
-  }
-
-  Widget _logoutButton(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
-            side: BorderSide(
-                color: Theme.of(context).colorScheme.tertiaryContainer),
-          ),
-        ),
-      ),
-      onPressed: () {
-        _loginStore.logout().then((value) {
-          if (value) {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              Routes.signup,
-              (Route<dynamic> route) => false,
-            );
-          } else {
-            InAppToast.logoutFailed(context);
-          }
-        });
-      },
-      child: const SizedBox(
-        width: 100,
-        height: 50,
-        child: Center(
-          child: Text(
-            "Logout",
-            style: TextStyle(
-              color: Colors.red,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
       ),
     );
   }

@@ -1,6 +1,9 @@
 import 'package:cybernate_retail_mobile/mobx_stores/login/login.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
+import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/appbar/appbars.dart';
+import 'package:cybernate_retail_mobile/ui/common_widgets/toast/inapp_toast.dart';
+import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/screens/profile/components/profile_iconstab.dart';
 import 'package:cybernate_retail_mobile/ui/screens/profile/components/profile_options.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
@@ -16,11 +19,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  late LoginStore _loginStore;
   late ProfileStore _profileStore;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _loginStore = Provider.of<LoginStore>(context);
     _profileStore = Provider.of<ProfileStore>(context);
     _profileStore.getProfileData();
   }
@@ -30,6 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: justBackButtonAppBar(context),
       body: _body(),
+      bottomNavigationBar: _logoutButton(context),
       // floatingActionButton: ClipOval(
       //   child: Container(
       //     color: Theme.of(context).colorScheme.primary,
@@ -74,6 +80,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
               }),
             ),
           ]),
+    );
+  }
+
+  Widget _logoutButton(BuildContext context) {
+    return Container(
+      // margin: EdgeInsets.symmetric(horizontal: Utils.spaceScale(10)),
+      padding: const EdgeInsets.all(UiConstants.globalPadding),
+      child: ElevatedButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
+              side: BorderSide(
+                  color: Theme.of(context).colorScheme.tertiaryContainer),
+            ),
+          ),
+        ),
+        onPressed: () {
+          _loginStore.logout().then((value) {
+            if (value) {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                Routes.signup,
+                (Route<dynamic> route) => false,
+              );
+            } else {
+              InAppToast.logoutFailed(context);
+            }
+          });
+        },
+        child: const SizedBox(
+          width: 100,
+          height: 50,
+          child: Center(
+            child: Text(
+              "Logout",
+              style: TextStyle(
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
