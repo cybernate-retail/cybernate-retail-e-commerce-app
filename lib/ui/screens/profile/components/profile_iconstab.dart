@@ -58,13 +58,13 @@ Widget _orderWidget(BuildContext context) {
     context,
     IconButton(
       onPressed: () {
-        InAppNavigation.viewPayments(context);
+        InAppNavigation.order(context);
       },
       padding: EdgeInsets.zero,
       icon: SvgPicture.asset(
         AssetsDb.orderIcon,
-        width: 35,
-        height: 35,
+        width: 30,
+        height: 30,
       ),
     ),
     "Orders",

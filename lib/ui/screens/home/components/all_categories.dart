@@ -195,6 +195,9 @@ class AllCategoriesWidget extends StatelessWidget {
       margin: EdgeInsets.all(Utils.spaceScale(1)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.tertiaryContainer,
+        ),
         color: Colors.white,
       ),
       child: ClipRRect(

@@ -307,19 +307,19 @@ class Utils {
         text: TextSpan(
           children: [
             TextSpan(
-              text: "See more",
+              text: "See All",
               style: TextStyle(
                 color: color,
                 fontSize: fontSize,
                 fontWeight: FontWeight.normal,
               ),
             ),
-            // const WidgetSpan(
-            //   child: Icon(
-            //     Icons.navigate_next_rounded,
-            //     size: 15,
-            //   ),
-            // )
+            const WidgetSpan(
+              child: Icon(
+                Icons.navigate_next_rounded,
+                size: 15,
+              ),
+            )
           ],
         ),
       ),

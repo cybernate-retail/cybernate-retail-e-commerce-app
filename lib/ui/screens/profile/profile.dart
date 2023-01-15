@@ -85,6 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _logoutButton(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width * 0.5,
       // margin: EdgeInsets.symmetric(horizontal: Utils.spaceScale(10)),
       padding: const EdgeInsets.all(UiConstants.globalPadding),
       child: ElevatedButton(

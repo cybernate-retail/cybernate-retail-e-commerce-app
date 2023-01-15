@@ -5,6 +5,7 @@ import 'package:cybernate_retail_mobile/src/components/mutations/models/AccountS
 import 'package:cybernate_retail_mobile/src/components/mutations/models/AddressDelete.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/UserAddress.req.gql.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
+import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/components/add_address_widget.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/components/view_address_widget.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
@@ -60,11 +61,14 @@ class _PickDeliveryAddressWidgetState extends State<PickDeliveryAddressWidget> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
+        Align(
+          alignment: Alignment.topRight,
+          child: UiIcons.cancel(color: Colors.red),
+        ),
         Container(
-          height: MediaQuery.of(context).size.height * 0.4,
+          height: MediaQuery.of(context).size.height * 0.38,
           padding: const EdgeInsets.all(UiConstants.globalPadding),
           child: ListView.builder(
-            shrinkWrap: true,
             itemCount: allAddress?.length ?? 0,
             itemBuilder: (context, index) {
               final currentAddress = allAddress?.elementAt(index);

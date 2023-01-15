@@ -53,6 +53,7 @@ class ViewAddressWidget extends StatelessWidget {
         padding: EdgeInsets.only(bottom: Utils.spaceScale(2)),
         child: Text(
           "$streetAddress\n$formattedAddress",
+          maxLines: 3,
           style: TextStyle(
             color: Colors.black,
             fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,

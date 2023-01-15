@@ -22,6 +22,7 @@ class CategoryViewScreen extends StatefulWidget {
 
 class _CategoryViewScreenState extends State<CategoryViewScreen> {
   final client = GetIt.I<TypedLink>();
+  String title = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +34,7 @@ class _CategoryViewScreenState extends State<CategoryViewScreen> {
 
   AppBar _appbar() {
     return AppBar(
+      title: Text(title),
       centerTitle: true,
       leading: UiIcons.back(
         color: Theme.of(context).colorScheme.primary,
