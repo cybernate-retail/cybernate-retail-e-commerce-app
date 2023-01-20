@@ -1,3 +1,4 @@
+import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
@@ -71,7 +72,7 @@ class _CartWidgetState extends State<CartWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              "₹${_cartStore.amount} |",
+              "${GlobalConstants.appCurrency}${_cartStore.amount} |",
               style: TextStyle(
                 fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
                 color: Theme.of(context).colorScheme.onPrimary,

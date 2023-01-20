@@ -2,7 +2,6 @@ import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/AccountSetDefaultAddress.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/AccountSetDefaultAddress.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/AccountSetDefaultAddress.var.gql.dart';
-import 'package:cybernate_retail_mobile/src/components/mutations/models/CurrentUserSetDefaultAddress.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/AddressById.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/AddressById.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/AddressById.var.gql.dart';

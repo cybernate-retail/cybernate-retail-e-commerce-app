@@ -5,6 +5,7 @@ import 'package:cybernate_retail_mobile/src/components/fragments/models/MenuItem
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 
 class AllCategoriesWidget extends StatelessWidget {
   final BuiltList<GMenuItemWithChildrenFragment>? menuItemFragments;
@@ -13,8 +14,8 @@ class AllCategoriesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final allCategories = menuItemFragments
-        ?.firstWhere((p0) => p0.name == GlobalConstants.allCategories)
-        .children;
+        ?.firstWhereOrNull((p0) => p0.name == GlobalConstants.allCategories)
+        ?.children;
 
     final mainCategoryWidth = (MediaQuery.of(context).size.width -
             (2 * UiConstants.globalPadding) -
@@ -32,7 +33,12 @@ class AllCategoriesWidget extends StatelessWidget {
     BuiltList<GMenuItemWithChildrenFragment_children>? allCategories,
   ) {
     if (allCategories == null || allCategories.isEmpty) {
-      return Container();
+      return Padding(
+          padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(1 / 2)),
+          child: Column(children: [
+            _heading(context),
+            Utils.verticalSpace(1),
+          ]));
     }
 
     return Padding(

@@ -1,6 +1,5 @@
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/home.dart';
-import 'package:cybernate_retail_mobile/ui/screens/splash/splash.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';

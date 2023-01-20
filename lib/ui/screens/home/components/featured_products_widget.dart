@@ -10,6 +10,7 @@ import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:collection/collection.dart';
 
 class FeaturedProductWidget extends StatefulWidget {
   BuiltList<GMenuItemWithChildrenFragment>? menuItemFragments = BuiltList();
@@ -41,49 +42,51 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
 
   Widget _featuredProduct() {
     final featuredProductCollectionId = widget.menuItemFragments
-        ?.firstWhere(
+        ?.firstWhereOrNull(
             (p0) => p0.collection?.slug == GlobalConstants.featuredProductsSlug)
-        .collection
+        ?.collection
         ?.id;
 
-    return Operation(
-      operationRequest: GCollectionProductByIdReq(
-        (b) => b
-          ..vars.channel = GlobalConstants.defaultChannel
-          ..vars.id = featuredProductCollectionId
-          ..vars.locale = GlobalConstants.defaultLanguage
-          ..vars.first = 100,
-      ),
-      builder: ((context, response, error) {
-        if (response == null || response.loading) {
-          return Utils.shimmerPlaceHolder();
-        }
+    return featuredProductCollectionId == null
+        ? Container()
+        : Operation(
+            operationRequest: GCollectionProductByIdReq(
+              (b) => b
+                ..vars.channel = GlobalConstants.defaultChannel
+                ..vars.id = featuredProductCollectionId
+                ..vars.locale = GlobalConstants.defaultLanguage
+                ..vars.first = 100,
+            ),
+            builder: ((context, response, error) {
+              if (response == null || response.loading) {
+                return Utils.shimmerPlaceHolder();
+              }
 
-        return SizedBox(
-          height: UiConstants.productSize.height,
-          child: ListView.builder(
-            itemCount: response.data?.collection?.products?.edges.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: ((context, index) {
-              final product = response.data?.collection?.products?.edges
-                  .elementAt(index)
-                  .node;
-              return ProductWidget(
-                productId: product?.id ?? "",
-                productUrl: product?.thumbnail?.url ?? "",
-                productVariant: product?.variants,
-                productName: product?.name ?? "",
-                enableDiscountBanner: true,
-                onTap: () {
-                  InAppNavigation.viewProduct(context, product?.id ?? "");
-                },
+              return SizedBox(
+                height: UiConstants.productSize.height,
+                child: ListView.builder(
+                  itemCount: response.data?.collection?.products?.edges.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: ((context, index) {
+                    final product = response.data?.collection?.products?.edges
+                        .elementAt(index)
+                        .node;
+                    return ProductWidget(
+                      productId: product?.id ?? "",
+                      productUrl: product?.thumbnail?.url ?? "",
+                      productVariant: product?.variants,
+                      productName: product?.name ?? "",
+                      enableDiscountBanner: true,
+                      onTap: () {
+                        InAppNavigation.viewProduct(context, product?.id ?? "");
+                      },
+                    );
+                  }),
+                ),
               );
             }),
-          ),
-        );
-      }),
-      client: client,
-    );
+            client: client,
+          );
   }
 
   Widget _heading() {

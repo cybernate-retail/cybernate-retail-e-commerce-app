@@ -7,6 +7,9 @@ import 'package:cybernate_retail_mobile/src/components/mutations/models/Checkout
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutBillingAddressUpdate.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutBillingAddressUpdate.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutBillingAddressUpdate.var.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutComplete.data.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutComplete.req.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutComplete.var.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutCreate.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutCreate.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutCreate.var.gql.dart';
@@ -136,6 +139,15 @@ class CheckoutDataSource {
     final request = GcheckoutPaymentCreateReq(((b) => b
       ..vars.checkoutToken = token.toBuilder()
       ..vars.paymentInput = paymentInput.toBuilder()));
+    return _client.request(request);
+  }
+
+  Stream<OperationResponse<GcheckoutCompleteData, GcheckoutCompleteVars>>
+      checkoutComplete(GUUID token, String paymentData) {
+    var paymentDataJson = GJSONString(paymentData);
+    final request = GcheckoutCompleteReq(((b) => b
+      ..vars.checkoutToken = token.toBuilder()
+      ..vars.paymentData = paymentDataJson.toBuilder()));
     return _client.request(request);
   }
 

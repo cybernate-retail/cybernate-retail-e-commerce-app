@@ -32,7 +32,7 @@ class ProductPriceWithDiscount extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '\$$productUndiscountedPrice',
+          '${GlobalConstants.appCurrency}$productUndiscountedPrice',
           style: TextStyle(
             color: productPrice != productUndiscountedPrice
                 ? Colors.grey
@@ -41,7 +41,7 @@ class ProductPriceWithDiscount extends StatelessWidget {
           ),
         ),
         Text(
-          '\$$productPrice',
+          '${GlobalConstants.appCurrency}$productPrice',
           style: TextStyle(
             color: Colors.black,
             fontSize: productPriceFontSize,

@@ -21,6 +21,7 @@ class GlobalConstants {
   GlobalConstants._();
 
   static const String appName = "Rvane";
+  static const String appCurrency = "₹";
   static const String contactPhoneNumber = "+919573860738";
   static const String mainMenuNameSlug = "mainmenu";
   static const String adBannerSlug = 'ad-banners';

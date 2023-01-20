@@ -3,11 +3,7 @@ import 'package:cybernate_retail_mobile/data_repository/database_encryption/encr
 import 'package:cybernate_retail_mobile/data_repository/localdb/constants/db_constants.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/models/tokens.dart';
-import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/RefreshToken.req.gql.dart';
-import 'package:cybernate_retail_mobile/src/components/mutations/models/RefreshTokenWithUser.data.gql.dart';
-import 'package:cybernate_retail_mobile/src/components/mutations/models/RefreshTokenWithUser.req.gql.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';

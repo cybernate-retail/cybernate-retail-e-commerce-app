@@ -1,10 +1,14 @@
+// ignore_for_file: prefer_final_fields
+
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:cybernate_retail_mobile/data_repository/remote_repository.dart';
 import 'package:cybernate_retail_mobile/data_repository/repository.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
+import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:mobx/mobx.dart';
 
 part 'cart.g.dart';
@@ -23,9 +27,11 @@ abstract class _CartStore with Store {
   );
 
   @observable
-  // ignore: prefer_final_fields
   ObservableMap<String, int> _variantsAddedToCart =
       ObservableMap<String, int>();
+
+  @observable
+  String? _orderId;
 
   @observable
   GUUID? cartToken;
@@ -34,7 +40,13 @@ abstract class _CartStore with Store {
   String? _paymentGatewayToken;
 
   @observable
+  String? _paymentGatewayId;
+
+  @observable
   double _amount = 0;
+
+  @computed
+  String? get orderId => _orderId;
 
   @computed
   ObservableMap<String, int> get variantsAddedToCart => _variantsAddedToCart;
@@ -44,6 +56,8 @@ abstract class _CartStore with Store {
 
   @computed
   String? get paymentGatewayToken => _paymentGatewayToken;
+  @computed
+  String? get paymentGatewayId => _paymentGatewayId;
 
   @computed
   int get itemsCount => _variantsAddedToCart.values.sum;
@@ -62,6 +76,7 @@ abstract class _CartStore with Store {
     GAddressInput? billingAddress,
     GAddressInput? shippingAddress,
   }) {
+    _orderId = null;
     final response = _remoteRepository.createCheckout(
       email: email,
       items: _variantsAddedToCart,
@@ -75,6 +90,8 @@ abstract class _CartStore with Store {
             ?.availablePaymentGateways.first.config
             .firstWhereOrNull((element) => element.field == "api_key")
             ?.value;
+        _paymentGatewayId = event
+            .data?.checkoutCreate?.checkout?.availablePaymentGateways.first.id;
         _amount =
             event.data?.checkoutCreate?.checkout?.totalPrice.gross.amount ??
                 _amount;
@@ -202,25 +219,16 @@ abstract class _CartStore with Store {
     }
   }
 
-  createPayment() async {
+  checkoutComplete(
+      BuildContext context, String paymentToken, String paymentData) async {
     if (cartToken != null) {
-      final checkout =
-          await _remoteRepository.checkoutByToken(token: cartToken).first;
-
-      final paymentGateway =
-          checkout.data?.checkout?.availablePaymentGateways.first;
-      var paymentGatewayToken = paymentGateway?.config
-          .firstWhereOrNull((element) => element.field == "api_key")
-          ?.value;
-
       ListBuilder<GMetadataInput>? paymentMetadata;
-      if (paymentGatewayToken != null) {
-        _paymentGatewayToken = paymentGatewayToken;
+      if (_paymentGatewayToken != null && _paymentGatewayId != null) {
         var paymentInput = GPaymentInput(((b) => b
           ..amount.value = _amount.toString()
-          ..gateway = paymentGateway?.id
+          ..gateway = _paymentGatewayId
           ..storePaymentMethod = GStorePaymentMethodEnum.ON_SESSION
-          ..token = paymentGatewayToken
+          ..token = paymentToken
           ..metadata = paymentMetadata));
         final response =
             _remoteRepository.checkoutPaymentCreate(cartToken!, paymentInput);
@@ -230,8 +238,20 @@ abstract class _CartStore with Store {
             _amount =
                 event.data?.checkoutPaymentCreate?.payment?.total?.amount ??
                     _amount;
+
+            _remoteRepository
+                .checkoutComplete(cartToken!, paymentData)
+                .listen((event) {
+              if (!event.hasErrors &&
+                  event.data?.checkoutComplete?.errors.isEmpty == true) {
+                _orderId = event.data?.checkoutComplete?.order?.id;
+                InAppNavigation.paymentSuccess(context);
+              }
+            });
           }
         });
+      } else {
+        InAppNavigation.paymentFailed(context);
       }
     }
   }

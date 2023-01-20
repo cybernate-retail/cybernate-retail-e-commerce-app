@@ -114,7 +114,7 @@ class _CartScreenState extends State<CartScreen> {
                 //   title: Container(
                 //     alignment: Alignment.topRight,
                 //     child: const Text(
-                //       "₹345 saved",
+                //       "${GlobalConstants.appCurrency}345 saved",
                 //       style: TextStyle(
                 //         fontSize: 16,
                 //         color: Color.fromARGB(255, 5, 140, 10),
@@ -242,7 +242,7 @@ class _CartScreenState extends State<CartScreen> {
             child: _productDescription(
               productName,
               variantName,
-              "₹${price.toString()}",
+              "${GlobalConstants.appCurrency}${price.toString()}",
             ),
           ),
           Padding(
@@ -426,7 +426,8 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
                 Observer(builder: (_) {
-                  return Text("₹${_cartStore.amount.toString()}");
+                  return Text(
+                      "${GlobalConstants.appCurrency}${_cartStore.amount.toString()}");
                 }),
               ],
             ),
@@ -440,7 +441,7 @@ class _CartScreenState extends State<CartScreen> {
                     color: Colors.grey,
                   ),
                 ),
-                const Text("₹0"),
+                const Text("${GlobalConstants.appCurrency}0"),
               ],
             ),
             Row(
@@ -453,7 +454,7 @@ class _CartScreenState extends State<CartScreen> {
                     color: Colors.grey,
                   ),
                 ),
-                const Text("₹0"),
+                const Text("${GlobalConstants.appCurrency}0"),
               ],
             ),
             Utils.verticalSpace(1),
@@ -474,7 +475,7 @@ class _CartScreenState extends State<CartScreen> {
                 ),
                 Observer(builder: (_) {
                   return Text(
-                    "₹${_cartStore.amount}",
+                    "${GlobalConstants.appCurrency}${_cartStore.amount}",
                     style: TextStyle(
                       fontSize: 18,
                       color: Theme.of(context).colorScheme.onBackground,

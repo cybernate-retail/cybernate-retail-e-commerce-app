@@ -19,6 +19,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:collection/collection.dart';
 
 class AddAddress extends StatefulWidget {
   final LocationModel? locationModel;
@@ -108,8 +109,9 @@ class _AddAddressState extends State<AddAddress> {
 
       final city = extractLongNames("locality");
       final country = widget.locationModel?.results?.first.addressComponents
-          ?.firstWhere((element) => element.types?.contains("country") ?? false)
-          .shortName;
+          ?.firstWhereOrNull(
+              (element) => element.types?.contains("country") ?? false)
+          ?.shortName;
       final countryArea = extractLongNames("administrative_area_level_1");
       final postalCode = extractLongNames("postal_code");
 
@@ -154,8 +156,8 @@ class _AddAddressState extends State<AddAddress> {
 
   String extractLongNames(String type) {
     final result = widget.locationModel?.results?.first.addressComponents
-        ?.firstWhere((element) => element.types?.contains(type) ?? false)
-        .longName;
+        ?.firstWhereOrNull((element) => element.types?.contains(type) ?? false)
+        ?.longName;
     return result ?? "";
   }
 

@@ -13,8 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lottie/lottie.dart';
-import 'package:google_maps_flutter_platform_interface/src/types/marker.dart'
-    as marker;
 
 class PickAddressOnMap extends StatefulWidget {
   const PickAddressOnMap({super.key});

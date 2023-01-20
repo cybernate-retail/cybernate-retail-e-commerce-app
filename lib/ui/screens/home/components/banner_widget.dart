@@ -7,6 +7,7 @@ import 'package:cybernate_retail_mobile/src/components/fragments/models/MenuItem
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:collection/collection.dart';
 
 class MainMenuBannerWidget extends StatefulWidget {
   BuiltList<GMenuItemWithChildrenFragment>? menuItemFragments = BuiltList();
@@ -46,10 +47,10 @@ class _MainMenuBannerWidgetState extends State<MainMenuBannerWidget> {
   @override
   Widget build(BuildContext context) {
     final banners = widget.menuItemFragments
-            ?.firstWhere(
+            ?.firstWhereOrNull(
               (p0) => p0.category?.slug == GlobalConstants.adBannerSlug,
             )
-            .children
+            ?.children
             ?.map((p0) => p0.category?.backgroundImage?.url)
             .where((element) => element != null)
             .toBuiltList() ??

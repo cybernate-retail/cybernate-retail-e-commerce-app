@@ -84,7 +84,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             ),
           ),
           Expanded(
-              child: _productDescription("Saffolla Oil", "1Kg * 1", "₹200")),
+              child: _productDescription("Saffolla Oil", "1Kg * 1",
+                  "${GlobalConstants.appCurrency}200")),
           Padding(
             padding: EdgeInsets.only(
               right: Utils.spaceScale(2),
@@ -94,7 +95,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               child: Container(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  "₹200",
+                  "${GlobalConstants.appCurrency}200",
                   style: TextStyle(
                     fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
                     color: Theme.of(context).colorScheme.onBackground,
@@ -251,7 +252,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
                   ),
                 ),
-                const Text("₹967"),
+                const Text("${GlobalConstants.appCurrency}967"),
               ],
             ),
             Row(
@@ -277,7 +278,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     color: Colors.grey,
                   ),
                 ),
-                const Text("₹10"),
+                const Text("${GlobalConstants.appCurrency}10"),
               ],
             ),
             Utils.verticalSpace(1),
@@ -297,7 +298,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   ),
                 ),
                 Text(
-                  "₹1000",
+                  "${GlobalConstants.appCurrency}1000",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/address/address.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
@@ -77,7 +79,7 @@ class _CartCheckoutButtonState extends State<CartCheckoutButton> {
                       children: [
                         Observer(builder: (_) {
                           return Text(
-                            "₹${_cartStore.amount}",
+                            "${GlobalConstants.appCurrency}${_cartStore.amount}",
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           );
@@ -101,8 +103,12 @@ class _CartCheckoutButtonState extends State<CartCheckoutButton> {
                         if (_addressStore.pinLocationAddress != null) {
                           // InAppToast.
                           // InAppNavigation.payment(context);
-                          if (_cartStore.paymentGatewayToken != null) {
+                          if (_cartStore.paymentGatewayToken != null &&
+                              _cartStore.paymentGatewayId != null) {
                             _razorpay.open(createPaymentOptions());
+                          } else {
+                            InAppToast.genericFailureToast(
+                                context, "Payment Gateway error");
                           }
                         } else {
                           InAppToast.checkoutFailedNoAddress(context);
@@ -121,7 +127,16 @@ class _CartCheckoutButtonState extends State<CartCheckoutButton> {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Do something when payment succeeds
-    InAppNavigation.paymentSuccess(context);
+    // TODO add paymentCreate
+    if (response.paymentId != null) {
+      Map<String, dynamic> paymentData = {
+        "orderId": response.orderId ?? "",
+        "paymentId": response.paymentId ?? "",
+        "signature": response.signature ?? "",
+      };
+      _cartStore.checkoutComplete(
+          context, response.paymentId!, json.encode(paymentData));
+    }
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {

@@ -122,4 +122,33 @@ class InAppToast {
       toastBorderRadius: _toastRadius,
     );
   }
+
+  static void genericFailureToast(BuildContext context, String text) {
+    GFToast.showToast(
+      text,
+      context,
+      toastDuration: 5,
+      toastPosition: _toastPosition,
+      trailing: const Icon(
+        Icons.cancel,
+        color: GFColors.DANGER,
+        size: _toastIconSize,
+      ),
+      toastBorderRadius: _toastRadius,
+    );
+  }
+
+  static void genericSuccessToast(BuildContext context, String text) {
+    GFToast.showToast(
+      text,
+      context,
+      toastPosition: _toastPosition,
+      trailing: const Icon(
+        Icons.done,
+        color: GFColors.SUCCESS,
+        size: _toastIconSize,
+      ),
+      toastBorderRadius: _toastRadius,
+    );
+  }
 }

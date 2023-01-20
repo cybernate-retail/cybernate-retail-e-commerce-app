@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:cybernate_retail_mobile/data_repository/remotedb/address/address_datasource.dart';
 import 'package:cybernate_retail_mobile/data_repository/remotedb/checkout/checkout_datasource.dart';
 import 'package:cybernate_retail_mobile/data_repository/remotedb/product/product_datasource.dart';
@@ -7,6 +9,8 @@ import 'package:cybernate_retail_mobile/src/components/mutations/models/Checkout
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutAddProductLine.var.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutBillingAddressUpdate.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutBillingAddressUpdate.var.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutComplete.data.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutComplete.var.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutCreate.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutCreate.var.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/CheckoutCreatePayment.data.gql.dart';
@@ -121,5 +125,10 @@ class RemoteRepository {
           GcheckoutPaymentCreateVars>> checkoutPaymentCreate(
       GUUID token, GPaymentInput paymentInput) {
     return _checkoutDataSource.checkoutPaymentCreate(token, paymentInput);
+  }
+
+  Stream<OperationResponse<GcheckoutCompleteData, GcheckoutCompleteVars>>
+      checkoutComplete(GUUID token, String paymentData) {
+    return _checkoutDataSource.checkoutComplete(token, paymentData);
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:dio/dio.dart';
 import 'package:cybernate_retail_mobile/models/location.dart';
