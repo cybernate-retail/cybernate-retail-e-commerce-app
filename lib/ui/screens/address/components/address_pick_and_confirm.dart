@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AddressPickAndConfirm extends StatelessWidget {
-  final GOOGLE_MAPS_API_KEY = "AIzaSyCQ0572IuGkapSaYgPjwhWcB5EeHUnD3ZU";
+  final GOOGLE_MAPS_API_KEY = "AIzaSyCvKVpTgXdbVBRT2p-uX87Vb0WslR1zYGk";
   LocationModel? locationModel;
   final LatLng? currentMarker;
   AddressPickAndConfirm({

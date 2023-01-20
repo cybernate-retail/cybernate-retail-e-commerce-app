@@ -2,6 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';
 import 'package:cybernate_retail_mobile/data_repository/remote_repository.dart';
 import 'package:cybernate_retail_mobile/data_repository/repository.dart';
+import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:mobx/mobx.dart';
@@ -30,6 +31,9 @@ abstract class _CartStore with Store {
   GUUID? cartToken;
 
   @observable
+  String? _paymentGatewayToken;
+
+  @observable
   double _amount = 0;
 
   @computed
@@ -37,6 +41,9 @@ abstract class _CartStore with Store {
 
   @computed
   double get amount => _amount;
+
+  @computed
+  String? get paymentGatewayToken => _paymentGatewayToken;
 
   @computed
   int get itemsCount => _variantsAddedToCart.values.sum;
@@ -52,17 +59,38 @@ abstract class _CartStore with Store {
   createCheckout({
     required String email,
     Function onDone = Utils.emptyFunctionWithInt,
+    GAddressInput? billingAddress,
+    GAddressInput? shippingAddress,
   }) {
     final response = _remoteRepository.createCheckout(
-      email,
-      _variantsAddedToCart,
+      email: email,
+      items: _variantsAddedToCart,
+      billingAddress: billingAddress,
+      shippingAddress: shippingAddress,
     );
     response.listen((event) {
       cartToken = event.data?.checkoutCreate?.checkout?.token;
       if (cartToken != null) {
+        _paymentGatewayToken = event.data?.checkoutCreate?.checkout
+            ?.availablePaymentGateways.first.config
+            .firstWhereOrNull((element) => element.field == "api_key")
+            ?.value;
         _amount =
             event.data?.checkoutCreate?.checkout?.totalPrice.gross.amount ??
                 _amount;
+        final String? shippingMethodId = event
+            .data?.checkoutCreate?.checkout?.availableShippingMethods.first.id;
+        if (shippingMethodId != null &&
+            billingAddress != null &&
+            shippingAddress != null) {
+          final req = _remoteRepository
+              .checkoutUpdateDeliveryMethod(
+                shippingMethodId: shippingMethodId,
+                token: cartToken!,
+              )
+              .first;
+          req.then((value) => null);
+        }
       }
     });
   }
@@ -143,6 +171,68 @@ abstract class _CartStore with Store {
       });
     } else {
       updateVariantMap(variantId, quantity, price);
+    }
+  }
+
+  @action
+  updateAddress(GAddressInput? address) {
+    if (cartToken != null && address != null) {
+      final billingAddressUpdate =
+          _remoteRepository.checkoutBillingAddressUpdate(
+              token: cartToken!,
+              locale: GlobalConstants.defaultLanguage,
+              address: address.toBuilder());
+      final shippingAddressUpdate =
+          _remoteRepository.checkoutShippingAddressUpdate(
+              token: cartToken!,
+              locale: GlobalConstants.defaultLanguage,
+              address: address.toBuilder());
+      billingAddressUpdate.listen((event) {});
+      shippingAddressUpdate.listen((event) {
+        final shippingMethodId = event.data?.checkoutShippingAddressUpdate
+            ?.checkout?.availableShippingMethods.first.id;
+        if (shippingMethodId != null && cartToken != null) {
+          final req = _remoteRepository.checkoutUpdateDeliveryMethod(
+            shippingMethodId: shippingMethodId,
+            token: cartToken!,
+          );
+          req.listen((event) {});
+        }
+      });
+    }
+  }
+
+  createPayment() async {
+    if (cartToken != null) {
+      final checkout =
+          await _remoteRepository.checkoutByToken(token: cartToken).first;
+
+      final paymentGateway =
+          checkout.data?.checkout?.availablePaymentGateways.first;
+      var paymentGatewayToken = paymentGateway?.config
+          .firstWhereOrNull((element) => element.field == "api_key")
+          ?.value;
+
+      ListBuilder<GMetadataInput>? paymentMetadata;
+      if (paymentGatewayToken != null) {
+        _paymentGatewayToken = paymentGatewayToken;
+        var paymentInput = GPaymentInput(((b) => b
+          ..amount.value = _amount.toString()
+          ..gateway = paymentGateway?.id
+          ..storePaymentMethod = GStorePaymentMethodEnum.ON_SESSION
+          ..token = paymentGatewayToken
+          ..metadata = paymentMetadata));
+        final response =
+            _remoteRepository.checkoutPaymentCreate(cartToken!, paymentInput);
+        response.listen((event) {
+          if (!event.hasErrors &&
+              event.data?.checkoutPaymentCreate?.errors.isEmpty == true) {
+            _amount =
+                event.data?.checkoutPaymentCreate?.payment?.total?.amount ??
+                    _amount;
+          }
+        });
+      }
     }
   }
 

@@ -12,6 +12,7 @@ fragment AddressDetailsFragment on Address {
     code
     country
   } 
+  countryArea
   formattedAddress
   lat
   lon

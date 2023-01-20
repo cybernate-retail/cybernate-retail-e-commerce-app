@@ -13,7 +13,8 @@ import 'package:cybernate_retail_mobile/ui/screens/home/home.dart';
 import 'package:cybernate_retail_mobile/ui/screens/notifications/notifications.dart';
 import 'package:cybernate_retail_mobile/ui/screens/orders/order.dart';
 import 'package:cybernate_retail_mobile/ui/screens/orders/order_details.dart';
-import 'package:cybernate_retail_mobile/ui/screens/payments/payments.dart';
+import 'package:cybernate_retail_mobile/ui/screens/payments/payment-failed.dart';
+import 'package:cybernate_retail_mobile/ui/screens/payments/payment-success.dart';
 import 'package:cybernate_retail_mobile/ui/screens/payments/view_payments.dart';
 import 'package:cybernate_retail_mobile/ui/screens/product/product_view.dart';
 import 'package:cybernate_retail_mobile/ui/screens/profile/profile.dart';
@@ -87,10 +88,6 @@ class InAppNavigation {
 
   static void orders(BuildContext context) {
     _push(context, const OrdersScreen());
-  }
-
-  static void payments(BuildContext context) {
-    _push(context, const PaymentsScreen());
   }
 
   static void viewPayments(BuildContext context) {
@@ -192,6 +189,24 @@ class InAppNavigation {
       CategoryViewScreen(
         categoryId: id,
       ),
+    );
+  }
+
+  static void paymentSuccess(
+    BuildContext context,
+  ) {
+    _push(
+      context,
+      const PaymentSuccessScreen(),
+    );
+  }
+
+  static void paymentFailed(
+    BuildContext context,
+  ) {
+    _push(
+      context,
+      const PaymentFailedScreen(),
     );
   }
 }

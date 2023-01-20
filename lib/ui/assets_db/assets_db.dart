@@ -27,6 +27,10 @@ class AssetsDb {
   static String get plusAnimation => "assets/icons/plus-circle.json";
   static String get locationEarthAnimation =>
       "assets/animations/location-earth.json";
+  static String get paymentSuccessAnimation =>
+      "assets/animations/payment-success.json";
+  static String get paymentFailedAnimation =>
+      "assets/animations/payment-failed.json";
 
   //Logos or icons
   static String get logo => "assets/logo/logo.png";

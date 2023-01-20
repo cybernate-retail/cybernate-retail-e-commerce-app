@@ -1,4 +1,5 @@
 import 'package:cybernate_retail_mobile/mobx_stores/address/address.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
 import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/AddressDetailsFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/AccountSetDefaultAddress.req.gql.dart';
@@ -39,12 +40,14 @@ class PickDeliveryAddressWidget extends StatefulWidget {
 class _PickDeliveryAddressWidgetState extends State<PickDeliveryAddressWidget> {
   final client = GetIt.I<TypedLink>();
   late AddressStore _addressStore;
+  late CartStore _cartStore;
   List<GAddressDetailsFragment>? allAddress;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _addressStore = Provider.of<AddressStore>(context);
+    _cartStore = Provider.of<CartStore>(context);
   }
 
   @override
@@ -80,40 +83,10 @@ class _PickDeliveryAddressWidgetState extends State<PickDeliveryAddressWidget> {
                 child: ViewAddressWidget(
                   address: currentAddress,
                   onTap: () {
-                    final request = GAccountSetDefaultAddressReq(
-                      ((b) => b
-                        ..vars.id = currentAddress.id
-                        ..vars.type = GAddressTypeEnum.SHIPPING),
-                    );
-                    client.request(request).listen((event) {
-                      if (!event.hasErrors &&
-                          event.data?.accountSetDefaultAddress?.accountErrors
-                                  .isEmpty ==
-                              true &&
-                          event.data?.accountSetDefaultAddress?.errors
-                                  .isEmpty ==
-                              true) {
-                        _addressStore.setDeliveryAddress(currentAddress);
-                      }
-                    });
-                    Navigator.pop(context);
+                    onAddressTap(currentAddress);
                   },
                   onDelete: () {
-                    final addressId = currentAddress.id;
-                    final request = GAddressDeleteReq(
-                      ((b) => b..vars.id = addressId),
-                    );
-                    client.request(request).listen((event) {
-                      if (!event.hasErrors) {
-                        allAddress = allAddress
-                            ?.where((element) => element.id != addressId)
-                            .toList();
-                        if (addressId == _addressStore.pinLocationAddress?.id) {
-                          _addressStore.deletePinAddress();
-                        }
-                        setState(() {});
-                      }
-                    });
+                    onDeleteTap(currentAddress);
                   },
                 ),
               );
@@ -123,6 +96,45 @@ class _PickDeliveryAddressWidgetState extends State<PickDeliveryAddressWidget> {
         const AddAddressWidget(),
       ],
     );
+  }
+
+  onDeleteTap(GAddressDetailsFragment address) {
+    final addressId = address.id;
+    final request = GAddressDeleteReq(
+      ((b) => b..vars.id = addressId),
+    );
+    client.request(request).listen((event) {
+      if (!event.hasErrors) {
+        allAddress =
+            allAddress?.where((element) => element.id != addressId).toList();
+        if (addressId == _addressStore.pinLocationAddress?.id) {
+          _addressStore.deletePinAddress();
+        }
+        setState(() {});
+      }
+    });
+  }
+
+  onAddressTap(GAddressDetailsFragment address) {
+    if (_cartStore.cartToken != null) {
+      _cartStore.updateAddress(
+        Utils.convertGAddressDetailsFragmentToGAddressInput(address),
+      );
+    }
+
+    final request = GAccountSetDefaultAddressReq(
+      ((b) => b
+        ..vars.id = address.id
+        ..vars.type = GAddressTypeEnum.SHIPPING),
+    );
+    client.request(request).listen((event) {
+      if (!event.hasErrors &&
+          event.data?.accountSetDefaultAddress?.accountErrors.isEmpty == true &&
+          event.data?.accountSetDefaultAddress?.errors.isEmpty == true) {
+        _addressStore.setDeliveryAddress(address);
+      }
+    });
+    Navigator.pop(context);
   }
 }
 

@@ -107,4 +107,19 @@ class InAppToast {
       toastBorderRadius: _toastRadius,
     );
   }
+
+  static void checkoutFailedNoAddress(BuildContext context) {
+    GFToast.showToast(
+      "Please add Address for checkout",
+      context,
+      toastDuration: 5,
+      toastPosition: _toastPosition,
+      trailing: const Icon(
+        Icons.cancel,
+        color: GFColors.DANGER,
+        size: _toastIconSize,
+      ),
+      toastBorderRadius: _toastRadius,
+    );
+  }
 }

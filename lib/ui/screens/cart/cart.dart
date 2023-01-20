@@ -1,4 +1,5 @@
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/address/address.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
@@ -30,15 +31,24 @@ class _CartScreenState extends State<CartScreen> {
   final client = GetIt.I<TypedLink>();
   late CartStore _cartStore;
   late ProfileStore _profileStore;
+  late AddressStore _addressStore;
 
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
     _cartStore = Provider.of<CartStore>(context);
     _profileStore = Provider.of<ProfileStore>(context);
+    _addressStore = Provider.of<AddressStore>(context);
+
     if (_cartStore.cartToken == null) {
       await _cartStore.createCheckout(
         email: _profileStore.profile?.phoneNumber ?? "",
+        billingAddress: Utils.convertGAddressDetailsFragmentToGAddressInput(
+          _addressStore.pinLocationAddress,
+        ),
+        shippingAddress: Utils.convertGAddressDetailsFragmentToGAddressInput(
+          _addressStore.pinLocationAddress,
+        ),
       );
     }
   }

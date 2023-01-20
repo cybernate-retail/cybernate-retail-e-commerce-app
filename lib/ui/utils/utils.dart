@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/fragments/models/AddressDetailsFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -369,5 +371,25 @@ class Utils {
   static double roundOffDouble(double val, int places) {
     num mod = pow(10.0, places);
     return ((val * mod).round().toDouble() / mod);
+  }
+
+  static GAddressInput? convertGAddressDetailsFragmentToGAddressInput(
+    GAddressDetailsFragment? fragment,
+  ) {
+    if (fragment != null) {
+      return GAddressInput(((b) => b
+        ..city = fragment.city
+        ..country = GCountryCode.valueOf(fragment.country.code)
+        ..firstName = fragment.firstName
+        ..formattedAddress = fragment.formattedAddress
+        ..lat = fragment.lat
+        ..lon = fragment.lon
+        ..phone = fragment.phone
+        ..postalCode = fragment.postalCode
+        ..countryArea = fragment.countryArea
+        ..streetAddress1 = fragment.streetAddress1));
+    } else {
+      return null;
+    }
   }
 }

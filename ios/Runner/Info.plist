@@ -59,6 +59,9 @@
 	<array>
 	<string>sms</string>
 	<string>tel</string>
+	<string>tez</string>
+    <string>phonepe</string>
+    <string>paytmmp</string>
 	</array>
 </dict>
 </plist>

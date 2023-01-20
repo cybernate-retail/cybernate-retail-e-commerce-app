@@ -1,6 +1,6 @@
 # import '../fragments/CheckoutDetailsFragment.graphql'
-mutation CreateCheckout($email: String, $lines: [CheckoutLineInput!]!, $channel: String!, $locale: LanguageCodeEnum!) {
-  checkoutCreate(input: { channel: $channel, email: $email, lines: $lines }) {
+mutation CreateCheckout($email: String, $lines: [CheckoutLineInput!]!, $channel: String!, $locale: LanguageCodeEnum!, $shippingAddress: AddressInput,$billingAddress: AddressInput) {
+  checkoutCreate(input: { channel: $channel, email: $email, lines: $lines , shippingAddress: $shippingAddress, billingAddress: $billingAddress}) {
     checkout {
       ...CheckoutDetailsFragment
     }
