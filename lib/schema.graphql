@@ -14419,6 +14419,7 @@ enum OrderStatus {
   RETURNED
   FULFILLED
   CANCELED
+  DELIVERED
 }
 
 enum OrderStatusFilter {

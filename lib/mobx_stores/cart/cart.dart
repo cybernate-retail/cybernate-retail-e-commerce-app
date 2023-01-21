@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields
+// ignore_for_file: prefer_final_fields, depend_on_referenced_packages
 
 import 'package:built_collection/built_collection.dart';
 import 'package:collection/collection.dart';

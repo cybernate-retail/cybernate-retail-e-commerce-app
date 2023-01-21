@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/AddressDetailsFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
@@ -391,5 +392,46 @@ class Utils {
     } else {
       return null;
     }
+  }
+
+  static Widget getOrderStatusWidget(GOrderStatus orderStatus) {
+    switch (orderStatus) {
+      case GOrderStatus.UNCONFIRMED:
+        return orderStatusWidget(Colors.blue, orderStatus, "UNCONFIRMED");
+      case GOrderStatus.UNFULFILLED:
+        return orderStatusWidget(Colors.blue, orderStatus, "ORDERED");
+      case GOrderStatus.DELIVERED:
+        return orderStatusWidget(Colors.green, orderStatus, "DELIVERED");
+      case GOrderStatus.FULFILLED:
+        return orderStatusWidget(Colors.green, orderStatus, "SHIPPED");
+      case GOrderStatus.RETURNED:
+        return orderStatusWidget(Colors.red, orderStatus, "RETURNED");
+      case GOrderStatus.CANCELED:
+        return orderStatusWidget(Colors.red, orderStatus, "CANCELED");
+      default:
+        return Container();
+    }
+  }
+
+  static Widget orderStatusWidget(
+    Color color,
+    GOrderStatus orderStatus,
+    String text,
+  ) {
+    return Container(
+      padding: EdgeInsets.all(Utils.spaceScale(1)),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(UiConstants.edgeRadius / 2),
+        color: color,
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
   }
 }

@@ -1,9 +1,18 @@
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/fragments/models/OrderDetailsFragment.data.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/queries/models/Orders.data.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/queries/models/Orders.req.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/queries/models/Orders.var.gql.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
+import 'package:ferry/typed_links.dart';
+import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../routes/navigator/inapp_navigation.dart';
@@ -16,7 +25,8 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
-  // TODO need to add schimmer for order address and verythign else
+  final client = GetIt.I<TypedLink>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,101 +67,105 @@ class _OrdersScreenState extends State<OrdersScreen> {
   }
 
   Widget _body() {
-    List<Widget> lists = [
-      _orderWidget(OrderStatus.DELIVERED),
-      _orderWidget(OrderStatus.SHIPPED),
-      _orderWidget(OrderStatus.PACKED),
-      _orderWidget(OrderStatus.ORDERED),
-      _orderWidget(OrderStatus.REJECTED),
-      _orderWidget(OrderStatus.RETURNED),
-      _orderWidget(OrderStatus.SHIPPED),
-      _orderWidget(OrderStatus.ORDERED),
-      _orderWidget(OrderStatus.REJECTED),
-      _orderWidget(OrderStatus.RETURNED),
-      _orderWidget(OrderStatus.SHIPPED),
-      _orderWidget(OrderStatus.DELIVERED),
-      _orderWidget(OrderStatus.ORDERED),
-      _orderWidget(OrderStatus.REJECTED),
-      _orderWidget(OrderStatus.RETURNED),
-    ];
-
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: UiConstants.globalPadding),
-      child: ListView.builder(
-        itemCount: lists.length,
-        padding: EdgeInsets.only(top: Utils.spaceScale(1)),
-        itemBuilder: (context, index) {
-          return lists[index];
+      child: Operation(
+        builder: (
+          BuildContext context,
+          OperationResponse<GOrdersData, GOrdersVars>? response,
+          Object? error,
+        ) {
+          if (response == null || response.loading) {
+            return Utils.shimmerPlaceHolder();
+          }
+          if (response.linkException != null) {}
+          final orders = response.data?.me?.orders?.edges;
+          return ListView.builder(
+            itemCount: orders?.length,
+            padding: EdgeInsets.only(top: Utils.spaceScale(1)),
+            itemBuilder: (context, index) {
+              return _orderWidget(orders?.elementAt(index).node);
+            },
+          );
         },
+        operationRequest: GOrdersReq(),
+        client: client,
       ),
     );
   }
 
-  Widget _orderWidget(OrderStatus orderStatus) {
-    return Padding(
-      padding: EdgeInsets.only(top: Utils.spaceScale(1)),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(Utils.spaceScale(1)),
-        onTap: () {
-          InAppNavigation.orderDetail(context);
-        },
-        child: Ink(
-          height: Utils.spaceScale(16),
-          // margin: EdgeInsets.only(top: Utils.spaceScale(1)),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
-            border: Border.all(
-              color: Theme.of(context).colorScheme.tertiaryContainer,
-            ),
-            // color: Theme.of(context).primaryColor,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 100,
-                child: Padding(
-                  padding: EdgeInsets.all(Utils.spaceScale(0)),
-                  child: Center(
-                    child: _getOrderStatusAnimations(orderStatus),
+  Widget _orderWidget(GOrderDetailsFragment? order) {
+    return order == null
+        ? Container()
+        : Padding(
+            padding: EdgeInsets.only(top: Utils.spaceScale(1)),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(Utils.spaceScale(1)),
+              onTap: () {
+                InAppNavigation.orderDetail(context, order);
+              },
+              child: Ink(
+                height: Utils.spaceScale(16),
+                // margin: EdgeInsets.only(top: Utils.spaceScale(1)),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(UiConstants.edgeRadius),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.tertiaryContainer,
                   ),
+                  // color: Theme.of(context).primaryColor,
                 ),
-              ),
-              Expanded(
-                child: _orderDescription(
-                  orderStatus,
-                  "Order ADASD22DAS",
-                  "\$200",
-                  "7",
-                  "12/12/22 5:13PM",
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  right: Utils.spaceScale(2),
-                  top: Utils.spaceScale(2),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _getOrderStatusWidget(orderStatus),
+                    SizedBox(
+                      width: 100,
+                      child: Padding(
+                        padding: EdgeInsets.all(Utils.spaceScale(0)),
+                        child: Center(
+                          child: _getOrderStatusAnimations(order.status),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: _orderDescription(
+                        orderStatus: order.status,
+                        orderId: order.number,
+                        orderAmount: order.total.gross.amount.toString(),
+                        orderItemsCount: order.lines
+                            .map((p0) => p0.quantity)
+                            .toList()
+                            .reduce((value, element) => value + element)
+                            .toString(),
+                        time:
+                            "${DateFormat.yMMMEd().format(DateTime.parse(order.created.value))} ${DateFormat.jm().format(DateTime.parse(order.created.value))}",
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        right: Utils.spaceScale(2),
+                        top: Utils.spaceScale(2),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Utils.getOrderStatusWidget(order.status),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
   }
 
-  Widget _orderDescription(
-    OrderStatus orderStatus,
-    String orderId,
-    String orderAmount,
-    String orderItemsCount,
-    String time,
-  ) {
+  Widget _orderDescription({
+    required GOrderStatus? orderStatus,
+    required String orderId,
+    required String orderAmount,
+    required String orderItemsCount,
+    required String time,
+  }) {
     return Padding(
       padding: EdgeInsets.only(
         right: Utils.spaceScale(2),
@@ -162,21 +176,21 @@ class _OrdersScreenState extends State<OrdersScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            time,
+            "Order# $orderId",
+            maxLines: 1,
+            softWrap: true,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+              fontSize: 12,
               color: Theme.of(context).colorScheme.onBackground,
               fontWeight: FontWeight.normal,
             ),
           ),
           Utils.verticalSpace(1),
           Text(
-            orderId,
-            maxLines: 2,
-            softWrap: true,
-            overflow: TextOverflow.ellipsis,
+            time,
             style: TextStyle(
-              fontSize: Utils.spaceScale(1),
+              fontSize: 10,
               color: Theme.of(context).colorScheme.onBackground,
               fontWeight: FontWeight.normal,
             ),
@@ -192,7 +206,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
           ),
           Utils.verticalSpace(1),
           Text(
-            "Total amount $orderAmount",
+            "Total amount: ${GlobalConstants.appCurrency}$orderAmount",
             maxLines: 2,
             softWrap: true,
             overflow: TextOverflow.ellipsis,
@@ -203,43 +217,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _getOrderStatusWidget(OrderStatus orderStatus) {
-    switch (orderStatus) {
-      case OrderStatus.ORDERED:
-        return _orderStatusWidget(Colors.blue, orderStatus);
-      case OrderStatus.PACKED:
-        return _orderStatusWidget(Colors.blue, orderStatus);
-      case OrderStatus.SHIPPED:
-        return _orderStatusWidget(Colors.green, orderStatus);
-      case OrderStatus.DELIVERED:
-        return _orderStatusWidget(Colors.green, orderStatus);
-      case OrderStatus.RETURNED:
-        return _orderStatusWidget(Colors.red, orderStatus);
-      case OrderStatus.REJECTED:
-        return _orderStatusWidget(Colors.red, orderStatus);
-      default:
-        return Container();
-    }
-  }
-
-  Widget _orderStatusWidget(Color color, OrderStatus orderStatus) {
-    return Container(
-      padding: EdgeInsets.all(Utils.spaceScale(1)),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(UiConstants.edgeRadius / 2),
-        color: color,
-      ),
-      child: Text(
-        orderStatus.name.toString(),
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
-          fontWeight: FontWeight.bold,
-        ),
       ),
     );
   }
@@ -369,40 +346,40 @@ class _OrdersScreenState extends State<OrdersScreen> {
     );
   }
 
-  Widget _getOrderStatusAnimations(OrderStatus orderStatus) {
+  Widget _getOrderStatusAnimations(GOrderStatus orderStatus) {
     switch (orderStatus) {
-      case OrderStatus.DELIVERED:
+      case GOrderStatus.DELIVERED:
         return Lottie.asset(
           AssetsDb.deliveredAnimation,
           repeat: false,
           height: 100,
         );
 
-      case OrderStatus.ORDERED:
+      case GOrderStatus.UNCONFIRMED:
         return Lottie.asset(
           AssetsDb.waitingAnimation,
           repeat: true,
           height: 50,
         );
-      case OrderStatus.PACKED:
+      case GOrderStatus.UNFULFILLED:
         return Lottie.asset(
           AssetsDb.groceryShoppingAnimation,
           repeat: false,
           height: 80,
         );
-      case OrderStatus.REJECTED:
+      case GOrderStatus.CANCELED:
         return Lottie.asset(
           AssetsDb.rejectedAnimation,
           repeat: false,
           height: 50,
         );
-      case OrderStatus.RETURNED:
+      case GOrderStatus.RETURNED:
         return Lottie.asset(
           AssetsDb.cancelOrderAnimation,
           repeat: true,
           height: 50,
         );
-      case OrderStatus.SHIPPED:
+      case GOrderStatus.FULFILLED:
         return Lottie.asset(
           AssetsDb.deliveryGuyAnimation,
           repeat: true,

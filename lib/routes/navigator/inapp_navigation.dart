@@ -1,5 +1,6 @@
 import 'package:cybernate_retail_mobile/models/location.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';
+import 'package:cybernate_retail_mobile/src/components/fragments/models/OrderDetailsFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/add_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/pick_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/view_address.dart';
@@ -141,8 +142,12 @@ class InAppNavigation {
     _push(context, const OrdersScreen());
   }
 
-  static void orderDetail(BuildContext context) {
-    _push(context, const OrderDetailScreen());
+  static void orderDetail(BuildContext context, GOrderDetailsFragment order) {
+    _push(
+        context,
+        OrderDetailScreen(
+          order: order,
+        ));
   }
 
   static void contactUs(BuildContext context) {
