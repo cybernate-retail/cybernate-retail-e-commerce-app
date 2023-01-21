@@ -31,9 +31,6 @@ abstract class _CartStore with Store {
       ObservableMap<String, int>();
 
   @observable
-  String? _orderId;
-
-  @observable
   GUUID? cartToken;
 
   @observable
@@ -44,9 +41,6 @@ abstract class _CartStore with Store {
 
   @observable
   double _amount = 0;
-
-  @computed
-  String? get orderId => _orderId;
 
   @computed
   ObservableMap<String, int> get variantsAddedToCart => _variantsAddedToCart;
@@ -76,7 +70,6 @@ abstract class _CartStore with Store {
     GAddressInput? billingAddress,
     GAddressInput? shippingAddress,
   }) {
-    _orderId = null;
     final response = _remoteRepository.createCheckout(
       email: email,
       items: _variantsAddedToCart,
@@ -244,7 +237,13 @@ abstract class _CartStore with Store {
                 .listen((event) {
               if (!event.hasErrors &&
                   event.data?.checkoutComplete?.errors.isEmpty == true) {
-                _orderId = event.data?.checkoutComplete?.order?.id;
+                // reset all the cart variables
+                _amount = 0.0;
+                cartToken = null;
+                _paymentGatewayToken = null;
+                _paymentGatewayId = null;
+                _variantsAddedToCart = ObservableMap<String, int>();
+
                 InAppNavigation.paymentSuccess(context);
               }
             });
