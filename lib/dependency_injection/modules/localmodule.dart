@@ -75,6 +75,13 @@ abstract class LocalModule {
   static Future<TypedLink> initAuthClient(
     FlutterSecureStorage flutterSecureStorage,
   ) async {
+    //if first run delete the fluttersecurestorage storage items
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('first_run') ?? true) {
+      await flutterSecureStorage.deleteAll();
+      prefs.setBool('first_run', false);
+    }
+
     await Hive.initFlutter();
 
     final box = await Hive.openBox("graphql");

@@ -28,13 +28,6 @@ class _MainMenuBannerWidgetState extends State<MainMenuBannerWidget> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(
-        const Duration(seconds: GlobalConstants.adBannerDuration), (timer) {
-      _pageController.nextPage(
-        duration: const Duration(seconds: 1),
-        curve: Curves.easeIn,
-      );
-    });
   }
 
   @override
@@ -58,6 +51,13 @@ class _MainMenuBannerWidgetState extends State<MainMenuBannerWidget> {
     if (banners.isEmpty) {
       return Container();
     }
+    _timer = Timer.periodic(
+        const Duration(seconds: GlobalConstants.adBannerDuration), (timer) {
+      _pageController.nextPage(
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeIn,
+      );
+    });
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.2,
       child: PageView.builder(
