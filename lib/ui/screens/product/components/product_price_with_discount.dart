@@ -16,7 +16,7 @@ class ProductPriceWithDiscount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (productViewType == ProductViewType.CARD) {
-      return _productPrice(context, 13, 8, 2);
+      return _productPrice(context, 12, 8, 2);
     }
     return _productPrice(context, 20, 12, 8);
   }

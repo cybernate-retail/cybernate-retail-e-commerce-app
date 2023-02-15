@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/AddressDetailsFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
@@ -265,10 +264,13 @@ class Utils {
         : CachedNetworkImage(
             imageUrl: url,
             fit: boxFit,
-            errorWidget: (context, error, stackTrace) => const Center(
-                child: Icon(
-              Icons.error,
-              color: Colors.red,
+            errorWidget: (context, error, stackTrace) => Center(
+                child: Container(
+              margin: const EdgeInsets.all(8.0),
+              child: const Icon(
+                Icons.error,
+                color: Colors.red,
+              ),
             )),
             progressIndicatorBuilder: ((context, url, progress) {
               return Center(

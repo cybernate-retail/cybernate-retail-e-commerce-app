@@ -101,34 +101,39 @@ class _SearchScreenState extends State<SearchScreen> {
             );
           }
           if (response.linkException != null) {}
-          return Column(
-            children: [
-              _heading(),
-              Utils.verticalSpace(1),
-              SizedBox(
-                height: UiConstants.productSize.height,
-                child: ListView.builder(
-                  itemCount: response.data?.collection?.products?.edges.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: ((context, index) {
-                    final product = response.data?.collection?.products?.edges
-                        .elementAt(index)
-                        .node;
-                    return ProductWidget(
-                      productId: product?.id ?? "",
-                      productUrl: product?.thumbnail?.url ?? "",
-                      productVariant: product?.variants,
-                      productName: product?.name ?? "",
-                      enableDiscountBanner: true,
-                      onTap: () {
-                        InAppNavigation.viewProduct(context, product?.id ?? "");
-                      },
-                    );
-                  }),
-                ),
-              ),
-            ],
-          );
+          return response.data?.collection == null
+              ? Container()
+              : Column(
+                  children: [
+                    _heading(),
+                    Utils.verticalSpace(1),
+                    SizedBox(
+                      height: UiConstants.productSize.height,
+                      child: ListView.builder(
+                        itemCount:
+                            response.data?.collection?.products?.edges.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: ((context, index) {
+                          final product = response
+                              .data?.collection?.products?.edges
+                              .elementAt(index)
+                              .node;
+                          return ProductWidget(
+                            productId: product?.id ?? "",
+                            productUrl: product?.thumbnail?.url ?? "",
+                            productVariant: product?.variants,
+                            productName: product?.name ?? "",
+                            enableDiscountBanner: true,
+                            onTap: () {
+                              InAppNavigation.viewProduct(
+                                  context, product?.id ?? "");
+                            },
+                          );
+                        }),
+                      ),
+                    ),
+                  ],
+                );
         },
         operationRequest: GSearchPlaceholderReq((b) => b
           ..vars.slug = GlobalConstants.suggestedForYouSlug
