@@ -7,7 +7,6 @@ import 'package:cybernate_retail_mobile/dependency_injection/services.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/address/address.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/search/search.dart';
-import 'package:cybernate_retail_mobile/notifications/firebase_config.dart';
 import 'package:cybernate_retail_mobile/ui/global_theme/apptheme.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/introduction/introduction.dart';
@@ -37,7 +36,6 @@ Future<void> main() async {
   //   );
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
-  await LocalFireBaseConfig.initFireBase();
   runApp(MyApp());
   // }, (exception, stackTrace) async {
   //   await Sentry.captureException(exception, stackTrace: stackTrace);
