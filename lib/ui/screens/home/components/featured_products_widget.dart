@@ -75,7 +75,10 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
                       productId: product?.id ?? "",
                       productUrl: product?.thumbnail?.url ?? "",
                       productVariant: product?.variants,
-                      productName: product?.name ?? "",
+                      productName: (product?.translation == null
+                              ? product?.name
+                              : product?.translation?.name) ??
+                          "",
                       enableDiscountBanner: true,
                       onTap: () {
                         InAppNavigation.viewProduct(context, product?.id ?? "");
