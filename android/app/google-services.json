@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "375079949702",
+    "project_id": "cybernate-retail",
+    "storage_bucket": "cybernate-retail.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375079949702:android:604a6b9424851769474807",
+        "android_client_info": {
+          "package_name": "com.erstnot.cybernate_retail_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375079949702-cfpn8kobi8nc18fhtkh7isf32f4dd3s8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.erstnot.cybernate_retail_mobile",
+            "certificate_hash": "c5e9ab879229d84f749d8d096b4558c435711313"
+          }
+        },
+        {
+          "client_id": "375079949702-h11urqmkbtfel3obmq1gv9u2ptct747v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmzXUCzASlEpC5fjBK9_j0JymKwwCKSuE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375079949702-h11urqmkbtfel3obmq1gv9u2ptct747v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "375079949702-54flq54n3d1hcs5d06d2j267ej5g3p73.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.erstnot.cybernateRetailMobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -11,6 +11,9 @@ import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../models/payment_gateway.dart';
+import '../../src/components/fragments/models/CheckoutDetailsFragment.data.gql.dart';
+
 part 'cart.g.dart';
 
 // final Client client = GetIt.I<Client>();
@@ -267,4 +270,17 @@ abstract class _CartStore with Store {
       _variantsAddedToCart[variantId] = quantity;
     }
   }
+
+  // PaymentGateway getCODpaymentGateway(
+  //     List<GCheckoutDetailsFragment_availablePaymentGateways> paymentGateways) {
+  //       paymentGateways.
+  // }
+
+  // PaymentGateway getRazorpayGateway(
+  //     List<GCheckoutDetailsFragment_availablePaymentGateways> paymentGateways) {
+  //   String? __name = paymentGateways.name;
+  //   String? __token = paymentGateways.config.first.field;
+
+  //   return PaymentGateway(id: '', token: '', name: '');
+  // }
 }
