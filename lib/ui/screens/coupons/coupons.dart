@@ -1,11 +1,20 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:coupon_uikit/coupon_uikit.dart';
+import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/queries/models/Vochers.data.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/queries/models/Vochers.req.gql.dart';
+import 'package:cybernate_retail_mobile/src/components/queries/models/Vochers.var.gql.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/appbar/appbars.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/forms/custom_form_validators.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
+import 'package:ferry/typed_links.dart';
+import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:get_it/get_it.dart';
 
 class CouponsScreen extends StatefulWidget {
   final String title = "Coupons";
@@ -19,6 +28,8 @@ class CouponsScreen extends StatefulWidget {
 class _CouponsScreenState extends State<CouponsScreen> {
   bool applyButtonEnabled = false;
   final formKey = GlobalKey<FormBuilderState>();
+  final client = GetIt.I<TypedLink>();
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -39,28 +50,60 @@ class _CouponsScreenState extends State<CouponsScreen> {
   }
 
   Widget _body() {
-    List<Widget> lists = [
-      // _couponWidget(),
-      _couponWidget1(),
-      _couponWidget2(),
-    ];
+    GVoucherSortingInput sortingInput = GVoucherSortingInput(
+      ((b) => b
+        ..channel = GlobalConstants.defaultChannel
+        ..direction = GOrderDirection.DESC
+        ..field = GVoucherSortField.USAGE_LIMIT),
+    );
+    ListBuilder<GDiscountStatusEnum> status = ListBuilder();
+    status.add(GDiscountStatusEnum.ACTIVE);
+    GVoucherFilterInput filterInput =
+        GVoucherFilterInput((((b) => b..status = status)));
 
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
           child: widget.applyWidgetEnabled ? _applyWidget() : Container(),
         ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            childCount: lists.length,
-            (context, index) {
-              return Padding(
-                padding: EdgeInsets.only(top: Utils.spaceScale(1)),
-                child: lists[index],
+        Operation(
+            client: client,
+            operationRequest: GVouchersReq(
+              (b) => b
+                ..vars.channel = GlobalConstants.defaultChannel
+                ..vars.sortBy = sortingInput.toBuilder()
+                ..vars.filter = filterInput.toBuilder(),
+            ),
+            builder: (
+              context,
+              OperationResponse<GVouchersData, GVouchersVars>? response,
+              error,
+            ) {
+              if (response == null || response.loading) {
+                return SliverToBoxAdapter(
+                  child: Utils.shimmerPlaceHolder(),
+                );
+              }
+              if (response.linkException != null) {
+                return SliverToBoxAdapter(
+                  child: Container(),
+                );
+              }
+              var vouchers = response.data?.vouchers?.edges;
+              return SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  childCount: response.data?.vouchers?.totalCount,
+                  (context, index) {
+                    var voucher = vouchers?.elementAt(index);
+                    return Padding(
+                      padding: EdgeInsets.only(top: Utils.spaceScale(1)),
+                      child: _couponWidget2("20%off", "asdfasf",
+                          voucher?.node.code ?? "asdfa", "asfas"),
+                    );
+                  },
+                ),
               );
-            },
-          ),
-        ),
+            }),
       ],
     );
   }
@@ -164,9 +207,10 @@ class _CouponsScreenState extends State<CouponsScreen> {
     );
   }
 
-  Widget _couponWidget1() {
+  Widget _couponWidget1(
+      String discount, String description, String couponCode, String endDate) {
     return CouponCard(
-      height: 100,
+      height: 120,
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       curveAxis: Axis.vertical,
       curveRadius: 20,
@@ -183,7 +227,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      '23% OFF',
+                      discount,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize:
@@ -196,12 +240,12 @@ class _CouponsScreenState extends State<CouponsScreen> {
               ),
             ),
             const Divider(color: Colors.white54, height: 0),
-            const Expanded(
+            Expanded(
               child: Center(
                 child: Text(
-                  'WINTER IS HERE',
+                  description,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 10,
                     fontWeight: FontWeight.bold,
@@ -231,7 +275,7 @@ class _CouponsScreenState extends State<CouponsScreen> {
               ),
             ),
             Text(
-              'FREESALES',
+              couponCode,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 18,
@@ -242,10 +286,10 @@ class _CouponsScreenState extends State<CouponsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Valid Till - 30 Jan 2022',
+                Text(
+                  'Valid Till - $endDate',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black45,
                     fontSize: 10,
                   ),
@@ -262,7 +306,8 @@ class _CouponsScreenState extends State<CouponsScreen> {
     );
   }
 
-  Widget _couponWidget2() {
+  Widget _couponWidget2(
+      String discount, String description, String couponCode, String endDate) {
     return CouponCard(
       height: 150,
       curvePosition: 80,
@@ -283,17 +328,26 @@ class _CouponsScreenState extends State<CouponsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Text(
+            //   'Flat \$20 OFF',
+            //   style: TextStyle(
+            //     color: Theme.of(context).colorScheme.onSurface,
+            //     fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+            //     fontWeight: FontWeight.bold,
+            //   ),
+            // ),
+            Utils.verticalSpace(1),
             Text(
-              'Flat \$20 OFF',
+              "20% off",
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface,
-                fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+                color: Theme.of(context).primaryColor,
+                fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Utils.verticalSpace(1),
             Text(
-              'FREESALES',
+              couponCode,
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
@@ -315,9 +369,9 @@ class _CouponsScreenState extends State<CouponsScreen> {
           children: [
             Padding(
               padding: EdgeInsets.only(left: Utils.spaceScale(3)),
-              child: const Text(
-                "Save \$16 with this code",
-                style: TextStyle(
+              child: Text(
+                description,
+                style: const TextStyle(
                   color: Colors.blueAccent,
                   fontSize: 12,
                 ),
