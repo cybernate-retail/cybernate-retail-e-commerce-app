@@ -9,6 +9,11 @@ fragment CollectionProduct on Product {
 	thumbnail {
 		url
 	}
+	translation(languageCode: $locale) {
+		id
+		description
+		name
+	}
 	variants {
 		...ProductVariantDetailsFragment
 	}
