@@ -100,7 +100,9 @@ class _SearchScreenState extends State<SearchScreen> {
               enabled: true,
             );
           }
-          if (response.linkException != null) {}
+          if (response.linkException != null) {
+            return Container();
+          }
           return response.data?.collection == null
               ? Container()
               : Column(
@@ -168,7 +170,9 @@ class _SearchScreenState extends State<SearchScreen> {
               enabled: true,
             );
           }
-          if (response.linkException != null) {}
+          if (response.linkException != null) {
+            return Container();
+          }
           final products = response.data?.products?.edges;
           if (products == null || products.isEmpty) {
             return _nothingFound();
