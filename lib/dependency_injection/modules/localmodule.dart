@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:cybernate_retail_mobile/data_repository/database_encryption/encryption.dart';
 import 'package:cybernate_retail_mobile/data_repository/database_encryption/encryption/secure_sharedprefs/constants/secure_preferences_constants.dart';
 import 'package:cybernate_retail_mobile/data_repository/localdb/constants/db_constants.dart';
@@ -140,12 +142,15 @@ abstract class LocalModule {
           )
           .first;
       await flutterSecureStorage.write(
-          key: SecurePreferencesConstants.token,
-          value: jsonEncode(TokenModel(
-              jwtToken:
-                  response.data?.tokenRefresh?.token ?? tokenModel.jwtToken,
-              refreshToken: tokenModel.refreshToken,
-              csrfToken: tokenModel.csrfToken)));
+        key: SecurePreferencesConstants.token,
+        value: jsonEncode(
+          TokenModel(
+            jwtToken: response.data?.tokenRefresh?.token ?? tokenModel.jwtToken,
+            refreshToken: tokenModel.refreshToken,
+            csrfToken: tokenModel.csrfToken,
+          ),
+        ),
+      );
       tempClient.dispose();
 
       return "Bearer ${response.data?.tokenRefresh?.token ?? tokenModel.jwtToken}";
