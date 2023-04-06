@@ -54,7 +54,9 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
           if (response == null || response.loading) {
             return Utils.shimmerPlaceHolder();
           }
-          if (response.linkException != null) {}
+          if (response.linkException != null) {
+            return Container();
+          }
           widget.selectedProductVariant ??=
               response.data?.product?.variants?.first;
           return ListView(
@@ -62,7 +64,10 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
               _imageWidget(response.data?.product?.media),
               Utils.verticalSpace(1),
               ProductDescription(
-                productName: response.data?.product?.name ?? "",
+                productName: (response.data?.product?.translation == null
+                        ? response.data?.product?.name
+                        : response.data?.product?.translation?.name) ??
+                    "",
                 productVariant: response.data?.product?.variants,
                 productViewType: ProductViewType.SCREEN,
               ),
@@ -208,7 +213,10 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
             child: ProductWidget(
               productId: product.id,
               productUrl: product.thumbnail?.url ?? "",
-              productName: product.name,
+              productName: (product.translation == null
+                      ? product.name
+                      : product.translation?.name) ??
+                  "",
               productVariant: product.variants,
               enableDiscountBanner: true,
               onTap: () {
