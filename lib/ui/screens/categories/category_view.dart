@@ -73,7 +73,9 @@ class _CategoryViewScreenState extends State<CategoryViewScreen> {
         if (response == null || response.loading) {
           return Utils.shimmerPlaceHolder();
         }
-        if (response.linkException != null) {}
+        if (response.linkException != null) {
+          return Container();
+        }
         final firstCategory =
             response.data?.category?.children?.edges.first.node.id;
         if (firstCategory == null) {
