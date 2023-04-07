@@ -117,6 +117,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       ),
       child: Center(
           child: quantityAvl <= 0
+              // TODO need to figure out what can we do about out of stock need something that stays on top of actual image
               ? Image.asset(AssetsDb.outOfStockIcon)
               : Utils.renderNetworkImageWithLoader(widget.productUrl)),
     );

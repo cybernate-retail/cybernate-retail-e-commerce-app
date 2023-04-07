@@ -78,7 +78,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
           if (response == null || response.loading) {
             return Utils.shimmerPlaceHolder();
           }
-          if (response.linkException != null) {}
+          if (response.linkException != null) {
+            return Container();
+          }
           final orders = response.data?.me?.orders?.edges;
           return ListView.builder(
             itemCount: orders?.length,

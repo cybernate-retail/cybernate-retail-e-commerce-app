@@ -49,7 +49,7 @@ class ProfileOptionsWidget extends StatelessWidget {
             AssetsDb.bellIcon,
             "Notifications",
             onPressed: () {
-              InAppNavigation.notifications(context);
+              // InAppNavigation.notifications(context);
             },
           ),
           Utils.verticalSpace(1),

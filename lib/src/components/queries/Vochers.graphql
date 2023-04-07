@@ -1,0 +1,42 @@
+# import '../fragments/PriceFragment.graphql'
+
+query Vouchers(
+	$filter: VoucherFilterInput
+	$sortBy: VoucherSortingInput
+	$channel: String
+	$query: String
+	$before: String
+	$after: String
+) {
+	vouchers(
+		first: 100
+		channel: $channel
+		filter: $filter
+		sortBy: $sortBy
+		query: $query
+		before: $before
+		after: $after
+	) {
+		totalCount
+		edges {
+			node {
+				name
+				code
+				usageLimit
+				used
+				startDate
+				endDate
+				applyOncePerOrder
+				applyOncePerCustomer
+				onlyForStaff
+				minCheckoutItemsQuantity
+				discountValue
+				currency
+				minSpent {
+					...PriceFragment
+				}
+				type
+			}
+		}
+	}
+}

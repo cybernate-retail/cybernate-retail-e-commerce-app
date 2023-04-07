@@ -11,6 +11,7 @@ import 'package:cybernate_retail_mobile/ui/screens/contact_us/contact_us_chat.da
 import 'package:cybernate_retail_mobile/ui/screens/coupons/coupons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/general_info/general_info.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/home.dart';
+import 'package:cybernate_retail_mobile/ui/screens/no_network/no_network.dart';
 import 'package:cybernate_retail_mobile/ui/screens/notifications/notifications.dart';
 import 'package:cybernate_retail_mobile/ui/screens/orders/order.dart';
 import 'package:cybernate_retail_mobile/ui/screens/orders/order_details.dart';
@@ -212,6 +213,15 @@ class InAppNavigation {
     _push(
       context,
       const PaymentFailedScreen(),
+    );
+  }
+
+  static void noNetwork(
+    BuildContext context,
+  ) {
+    _push(
+      context,
+      const NoNetworkScreen(),
     );
   }
 }

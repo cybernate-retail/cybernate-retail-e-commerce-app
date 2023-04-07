@@ -30,7 +30,7 @@ fragment CategoryDetailsWithSimilarProductsFragment on Category {
 			}
 		}
 	}
-	products(first: 10, channel: $channel) {
+	products(first: 100, channel: $channel) {
 		pageInfo {
 			...PageInfoFragment
 		}
@@ -39,6 +39,11 @@ fragment CategoryDetailsWithSimilarProductsFragment on Category {
 			node {
 				id
 				name
+				translation(languageCode: $locale) {
+					id
+					description
+					name
+				}
 				attributes {
 					...SelectedAttributeDetailsFragment
 				}

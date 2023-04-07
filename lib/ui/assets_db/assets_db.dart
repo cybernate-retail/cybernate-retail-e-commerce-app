@@ -31,6 +31,7 @@ class AssetsDb {
       "assets/animations/payment-success.json";
   static String get paymentFailedAnimation =>
       "assets/animations/payment-failed.json";
+  static String get noInternetAnimation => "assets/animations/no-internet.json";
 
   //Logos or icons
   static String get logo => "assets/logo/logo.png";

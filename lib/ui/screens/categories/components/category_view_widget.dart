@@ -140,7 +140,9 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
           if (response == null || response.loading) {
             return Utils.shimmerPlaceHolder();
           }
-          if (response.linkException != null) {}
+          if (response.linkException != null) {
+            return Container();
+          }
           final products = response.data?.category?.products?.edges;
           return GridView.builder(
             itemCount: products?.length,
@@ -159,7 +161,10 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                 productId: currentProduct.id,
                 productUrl: currentProduct.thumbnail?.url ?? "",
                 productVariant: currentProduct.variants,
-                productName: currentProduct.name,
+                productName: (currentProduct.translation == null
+                        ? currentProduct.name
+                        : currentProduct.translation?.name) ??
+                    "",
                 enableDiscountBanner: true,
                 onTap: () {
                   InAppNavigation.viewProduct(context, currentProduct.id);

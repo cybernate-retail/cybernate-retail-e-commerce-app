@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:cybernate_retail_mobile/data_repository/database_encryption/encryption/secure_sharedprefs/secure_sharedprefs_helper.dart';
 import 'package:cybernate_retail_mobile/data_repository/remote_repository.dart';
 import 'package:cybernate_retail_mobile/data_repository/repository.dart';
@@ -14,6 +15,7 @@ import 'package:cybernate_retail_mobile/mobx_stores/login/login.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/theme/theme.dart';
+import 'package:cybernate_retail_mobile/ui/screens/no_network/no_network.dart';
 import 'package:cybernate_retail_mobile/ui/screens/splash/splash.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -42,6 +44,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
+
   MyApp({super.key});
 
   final IntroductionStore _introductionStore =
@@ -85,6 +88,18 @@ class MyApp extends StatelessWidget {
                 ? AppThemeData.darkThemeData
                 : AppThemeData.lightThemeData,
             home: const SplashLogo(),
+            // builder: (context, child) {
+            //   return StreamBuilder<ConnectivityResult>(
+            //       stream: Connectivity().onConnectivityChanged,
+            //       builder: (context, snapshot) {
+            //         final connectivity = snapshot.data;
+            //         if (connectivity == ConnectivityResult.none ||
+            //             connectivity == null) {
+            //           return const NoNetworkScreen();
+            //         }
+            //         return child!;
+            //       });
+            // },
             routes: Routes.routes,
             supportedLocales: const [
               Locale('en'),

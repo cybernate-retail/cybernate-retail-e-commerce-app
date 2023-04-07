@@ -130,9 +130,9 @@ class _CartCheckoutButtonState extends State<CartCheckoutButton> {
     // TODO add paymentCreate
     if (response.paymentId != null) {
       Map<String, dynamic> paymentData = {
-        "orderId": response.orderId ?? "",
-        "paymentId": response.paymentId ?? "",
-        "signature": response.signature ?? "",
+        "orderId": response.orderId,
+        "paymentId": response.paymentId,
+        "signature": response.signature,
       };
       _cartStore.checkoutComplete(
           context, response.paymentId!, json.encode(paymentData));
