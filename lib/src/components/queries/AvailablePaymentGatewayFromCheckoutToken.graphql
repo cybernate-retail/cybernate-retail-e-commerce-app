@@ -1,0 +1,6 @@
+# import '../fragments/AvailablePaymentGatewayFromCheckoutTokenFragment.graphql'
+query AvailablePaymentGatewayFromCheckoutToken($checkoutToken: UUID!) {
+  checkout(token: $checkoutToken) {
+    ...AvailablePaymentGatewayFromCheckoutTokenFragment
+  }
+}

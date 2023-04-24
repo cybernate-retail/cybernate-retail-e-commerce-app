@@ -103,13 +103,14 @@ class _CartCheckoutButtonState extends State<CartCheckoutButton> {
                         if (_addressStore.pinLocationAddress != null) {
                           // InAppToast.
                           // InAppNavigation.payment(context);
-                          if (_cartStore.paymentGatewayToken != null &&
-                              _cartStore.paymentGatewayId != null) {
-                            _razorpay.open(createPaymentOptions());
-                          } else {
-                            InAppToast.genericFailureToast(
-                                context, "Payment Gateway error");
-                          }
+                          InAppNavigation.availablePaymentGateway(context);
+                          // if (_cartStore.paymentGatewayToken != null &&
+                          //     _cartStore.paymentGatewayId != null) {
+                          //   _razorpay.open(createPaymentOptions());
+                          // } else {
+                          //   InAppToast.genericFailureToast(
+                          //       context, "Payment Gateway error");
+                          // }
                         } else {
                           InAppToast.checkoutFailedNoAddress(context);
                         }

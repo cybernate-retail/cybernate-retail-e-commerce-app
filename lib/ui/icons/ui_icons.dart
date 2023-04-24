@@ -382,4 +382,16 @@ class UiIcons {
       onPressed: onPressed,
     );
   }
+
+  static IconButton money(
+      {double size = 24.0,
+      Color? color = Colors.black,
+      Function onPressed = Utils.emptyFunction}) {
+    return icon(
+      AssetsDb.moneyIcon,
+      size: size,
+      color: color,
+      onPressed: onPressed,
+    );
+  }
 }

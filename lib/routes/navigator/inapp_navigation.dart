@@ -15,6 +15,7 @@ import 'package:cybernate_retail_mobile/ui/screens/no_network/no_network.dart';
 import 'package:cybernate_retail_mobile/ui/screens/notifications/notifications.dart';
 import 'package:cybernate_retail_mobile/ui/screens/orders/order.dart';
 import 'package:cybernate_retail_mobile/ui/screens/orders/order_details.dart';
+import 'package:cybernate_retail_mobile/ui/screens/payments/checkout_payments/available_payments.dart';
 import 'package:cybernate_retail_mobile/ui/screens/payments/payment-failed.dart';
 import 'package:cybernate_retail_mobile/ui/screens/payments/payment-success.dart';
 import 'package:cybernate_retail_mobile/ui/screens/payments/view_payments.dart';
@@ -223,5 +224,9 @@ class InAppNavigation {
       context,
       const NoNetworkScreen(),
     );
+  }
+
+  static void availablePaymentGateway(BuildContext context) {
+    _push(context, const AvailablePaymentGatewayScreen());
   }
 }

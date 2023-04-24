@@ -1,5 +1,6 @@
-import 'package:cybernate_retail_mobile/ui/common_widgets/appbar/appbars.dart';
 import 'package:flutter/material.dart';
+
+import '../../common_widgets/appbar/appbars.dart';
 
 class ViewPayments extends StatefulWidget {
   final String title = "View Payments";
@@ -14,6 +15,11 @@ class _ViewPaymentsState extends State<ViewPayments> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: justBackButtonWithTitleAppBar(context, widget.title),
+      body: _body(),
     );
+  }
+
+  Widget _body() {
+    return Container();
   }
 }

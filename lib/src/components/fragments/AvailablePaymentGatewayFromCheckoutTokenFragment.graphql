@@ -1,0 +1,15 @@
+
+fragment AvailablePaymentGatewayFromCheckoutTokenFragment on Checkout {
+  id
+  token
+  email
+
+  availablePaymentGateways {
+    id
+    name
+    config {
+      field
+      value
+    }
+  }
+}

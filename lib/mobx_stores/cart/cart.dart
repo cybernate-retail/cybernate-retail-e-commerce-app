@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:cybernate_retail_mobile/data_repository/remote_repository.dart';
 import 'package:cybernate_retail_mobile/data_repository/repository.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/models/payment_gateway.dart';
 import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
@@ -34,6 +35,9 @@ abstract class _CartStore with Store {
   GUUID? cartToken;
 
   @observable
+  PaymentGatewayModel? _paymentGateway;
+
+  @observable
   String? _paymentGatewayToken;
 
   @observable
@@ -41,6 +45,9 @@ abstract class _CartStore with Store {
 
   @observable
   double _amount = 0;
+
+  @computed
+  PaymentGatewayModel? get paymentGateway => _paymentGateway;
 
   @computed
   ObservableMap<String, int> get variantsAddedToCart => _variantsAddedToCart;
@@ -64,6 +71,9 @@ abstract class _CartStore with Store {
   }
 
   @action
+  setPaymentGateway() {}
+
+  @action
   createCheckout({
     required String email,
     Function onDone = Utils.emptyFunctionWithInt,
@@ -85,6 +95,7 @@ abstract class _CartStore with Store {
             ?.value;
         _paymentGatewayId = event
             .data?.checkoutCreate?.checkout?.availablePaymentGateways.first.id;
+
         _amount =
             event.data?.checkoutCreate?.checkout?.totalPrice.gross.amount ??
                 _amount;

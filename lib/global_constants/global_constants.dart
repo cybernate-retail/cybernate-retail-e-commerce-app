@@ -31,11 +31,15 @@ class GlobalConstants {
   static const int adBannerDuration = 15;
   // static const String appUrl =
   //     "https://core.cybernate-retail.erstnot.in/graphql";
-  static const String appUrl = "http://localhost:8000/graphql/";
+  // static const String appUrl = "http://localhost:8000/graphql/";
+  static const String appUrl =
+      "https://a789-2406-b400-b4-e602-bdf3-46ab-4030-95b0.ngrok-free.app/graphql/";
   static const String defaultChannel = "default-channel";
   static const defaultLanguage = GLanguageCodeEnum.TE_IN;
   static const LatLng currentCountryLocation = LatLng(20.5937, 78.9629);
   static const String googleMapsApiEndPoint =
       "https://maps.googleapis.com/maps/api/geocode/json";
   static const String appSupportEmail = "support@gmail.com";
+  static const String cashOnDeliveryPaymentString = "mirumee.payments.dummy";
+  static const String razorpayPaymentString = "mirumee.payments.razorpay";
 }
