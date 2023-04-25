@@ -5,11 +5,13 @@ part 'payment_gateway.g.dart';
 @JsonSerializable()
 class PaymentGatewayModel {
   final String id;
-  final String token;
+  final String? name;
+  final String? apiKey;
 
   PaymentGatewayModel({
     required this.id,
-    required this.token,
+    this.name,
+    this.apiKey,
   });
 
   factory PaymentGatewayModel.fromJson(Map<String, dynamic> json) =>

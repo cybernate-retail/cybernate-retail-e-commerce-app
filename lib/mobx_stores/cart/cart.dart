@@ -38,12 +38,6 @@ abstract class _CartStore with Store {
   PaymentGatewayModel? _paymentGateway;
 
   @observable
-  String? _paymentGatewayToken;
-
-  @observable
-  String? _paymentGatewayId;
-
-  @observable
   double _amount = 0;
 
   @computed
@@ -56,11 +50,6 @@ abstract class _CartStore with Store {
   double get amount => _amount;
 
   @computed
-  String? get paymentGatewayToken => _paymentGatewayToken;
-  @computed
-  String? get paymentGatewayId => _paymentGatewayId;
-
-  @computed
   int get itemsCount => _variantsAddedToCart.values.sum;
 
   int getQuantityByVariantId({required String? variantId}) {
@@ -69,9 +58,6 @@ abstract class _CartStore with Store {
     }
     return 0;
   }
-
-  @action
-  setPaymentGateway() {}
 
   @action
   createCheckout({
@@ -89,13 +75,6 @@ abstract class _CartStore with Store {
     response.listen((event) {
       cartToken = event.data?.checkoutCreate?.checkout?.token;
       if (cartToken != null) {
-        _paymentGatewayToken = event.data?.checkoutCreate?.checkout
-            ?.availablePaymentGateways.first.config
-            .firstWhereOrNull((element) => element.field == "api_key")
-            ?.value;
-        _paymentGatewayId = event
-            .data?.checkoutCreate?.checkout?.availablePaymentGateways.first.id;
-
         _amount =
             event.data?.checkoutCreate?.checkout?.totalPrice.gross.amount ??
                 _amount;
@@ -223,16 +202,24 @@ abstract class _CartStore with Store {
     }
   }
 
+  setPaymentGatewayDetails({
+    required String id,
+    String? name,
+    String? apiKey,
+  }) {
+    _paymentGateway = PaymentGatewayModel(id: id, name: name, apiKey: apiKey);
+  }
+
   checkoutComplete(
       BuildContext context, String paymentToken, String paymentData) async {
     if (cartToken != null) {
       ListBuilder<GMetadataInput>? paymentMetadata;
-      if (_paymentGatewayToken != null && _paymentGatewayId != null) {
+      if (_paymentGateway != null) {
         var paymentInput = GPaymentInput(((b) => b
           ..amount.value = _amount.toString()
-          ..gateway = _paymentGatewayId
+          ..gateway = _paymentGateway?.id
           ..storePaymentMethod = GStorePaymentMethodEnum.ON_SESSION
-          ..token = paymentToken
+          ..token = _paymentGateway?.apiKey
           ..metadata = paymentMetadata));
         final response =
             _remoteRepository.checkoutPaymentCreate(cartToken!, paymentInput);
@@ -249,12 +236,7 @@ abstract class _CartStore with Store {
               if (!event.hasErrors &&
                   event.data?.checkoutComplete?.errors.isEmpty == true) {
                 // reset all the cart variables
-                _amount = 0.0;
-                cartToken = null;
-                _paymentGatewayToken = null;
-                _paymentGatewayId = null;
-                _variantsAddedToCart = ObservableMap<String, int>();
-
+                resetCartVariables();
                 InAppNavigation.paymentSuccess(context);
               }
             });
@@ -264,6 +246,13 @@ abstract class _CartStore with Store {
         InAppNavigation.paymentFailed(context);
       }
     }
+  }
+
+  void resetCartVariables() {
+    _amount = 0.0;
+    cartToken = null;
+    _paymentGateway = null;
+    _variantsAddedToCart = ObservableMap<String, int>();
   }
 
   void updateVariantMap(String variantId, int quantity, double? price) {

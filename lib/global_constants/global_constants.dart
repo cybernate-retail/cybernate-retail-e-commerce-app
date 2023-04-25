@@ -33,7 +33,7 @@ class GlobalConstants {
   //     "https://core.cybernate-retail.erstnot.in/graphql";
   // static const String appUrl = "http://localhost:8000/graphql/";
   static const String appUrl =
-      "https://a789-2406-b400-b4-e602-bdf3-46ab-4030-95b0.ngrok-free.app/graphql/";
+      "https://5e06-2406-b400-b4-f02b-8c0f-3a6c-5e0f-aafb.ngrok-free.app/graphql/";
   static const String defaultChannel = "default-channel";
   static const defaultLanguage = GLanguageCodeEnum.TE_IN;
   static const LatLng currentCountryLocation = LatLng(20.5937, 78.9629);

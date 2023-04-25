@@ -80,4 +80,5 @@ class AssetsDb {
   static String get locationMarkerIcon => "assets/icons/location_marker.svg";
   static String get outOfStockIcon => "assets/icons/out-of-stock.png";
   static String get moneyIcon => "assets/icons/money.svg";
+  static String get razorpayIcon => "assets/icons/razorpay.svg";
 }

@@ -151,7 +151,7 @@ class _CartCheckoutButtonState extends State<CartCheckoutButton> {
 
   Map<String, dynamic> createPaymentOptions() {
     return {
-      'key': _cartStore.paymentGatewayToken,
+      'key': _cartStore.paymentGateway?.id,
       // TODO add customer id here & remove my phone number
       'customer_id': '',
       'amount': _cartStore.amount * 100, //in the smallest currency sub-unit.
