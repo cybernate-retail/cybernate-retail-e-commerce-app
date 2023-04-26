@@ -82,7 +82,10 @@ class _CartScreenState extends State<CartScreen> {
       ),
       actions: [
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            _cartStore.resetCartVariables();
+            InAppNavigation.pop(context);
+          },
           child: Text(
             "Empty",
             style: TextStyle(

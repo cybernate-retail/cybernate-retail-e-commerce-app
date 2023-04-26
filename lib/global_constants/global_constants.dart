@@ -31,9 +31,9 @@ class GlobalConstants {
   static const int adBannerDuration = 15;
   // static const String appUrl =
   //     "https://core.cybernate-retail.erstnot.in/graphql";
-  // static const String appUrl = "http://localhost:8000/graphql/";
-  static const String appUrl =
-      "https://5e06-2406-b400-b4-f02b-8c0f-3a6c-5e0f-aafb.ngrok-free.app/graphql/";
+  static const String appUrl = "http://localhost:8000/graphql/";
+  // static const String appUrl =
+  //     "https://9996-2406-b400-b4-1f03-2589-cf0b-61fe-ffe9.ngrok-free.app/graphql/";
   static const String defaultChannel = "default-channel";
   static const defaultLanguage = GLanguageCodeEnum.TE_IN;
   static const LatLng currentCountryLocation = LatLng(20.5937, 78.9629);
