@@ -31,8 +31,7 @@ class GlobalConstants {
   static const int adBannerDuration = 15;
   // static const String appUrl =
   //     "https://core.cybernate-retail.erstnot.in/graphql";
-  static const String appUrl =
-      "https://dev.cybernate-retail.core.erstnot.in/graphql/";
+  static String appUrl = "https://gentle-groups-judge.loca.lt/graphql/";
   // static const String appUrl =
   //     "https://9996-2406-b400-b4-1f03-2589-cf0b-61fe-ffe9.ngrok-free.app/graphql/";
   static const String defaultChannel = "default-channel";

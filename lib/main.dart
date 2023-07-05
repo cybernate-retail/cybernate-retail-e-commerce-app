@@ -15,6 +15,7 @@ import 'package:cybernate_retail_mobile/mobx_stores/login/login.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/testing/testing.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/theme/theme.dart';
+import 'package:cybernate_retail_mobile/ui/screens/addUrl/addUrl.dart';
 import 'package:cybernate_retail_mobile/ui/screens/no_network/no_network.dart';
 import 'package:cybernate_retail_mobile/ui/screens/splash/splash.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -87,7 +88,8 @@ class MyApp extends StatelessWidget {
             theme: _themeStore.darkMode
                 ? AppThemeData.darkThemeData
                 : AppThemeData.lightThemeData,
-            home: const SplashLogo(),
+            // home: const SplashLogo(),
+            home: const AddURLView(),
             // builder: (context, child) {
             //   return StreamBuilder<ConnectivityResult>(
             //       stream: Connectivity().onConnectivityChanged,

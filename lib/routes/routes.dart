@@ -13,6 +13,7 @@ class Routes {
   Routes._();
 
   //static variables
+  static const String addUrl = '/addUrl';
   static const String splash = '/splash';
   static const String home = '/home';
   static const String signup = '/signup';
