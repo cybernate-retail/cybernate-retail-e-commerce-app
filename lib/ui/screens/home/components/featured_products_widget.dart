@@ -104,7 +104,7 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        Utils.seeAllButton(Theme.of(context).primaryColor, 12),
+        Utils.seeAllButton(color: Theme.of(context).primaryColor, fontSize: 12),
       ],
     );
   }

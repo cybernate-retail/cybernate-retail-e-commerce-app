@@ -176,7 +176,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        Utils.seeAllButton(Theme.of(context).primaryColor, 12),
+        Utils.seeAllButton(color: Theme.of(context).primaryColor, fontSize: 12),
       ],
     );
   }

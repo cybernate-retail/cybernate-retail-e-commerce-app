@@ -3,13 +3,14 @@ import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/MenuItemWithChildrenFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
+import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 
-class AllCategoriesWidget extends StatelessWidget {
+class AllCategoriesView extends StatelessWidget {
   final BuiltList<GMenuItemWithChildrenFragment>? menuItemFragments;
-  const AllCategoriesWidget({super.key, this.menuItemFragments});
+  const AllCategoriesView({super.key, this.menuItemFragments});
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +23,25 @@ class AllCategoriesWidget extends StatelessWidget {
             Utils.spaceScale(1 / 2)) /
         2;
     final mainCategoryHeight = (MediaQuery.of(context).size.width - 52) / 2.4;
-    return _allCategories(
-        context, mainCategoryHeight, mainCategoryWidth, allCategories);
+    return Scaffold(
+      appBar: _appBar(context),
+      body: _allCategories(
+          context, mainCategoryHeight, mainCategoryWidth, allCategories),
+    );
+  }
+
+  AppBar _appBar(BuildContext context) {
+    return AppBar(
+      title: _heading(context),
+      titleSpacing: 0,
+      centerTitle: true,
+      leading: UiIcons.back(
+        color: Theme.of(context).colorScheme.primary,
+        onPressed: () {
+          InAppNavigation.pop(context);
+        },
+      ),
+    );
   }
 
   Widget _allCategories(
@@ -42,10 +60,9 @@ class AllCategoriesWidget extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(1 / 2)),
+      padding: EdgeInsets.symmetric(horizontal: Utils.spaceScale(2.5)),
       child: Column(
         children: [
-          _heading(context),
           Utils.verticalSpace(1),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -245,19 +262,13 @@ class AllCategoriesWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          " Browse by categories",
+          "All Categories",
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurface,
             fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
             fontWeight: FontWeight.bold,
           ),
         ),
-        Utils.seeAllButton(
-            color: Theme.of(context).primaryColor,
-            fontSize: 12,
-            onPressed: () {
-              InAppNavigation.viewAllCategories(context, menuItemFragments);
-            }),
       ],
     );
   }

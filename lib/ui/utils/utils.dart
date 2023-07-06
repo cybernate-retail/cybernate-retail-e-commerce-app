@@ -305,9 +305,10 @@ class Utils {
     );
   }
 
-  static Widget seeAllButton(Color color, double fontSize) {
+  static Widget seeAllButton(
+      {required Color color, required double fontSize, Function()? onPressed}) {
     return TextButton(
-      onPressed: () {},
+      onPressed: onPressed,
       child: RichText(
         text: TextSpan(
           children: [

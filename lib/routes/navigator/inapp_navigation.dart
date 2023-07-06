@@ -1,15 +1,19 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:cybernate_retail_mobile/models/location.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';
+import 'package:cybernate_retail_mobile/src/components/fragments/models/MenuItemWithChildrenFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/OrderDetailsFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/add_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/pick_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/address/view_address.dart';
 import 'package:cybernate_retail_mobile/ui/screens/cart/cart.dart';
+import 'package:cybernate_retail_mobile/ui/screens/categories/all_categories_view.dart';
 import 'package:cybernate_retail_mobile/ui/screens/categories/category_view.dart';
 import 'package:cybernate_retail_mobile/ui/screens/contact_us/contact_us.dart';
 import 'package:cybernate_retail_mobile/ui/screens/contact_us/contact_us_chat.dart';
 import 'package:cybernate_retail_mobile/ui/screens/coupons/coupons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/general_info/general_info.dart';
+import 'package:cybernate_retail_mobile/ui/screens/home/components/all_categories.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/home.dart';
 import 'package:cybernate_retail_mobile/ui/screens/no_network/no_network.dart';
 import 'package:cybernate_retail_mobile/ui/screens/notifications/notifications.dart';
@@ -186,6 +190,16 @@ class InAppNavigation {
       context,
       ProductViewScreen(
         productId: id,
+      ),
+    );
+  }
+
+  static void viewAllCategories(BuildContext context,
+      BuiltList<GMenuItemWithChildrenFragment>? menuItemFragments) {
+    _push(
+      context,
+      AllCategoriesView(
+        menuItemFragments: menuItemFragments,
       ),
     );
   }
