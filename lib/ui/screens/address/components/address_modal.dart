@@ -66,7 +66,8 @@ class _PickDeliveryAddressWidgetState extends State<PickDeliveryAddressWidget> {
       children: [
         Align(
           alignment: Alignment.topRight,
-          child: UiIcons.cancel(color: Colors.red),
+          child: UiIcons.cancel(
+              color: Colors.red, onPressed: () => Navigator.maybePop(context)),
         ),
         Container(
           height: MediaQuery.of(context).size.height * 0.38,
