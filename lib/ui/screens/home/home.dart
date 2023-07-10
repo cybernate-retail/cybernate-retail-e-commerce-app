@@ -66,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SliverToBoxAdapter(
               child: FeaturedProductWidget(
                 menuItemFragments: menuItemFragments,
+                slug: GlobalConstants.featuredProductsSlug,
               ),
             ),
             SliverPadding(
@@ -76,6 +77,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            ...GlobalConstants.mainMenuSlugList
+                .map((slug) => SliverToBoxAdapter(
+                      child: FeaturedProductWidget(
+                        menuItemFragments: menuItemFragments,
+                        slug: slug,
+                      ),
+                    ))
+                .toList(),
           ],
         );
       },

@@ -14,6 +14,7 @@ import 'package:cybernate_retail_mobile/ui/screens/contact_us/contact_us_chat.da
 import 'package:cybernate_retail_mobile/ui/screens/coupons/coupons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/general_info/general_info.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/components/all_categories.dart';
+import 'package:cybernate_retail_mobile/ui/screens/home/components/all_featured_products.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/home.dart';
 import 'package:cybernate_retail_mobile/ui/screens/no_network/no_network.dart';
 import 'package:cybernate_retail_mobile/ui/screens/notifications/notifications.dart';
@@ -174,6 +175,16 @@ class InAppNavigation {
 
   static void contactUsChat(BuildContext context) {
     _push(context, const ContactUsChat());
+  }
+
+  static void viewAllFeaturedProducts(BuildContext context,
+      BuiltList<GMenuItemWithChildrenFragment>? menuItemFragments) {
+    _push(
+      context,
+      AllFeaturedProductsView(
+        menuItemFragments: menuItemFragments,
+      ),
+    );
   }
 
   static void viewProduct(BuildContext context, String id) {

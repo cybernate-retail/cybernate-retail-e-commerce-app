@@ -3,6 +3,7 @@ import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/MenuItemWithChildrenFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/CollectionProductById.req.gql.dart';
+import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/product/components/product_widget.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
@@ -12,39 +13,54 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:collection/collection.dart';
 
-class FeaturedProductWidget extends StatefulWidget {
+class AllFeaturedProductsView extends StatefulWidget {
   BuiltList<GMenuItemWithChildrenFragment>? menuItemFragments = BuiltList();
-  final String slug;
 
-  FeaturedProductWidget(
-      {super.key, required this.menuItemFragments, required this.slug});
+  AllFeaturedProductsView({super.key, required this.menuItemFragments});
 
   @override
-  State<FeaturedProductWidget> createState() => _FeaturedProductWidgetState();
+  State<AllFeaturedProductsView> createState() =>
+      _AllFeaturedProductsViewState();
 }
 
-class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
+class _AllFeaturedProductsViewState extends State<AllFeaturedProductsView> {
   final client = GetIt.I<TypedLink>();
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: UiConstants.globalPadding),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Utils.verticalSpace(1),
-          _heading(),
-          Utils.verticalSpace(1),
-          _featuredProduct(),
-        ],
+    return Scaffold(
+      appBar: _appBar(context),
+      body: Padding(
+        padding:
+            const EdgeInsets.symmetric(horizontal: UiConstants.globalPadding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Utils.verticalSpace(1),
+            _featuredProduct(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  AppBar _appBar(BuildContext context) {
+    return AppBar(
+      title: _heading(),
+      titleSpacing: 0,
+      centerTitle: true,
+      leading: UiIcons.back(
+        color: Theme.of(context).colorScheme.primary,
+        onPressed: () {
+          InAppNavigation.pop(context);
+        },
       ),
     );
   }
 
   Widget _featuredProduct() {
     final featuredProductCollectionId = widget.menuItemFragments
-        ?.firstWhereOrNull((p0) => p0.collection?.slug == widget.slug)
+        ?.firstWhereOrNull(
+            (p0) => p0.collection?.slug == GlobalConstants.featuredProductsSlug)
         ?.collection
         ?.id;
 
@@ -63,11 +79,14 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
                 return Utils.shimmerPlaceHolder();
               }
 
-              return SizedBox(
-                height: UiConstants.productSize.height,
-                child: ListView.builder(
+              return Expanded(
+                child: GridView.builder(
                   itemCount: response.data?.collection?.products?.edges.length,
-                  scrollDirection: Axis.horizontal,
+                  scrollDirection: Axis.vertical,
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: MediaQuery.of(context).size.width / 2,
+                    childAspectRatio: 0.75,
+                  ),
                   itemBuilder: ((context, index) {
                     final product = response.data?.collection?.products?.edges
                         .elementAt(index)
@@ -105,11 +124,6 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        Utils.seeAllButton(
-            color: Theme.of(context).primaryColor,
-            fontSize: 12,
-            onPressed: () => InAppNavigation.viewAllFeaturedProducts(
-                context, widget.menuItemFragments)),
       ],
     );
   }

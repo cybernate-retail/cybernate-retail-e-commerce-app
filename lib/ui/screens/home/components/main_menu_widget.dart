@@ -1,4 +1,5 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/MenuItemWithChildrenFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/components/banner_widget.dart';
 import 'package:cybernate_retail_mobile/ui/screens/home/components/featured_products_widget.dart';
@@ -19,6 +20,7 @@ class MainMenuWidget extends StatelessWidget {
       ),
       FeaturedProductWidget(
         menuItemFragments: menuItemFragments,
+        slug: GlobalConstants.featuredProductsSlug,
       ),
     ];
 

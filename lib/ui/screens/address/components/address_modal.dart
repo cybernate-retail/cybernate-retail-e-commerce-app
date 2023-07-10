@@ -1,6 +1,7 @@
 import 'package:cybernate_retail_mobile/mobx_stores/address/address.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
-import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
+import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart'
+    as addressSchema;
 import 'package:cybernate_retail_mobile/src/components/fragments/models/AddressDetailsFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/AccountSetDefaultAddress.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/AddressDelete.req.gql.dart';
@@ -61,41 +62,55 @@ class _PickDeliveryAddressWidgetState extends State<PickDeliveryAddressWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Align(
-          alignment: Alignment.topRight,
-          child: UiIcons.cancel(
-              color: Colors.red, onPressed: () => Navigator.maybePop(context)),
-        ),
-        Container(
-          height: MediaQuery.of(context).size.height * 0.38,
-          padding: const EdgeInsets.all(UiConstants.globalPadding),
-          child: ListView.builder(
-            itemCount: allAddress?.length ?? 0,
-            itemBuilder: (context, index) {
-              final currentAddress = allAddress?.elementAt(index);
-              if (currentAddress == null) {
-                return Container();
-              }
-              return Padding(
-                padding: EdgeInsets.only(bottom: Utils.spaceScale(1)),
-                child: ViewAddressWidget(
-                  address: currentAddress,
-                  onTap: () {
-                    onAddressTap(currentAddress);
-                  },
-                  onDelete: () {
-                    onDeleteTap(currentAddress);
-                  },
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Row(
+            children: [
+              Utils.horizontalSpace(2),
+              Text(
+                "Pick location",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
+                  fontWeight: FontWeight.bold,
                 ),
-              );
-            },
+              ),
+              const Spacer(),
+              UiIcons.cancel(
+                  color: Colors.red,
+                  onPressed: () => Navigator.maybePop(context)),
+            ],
           ),
-        ),
-        const AddAddressWidget(),
-      ],
+          Container(
+            height: MediaQuery.of(context).size.height * 0.38,
+            padding: const EdgeInsets.all(UiConstants.globalPadding),
+            child: ListView.builder(
+              itemCount: allAddress?.length ?? 0,
+              itemBuilder: (context, index) {
+                final currentAddress = allAddress?.elementAt(index);
+                if (currentAddress == null) {
+                  return Container();
+                }
+                return Padding(
+                  padding: EdgeInsets.only(bottom: Utils.spaceScale(1)),
+                  child: ViewAddressWidget(
+                    address: currentAddress,
+                    onTap: () {
+                      onAddressTap(currentAddress);
+                    },
+                    onDelete: () {
+                      onDeleteTap(currentAddress);
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+          const AddAddressWidget(),
+        ],
+      ),
     );
   }
 
@@ -126,7 +141,7 @@ class _PickDeliveryAddressWidgetState extends State<PickDeliveryAddressWidget> {
     final request = GAccountSetDefaultAddressReq(
       ((b) => b
         ..vars.id = address.id
-        ..vars.type = GAddressTypeEnum.SHIPPING),
+        ..vars.type = addressSchema.GAddressTypeEnum.SHIPPING),
     );
     client.request(request).listen((event) {
       if (!event.hasErrors &&

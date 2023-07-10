@@ -28,6 +28,10 @@ class GlobalConstants {
   static const String allCategories = 'All Categories';
   static const String featuredProductsSlug = 'featured-products';
   static const String suggestedForYouSlug = 'suggested-for-you';
+  static const List<String> mainMenuSlugList = [
+    'featured-products',
+    'summer-picks'
+  ];
   static const int adBannerDuration = 15;
   // static const String appUrl =
   //     "https://core.cybernate-retail.erstnot.in/graphql";
