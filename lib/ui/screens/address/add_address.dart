@@ -81,10 +81,12 @@ class _AddAddressState extends State<AddAddress> {
   }
 
   Widget _body(BuildContext context) {
-    return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: UiConstants.globalPadding),
-      child: _form(),
+    return SingleChildScrollView(
+      child: Padding(
+        padding:
+            const EdgeInsets.symmetric(horizontal: UiConstants.globalPadding),
+        child: _form(),
+      ),
     );
   }
 

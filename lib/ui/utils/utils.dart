@@ -93,12 +93,10 @@ class Utils {
     String buttonText, {
     Color buttonColor = const Color(0xff0f5dfb),
     IconData? iconData,
-    onClick = emptyFunction,
+    Function()? onClick = emptyFunction,
   }) {
     return NeumorphicButton(
-      onPressed: () {
-        onClick();
-      },
+      onPressed: onClick,
       style: NeumorphicStyle(
           depth: UiConstants.neumorphicDepth,
           intensity: UiConstants.neumorphicIntensity,

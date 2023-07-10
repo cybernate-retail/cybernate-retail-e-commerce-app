@@ -197,20 +197,17 @@ class _PickAddressOnMapState extends State<PickAddressOnMap> {
   }
 
   Widget _getCloseButton(context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        alignment: FractionalOffset.topRight,
-        child: GestureDetector(
-          child: const Icon(
-            Icons.cancel_rounded,
-            size: 30,
-            color: Colors.red,
-          ),
-          onTap: () {
-            Navigator.of(context, rootNavigator: true).pop();
-          },
+    return Align(
+      alignment: FractionalOffset.topRight,
+      child: GestureDetector(
+        child: const Icon(
+          Icons.cancel_rounded,
+          size: 30,
+          color: Colors.red,
         ),
+        onTap: () {
+          Navigator.maybePop(context);
+        },
       ),
     );
   }

@@ -18,7 +18,6 @@ class AddressPickAndConfirm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.18,
       width: double.maxFinite,
       padding: EdgeInsets.all(Utils.spaceScale(2)),
       decoration: BoxDecoration(
@@ -30,21 +29,11 @@ class AddressPickAndConfirm extends StatelessWidget {
         ),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _location(context),
-          SizedBox(
-            height: 48,
-            child: Utils.neumorphicActionButtonWithIcon(
-              context,
-              "Pick",
-              buttonColor: Theme.of(context).primaryColor,
-              onClick: () {
-                InAppNavigation.addAddress(context, locationModel);
-              },
-            ),
-          )
         ],
       ),
     );
@@ -68,7 +57,7 @@ class AddressPickAndConfirm extends StatelessWidget {
               locationModel = snapshot.data;
               final firstPlaceMark = snapshot.data?.results?.first;
               if (firstPlaceMark == null) {
-                return Container();
+                return const SizedBox.shrink();
               }
 
               return Column(
@@ -100,6 +89,18 @@ class AddressPickAndConfirm extends StatelessWidget {
                           Theme.of(context).textTheme.titleSmall?.fontSize,
                     ),
                   ),
+                  Utils.verticalSpace(1),
+                  SizedBox(
+                    height: 48,
+                    child: Utils.neumorphicActionButtonWithIcon(
+                      context,
+                      "Pick",
+                      buttonColor: Theme.of(context).primaryColor,
+                      onClick: () {
+                        InAppNavigation.addAddress(context, locationModel);
+                      },
+                    ),
+                  )
                 ],
               );
             },

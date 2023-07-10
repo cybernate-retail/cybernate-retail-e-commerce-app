@@ -37,7 +37,7 @@ class _ProductWidgetState extends State<ProductWidget> {
   Widget build(BuildContext context) {
     widget.selectedProductVariant ??= widget.productVariant?.first;
     if (widget.productVariant?.first == null) {
-      return Container();
+      return Utils.shimmerPlaceHolder();
     }
 
     return Stack(

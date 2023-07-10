@@ -1,4 +1,5 @@
 import 'package:cybernate_retail_mobile/mobx_stores/address/address.dart';
+import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/AddressDetailsFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/AddressDelete.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/UserAddress.req.gql.dart';
@@ -44,7 +45,9 @@ class _ViewAddressState extends State<ViewAddress> {
     return Scaffold(
       appBar: justBackButtonWithTitleAppBar(context, "View Address"),
       body: _body(),
-      bottomNavigationBar: const AddAddressWidget(),
+      bottomNavigationBar: AddAddressWidget(onClick: () {
+        InAppNavigation.pop(context);
+      }),
     );
   }
 

@@ -1,7 +1,6 @@
 import 'package:cybernate_retail_mobile/mobx_stores/address/address.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
-import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart'
-    as addressSchema;
+import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/fragments/models/AddressDetailsFragment.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/AccountSetDefaultAddress.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/mutations/models/AddressDelete.req.gql.dart';
@@ -133,24 +132,27 @@ class _PickDeliveryAddressWidgetState extends State<PickDeliveryAddressWidget> {
 
   onAddressTap(GAddressDetailsFragment address) {
     if (_cartStore.cartToken != null) {
+      print("----------- cartToken: ${_cartStore.cartToken}");
       _cartStore.updateAddress(
         Utils.convertGAddressDetailsFragmentToGAddressInput(address),
       );
     }
 
-    final request = GAccountSetDefaultAddressReq(
-      ((b) => b
-        ..vars.id = address.id
-        ..vars.type = addressSchema.GAddressTypeEnum.SHIPPING),
-    );
+    final request = GAccountSetDefaultAddressReq(((b) => b
+      ..vars.id = address.id
+      ..vars.type = GAddressTypeEnum.SHIPPING));
     client.request(request).listen((event) {
+      print("----------- request: ${request.execRequest}");
+      print("----------- event has errors: ${event.hasErrors}");
+      print("----------- event: ${event.data}");
       if (!event.hasErrors &&
           event.data?.accountSetDefaultAddress?.accountErrors.isEmpty == true &&
           event.data?.accountSetDefaultAddress?.errors.isEmpty == true) {
+        print("----------- set Delivery: ${address.toJson()}");
         _addressStore.setDeliveryAddress(address);
       }
     });
-    Navigator.pop(context);
+    // Navigator.pop(context);
   }
 }
 

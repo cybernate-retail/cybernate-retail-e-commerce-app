@@ -4,7 +4,8 @@ import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class AddAddressWidget extends StatelessWidget {
-  const AddAddressWidget({super.key});
+  final Function()? onClick;
+  const AddAddressWidget({super.key, this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +17,10 @@ class AddAddressWidget extends StatelessWidget {
         context,
         "Add address",
         buttonColor: Theme.of(context).primaryColor,
-        onClick: () {
-          InAppNavigation.pickAddress(context);
-        },
+        onClick: onClick ??
+            () {
+              InAppNavigation.pickAddress(context);
+            },
       ),
     );
   }

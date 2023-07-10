@@ -22,6 +22,7 @@ class _PinLocationWidgetState extends State<PinLocationWidget> {
     super.didChangeDependencies();
     _addressStore = Provider.of<AddressStore>(context);
     _addressStore.getAndSetDeliveryAddress();
+    print("-------------------- address store");
   }
 
   @override
