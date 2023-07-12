@@ -88,8 +88,8 @@ class MyApp extends StatelessWidget {
             theme: _themeStore.darkMode
                 ? AppThemeData.darkThemeData
                 : AppThemeData.lightThemeData,
-            // home: const SplashLogo(),
-            home: const AddURLView(),
+            home: const SplashLogo(),
+            // home: const AddURLView(),
             // builder: (context, child) {
             //   return StreamBuilder<ConnectivityResult>(
             //       stream: Connectivity().onConnectivityChanged,

@@ -139,7 +139,7 @@ class _PickDeliveryAddressWidgetState extends State<PickDeliveryAddressWidget> {
     }
 
     final request = GAccountSetDefaultAddressReq(((b) => b
-      ..vars.id = address.id
+      ..vars.id = address!.id
       ..vars.type = GAddressTypeEnum.SHIPPING));
     client.request(request).listen((event) {
       print("----------- request: ${request.execRequest}");
