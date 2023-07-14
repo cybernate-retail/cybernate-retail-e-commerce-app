@@ -38,6 +38,7 @@ class SignupFormPhoneField extends StatelessWidget {
       decoration: InputDecoration(
         fillColor: Colors.white,
         filled: true,
+        counterText: '',
         focusedBorder:
             Utils.outlineInputBorder(10, Theme.of(context).primaryColor),
         prefixIcon: Padding(
