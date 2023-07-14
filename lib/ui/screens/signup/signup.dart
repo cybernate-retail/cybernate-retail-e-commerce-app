@@ -99,6 +99,7 @@ class _SignupScreenInputState extends State<SignupScreen> {
       width: MediaQuery.of(context).size.width * 0.8,
       child: FormBuilder(
           key: _userNameKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
               SignupFormNameField(
@@ -262,7 +263,7 @@ class _SignupScreenInputState extends State<SignupScreen> {
           ),
           Visibility(visible: !keyboardVisible, child: Utils.verticalSpace(2)),
           Expanded(
-            flex: 4,
+            flex: 3,
             child: _profileInputForm(),
           ),
           Visibility(
