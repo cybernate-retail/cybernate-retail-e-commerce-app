@@ -46,6 +46,7 @@ class _SignupScreenInputState extends State<SignupScreen> {
       TextEditingController();
   final TextEditingController _phoneTextEditingController =
       TextEditingController();
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -263,7 +264,7 @@ class _SignupScreenInputState extends State<SignupScreen> {
           ),
           Visibility(visible: !keyboardVisible, child: Utils.verticalSpace(2)),
           Expanded(
-            flex: 3,
+            flex: 4,
             child: _profileInputForm(),
           ),
           Visibility(

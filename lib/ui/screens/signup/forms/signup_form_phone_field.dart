@@ -49,7 +49,7 @@ class SignupFormPhoneField extends StatelessWidget {
         ),
         labelText: "Phone number",
         labelStyle: const TextStyle(
-          color: Colors.black26,
+          color: Colors.black54,
         ),
         enabledBorder: Utils.outlineInputBorder(10, Colors.white),
         errorBorder: Utils.outlineInputBorder(10, Colors.red),
