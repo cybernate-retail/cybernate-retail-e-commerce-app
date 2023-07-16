@@ -58,29 +58,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _accountHeading() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          text: "Hello ",
-          style: TextStyle(
-            fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
-            color: Colors.black,
-          ),
-          children: [
-            WidgetSpan(
-              child: Observer(builder: (_) {
-                return Text(
-                  "${_profileStore.profile?.name ?? ""}!",
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize:
-                        Theme.of(context).textTheme.headlineSmall?.fontSize,
-                  ),
-                );
-              }),
+    return Observer(builder: (context) {
+      return RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(children: [
+          TextSpan(
+            text: "Hello ",
+            style: TextStyle(
+              fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
+              color: Colors.black,
             ),
-          ]),
-    );
+          ),
+          TextSpan(
+            text: "${_profileStore.profile?.name ?? ""}!",
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
+            ),
+          )
+        ]),
+      );
+    });
   }
 
   Widget _logoutButton(BuildContext context) {
