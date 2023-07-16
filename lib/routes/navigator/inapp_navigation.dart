@@ -187,20 +187,23 @@ class InAppNavigation {
     );
   }
 
-  static void viewProduct(BuildContext context, String id) {
+  static void viewProduct(BuildContext context, String id, bool fromSearch) {
     _push(
       context,
       ProductViewScreen(
         productId: id,
+        fromSearch: fromSearch,
       ),
     );
   }
 
-  static void popAndViewProduct(BuildContext context, String id) {
+  static void popAndViewProduct(
+      BuildContext context, String id, bool fromSearch) {
     pushReplacement(
       context,
       ProductViewScreen(
         productId: id,
+        fromSearch: fromSearch,
       ),
     );
   }

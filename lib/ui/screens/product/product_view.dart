@@ -18,9 +18,11 @@ import 'package:get_it/get_it.dart';
 
 class ProductViewScreen extends StatefulWidget {
   final String productId;
+  final bool fromSearch;
   GProductVariantDetailsFragment? selectedProductVariant;
 
-  ProductViewScreen({super.key, required this.productId});
+  ProductViewScreen(
+      {super.key, required this.productId, required this.fromSearch});
 
   @override
   State<ProductViewScreen> createState() => _ProductViewScreenState();
@@ -102,7 +104,11 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
         UiIcons.search(
           color: Theme.of(context).iconTheme.color,
           onPressed: () {
-            InAppNavigation.search(context);
+            if (widget.fromSearch) {
+              InAppNavigation.pop(context);
+            } else {
+              InAppNavigation.search(context);
+            }
           },
         ),
         Utils.horizontalSpace(1),
@@ -220,7 +226,8 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
               productVariant: product.variants,
               enableDiscountBanner: true,
               onTap: () {
-                InAppNavigation.popAndViewProduct(context, product.id);
+                InAppNavigation.popAndViewProduct(
+                    context, product.id, widget.fromSearch);
               },
             ),
           );

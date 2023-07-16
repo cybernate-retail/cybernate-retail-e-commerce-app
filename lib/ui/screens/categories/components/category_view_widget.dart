@@ -167,7 +167,8 @@ class _CategoryViewWidgetState extends State<CategoryViewWidget> {
                     "",
                 enableDiscountBanner: true,
                 onTap: () {
-                  InAppNavigation.viewProduct(context, currentProduct.id);
+                  InAppNavigation.viewProduct(
+                      context, currentProduct.id, false);
                 },
               );
             },

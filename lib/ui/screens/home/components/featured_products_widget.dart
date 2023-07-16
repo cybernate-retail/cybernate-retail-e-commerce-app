@@ -82,7 +82,8 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
                           "",
                       enableDiscountBanner: true,
                       onTap: () {
-                        InAppNavigation.viewProduct(context, product?.id ?? "");
+                        InAppNavigation.viewProduct(
+                            context, product?.id ?? "", false);
                       },
                     );
                   }),

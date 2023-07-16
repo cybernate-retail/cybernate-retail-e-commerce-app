@@ -128,7 +128,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             enableDiscountBanner: true,
                             onTap: () {
                               InAppNavigation.viewProduct(
-                                  context, product?.id ?? "");
+                                  context, product?.id ?? "", true);
                             },
                           );
                         }),
@@ -196,7 +196,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   productName: currentProduct.name,
                   enableDiscountBanner: true,
                   onTap: () {
-                    InAppNavigation.viewProduct(context, currentProduct.id);
+                    InAppNavigation.viewProduct(
+                        context, currentProduct.id, true);
                   },
                 );
               },
