@@ -366,7 +366,9 @@ class _CartScreenState extends State<CartScreen> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: Utils.spaceScale(2)),
       child: ListTile(
-        onTap: Utils.emptyFunction,
+        onTap: () {
+          InAppNavigation.coupons(context, false);
+        },
         // minVerticalPadding: Utils.spaceScale(4),
         leading: SizedBox(
           width: Utils.spaceScale(4),
