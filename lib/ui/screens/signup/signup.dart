@@ -264,7 +264,7 @@ class _SignupScreenInputState extends State<SignupScreen> {
           ),
           Visibility(visible: !keyboardVisible, child: Utils.verticalSpace(2)),
           Expanded(
-            flex: 4,
+            flex: 5,
             child: _profileInputForm(),
           ),
           Visibility(

@@ -178,17 +178,12 @@ class _SearchScreenState extends State<SearchScreen> {
             return _nothingFound();
           }
           return Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: UiConstants.globalPadding * 2,
-              vertical: UiConstants.globalPadding,
-            ),
+            padding: const EdgeInsets.all(UiConstants.globalPadding),
             child: GridView.builder(
               itemCount: products.length,
               // physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: Utils.spaceScale(1),
-                crossAxisSpacing: Utils.spaceScale(1),
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: MediaQuery.of(context).size.width / 2,
                 childAspectRatio: 0.75,
               ),
               addAutomaticKeepAlives: true,
