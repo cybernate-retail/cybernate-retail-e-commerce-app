@@ -62,7 +62,7 @@ class _SearchScreenState extends State<SearchScreen> {
   AppBar _appBar() {
     return AppBar(
       title: Padding(
-        padding: EdgeInsets.only(right: Utils.spaceScale(2)),
+        padding: EdgeInsets.only(right: Utils.spaceScale(4)),
         child: const SearchForm(),
       ),
       titleSpacing: 0,
