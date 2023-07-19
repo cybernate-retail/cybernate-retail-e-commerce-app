@@ -50,7 +50,7 @@ node_modules/
 
 *.gql.*
 *.g.dart
-assets/icons/discount_banner.png
+# assets/icons/discount_banner.png
 assets/item_images/Bath__Body.jpg
 assets/item_images/Beauty__Makeup.jpg
 assets/item_images/Breakfast_Food_.jpg
