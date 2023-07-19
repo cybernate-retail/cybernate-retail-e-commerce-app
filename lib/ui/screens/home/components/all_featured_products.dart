@@ -15,8 +15,10 @@ import 'package:collection/collection.dart';
 
 class AllFeaturedProductsView extends StatefulWidget {
   BuiltList<GMenuItemWithChildrenFragment>? menuItemFragments = BuiltList();
+  final String slug;
 
-  AllFeaturedProductsView({super.key, required this.menuItemFragments});
+  AllFeaturedProductsView(
+      {super.key, required this.menuItemFragments, required this.slug});
 
   @override
   State<AllFeaturedProductsView> createState() =>
@@ -47,20 +49,28 @@ class _AllFeaturedProductsViewState extends State<AllFeaturedProductsView> {
     return AppBar(
       title: _heading(),
       titleSpacing: 0,
-      centerTitle: true,
+      centerTitle: false,
       leading: UiIcons.back(
         color: Theme.of(context).colorScheme.primary,
         onPressed: () {
           InAppNavigation.pop(context);
         },
       ),
+      actions: [
+        UiIcons.search(
+          color: Theme.of(context).iconTheme.color,
+          onPressed: () {
+            InAppNavigation.search(context);
+          },
+        ),
+        Utils.horizontalSpace(1 / 2),
+      ],
     );
   }
 
   Widget _featuredProduct() {
     final featuredProductCollectionId = widget.menuItemFragments
-        ?.firstWhereOrNull(
-            (p0) => p0.collection?.slug == GlobalConstants.featuredProductsSlug)
+        ?.firstWhereOrNull((p0) => p0.collection?.slug == widget.slug)
         ?.collection
         ?.id;
 
@@ -118,12 +128,12 @@ class _AllFeaturedProductsViewState extends State<AllFeaturedProductsView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          " Featured Products",
+          getSlugTitle(widget.slug),
           style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface,
-            fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
-            fontWeight: FontWeight.bold,
-          ),
+              color: Theme.of(context).colorScheme.onSurface,
+              fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'OpenSans'),
         ),
       ],
     );

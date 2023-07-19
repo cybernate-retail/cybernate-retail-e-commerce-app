@@ -34,7 +34,7 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Utils.verticalSpace(1),
-          _heading(),
+          _heading(widget.slug),
           Utils.verticalSpace(1),
           _featuredProduct(),
         ],
@@ -94,12 +94,12 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
           );
   }
 
-  Widget _heading() {
+  Widget _heading(String slug) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          " Featured Products",
+          getSlugTitle(slug),
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurface,
             fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
@@ -110,7 +110,7 @@ class _FeaturedProductWidgetState extends State<FeaturedProductWidget> {
             color: Theme.of(context).primaryColor,
             fontSize: 12,
             onPressed: () => InAppNavigation.viewAllFeaturedProducts(
-                context, widget.menuItemFragments)),
+                context, widget.menuItemFragments, slug)),
       ],
     );
   }
