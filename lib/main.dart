@@ -7,6 +7,7 @@ import 'package:cybernate_retail_mobile/dependency_injection/services.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/address/address.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/search/search.dart';
+import 'package:cybernate_retail_mobile/ui/common_widgets/connectivity/connectivity_widget.dart';
 import 'package:cybernate_retail_mobile/ui/global_theme/apptheme.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/introduction/introduction.dart';
@@ -88,6 +89,11 @@ class MyApp extends StatelessWidget {
             theme: _themeStore.darkMode
                 ? AppThemeData.darkThemeData
                 : AppThemeData.lightThemeData,
+            builder: (context, child) {
+              return Stack(
+                children: [child!, const ConnectivityCheck()],
+              );
+            },
             home: const SplashLogo(),
             // home: const AddURLView(),
             // builder: (context, child) {
