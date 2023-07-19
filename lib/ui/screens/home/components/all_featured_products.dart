@@ -49,7 +49,7 @@ class _AllFeaturedProductsViewState extends State<AllFeaturedProductsView> {
     return AppBar(
       title: _heading(),
       titleSpacing: 0,
-      centerTitle: false,
+      centerTitle: true,
       leading: UiIcons.back(
         color: Theme.of(context).colorScheme.primary,
         onPressed: () {
@@ -124,18 +124,12 @@ class _AllFeaturedProductsViewState extends State<AllFeaturedProductsView> {
   }
 
   Widget _heading() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          getSlugTitle(widget.slug),
-          style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface,
-              fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'OpenSans'),
-        ),
-      ],
+    return Text(
+      getSlugTitle(widget.slug),
+      style: TextStyle(
+        fontSize: Theme.of(context).textTheme.titleLarge?.fontSize,
+        color: Theme.of(context).colorScheme.primary,
+      ),
     );
   }
 }

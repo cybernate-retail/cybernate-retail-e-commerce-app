@@ -135,21 +135,33 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
 
     return Column(
       children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.35,
-          child: PageView.builder(
-            onPageChanged: ((value) {
-              setState(
-                () {
-                  currentStepperValue = value;
-                },
-              );
-            }),
-            itemCount: imageUrls?.length,
-            itemBuilder: ((context, index) {
-              return _productImage(imageUrls?.elementAt(index) ?? "");
-            }),
-          ),
+        Stack(
+          alignment: Alignment.topRight,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.35,
+              child: PageView.builder(
+                onPageChanged: ((value) {
+                  setState(
+                    () {
+                      currentStepperValue = value;
+                    },
+                  );
+                }),
+                itemCount: imageUrls?.length,
+                itemBuilder: ((context, index) {
+                  return _productImage(imageUrls?.elementAt(index) ?? "");
+                }),
+              ),
+            ),
+            Utils.discountBannerProduct(
+              discount: Utils.calculateDiscount(
+                widget.selectedProductVariant?.pricing?.priceUndiscounted?.gross
+                    .amount,
+                widget.selectedProductVariant?.pricing?.price?.gross.amount,
+              ),
+            )
+          ],
         ),
         _dotStepper(imageUrls?.length ?? 0),
       ],

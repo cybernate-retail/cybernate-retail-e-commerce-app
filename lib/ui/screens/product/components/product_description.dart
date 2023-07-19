@@ -106,17 +106,6 @@ class _ProductDescriptionState extends State<ProductDescription> {
               setState(() {});
             },
           ),
-          if (widget.productViewType == ProductViewType.SCREEN)
-            Text(
-              widget.productDescription ?? '',
-              maxLines: null,
-              softWrap: true,
-              // overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface,
-                fontSize: 14,
-              ),
-            ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -146,6 +135,40 @@ class _ProductDescriptionState extends State<ProductDescription> {
               })
             ],
           ),
+          if (widget.productViewType == ProductViewType.SCREEN)
+            Theme(
+              data: ThemeData().copyWith(
+                dividerColor: Colors.transparent,
+                unselectedWidgetColor: Theme.of(context)
+                    .colorScheme
+                    .primary, // here for close state
+                colorScheme: ColorScheme.light(
+                  primary: Theme.of(context).colorScheme.primary,
+                ), //
+                primaryColor: Theme.of(context).colorScheme.primary,
+              ),
+              child: ExpansionTile(
+                title: Text(
+                  'About Product',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontSize: 16,
+                  ),
+                ),
+                tilePadding: const EdgeInsets.all(0.0),
+                children: [
+                  Text(
+                    widget.productDescription ?? '',
+                    maxLines: null,
+                    softWrap: true,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );
