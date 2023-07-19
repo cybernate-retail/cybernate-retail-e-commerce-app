@@ -20,29 +20,19 @@ class _NoNetworkScreenState extends State<NoNetworkScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        titleSpacing: 0,
-        automaticallyImplyLeading: false,
-        actions: [
-          UiIcons.home(),
-          Utils.horizontalSpace(1),
-        ],
-      ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      // floatingActionButton: Container(
-      // decoration: BoxDecoration(
-      //   border: Border.all(),
-      //   borderRadius: BorderRadius.circular(50),
-      // ),
-      //     child: UiIcons.home(onPressed: () {})),
       body: Container(
         color: Colors.white,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            // const Text("No Internet"),
-
+            Text(
+              'No Network',
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
             Center(
               child: Lottie.asset(
                 AssetsDb.noInternetAnimation,
@@ -54,10 +44,10 @@ class _NoNetworkScreenState extends State<NoNetworkScreen> {
               width: MediaQuery.of(context).size.width * 0.75,
               // padding: EdgeInsets.all(Utils.spaceScale(2)),
               child: tryAgainButton(
-                64,
+                50,
                 Colors.green,
                 Colors.white,
-                24,
+                20,
                 onTap: () async {
                   var connectivity = await Connectivity().checkConnectivity();
                   if (kDebugMode) {
@@ -96,7 +86,7 @@ Widget tryAgainButton(
       ),
       child: Center(
         child: Text(
-          "Refresh",
+          "Try Again",
           style: TextStyle(
             color: textColor,
             fontWeight: FontWeight.bold,
