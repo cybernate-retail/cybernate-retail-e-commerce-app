@@ -13,12 +13,14 @@ import 'package:provider/provider.dart';
 
 class ProductDescription extends StatefulWidget {
   final String productName;
+  final String? productDescription;
   final BuiltList<GProductVariantDetailsFragment>? productVariant;
   GProductVariantDetailsFragment? selectedVariant;
   final ProductViewType productViewType;
   ProductDescription({
     super.key,
     required this.productName,
+    this.productDescription,
     required this.productVariant,
     required this.productViewType,
   });
@@ -89,7 +91,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
               horizontal: Utils.spaceScale(1),
               vertical: Utils.spaceScale(1),
             ),
-      height: widget.productViewType == ProductViewType.SCREEN ? 120 : 80,
+      height: widget.productViewType == ProductViewType.SCREEN ? null : 80,
       // padding: EdgeInsets.only(bottom: Utils.spaceScale(1)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -104,6 +106,17 @@ class _ProductDescriptionState extends State<ProductDescription> {
               setState(() {});
             },
           ),
+          if (widget.productViewType == ProductViewType.SCREEN)
+            Text(
+              widget.productDescription ?? '',
+              maxLines: null,
+              softWrap: true,
+              // overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
+                fontSize: 14,
+              ),
+            ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

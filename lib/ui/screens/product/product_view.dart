@@ -61,6 +61,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
           }
           widget.selectedProductVariant ??=
               response.data?.product?.variants?.first;
+
           return ListView(
             children: [
               _imageWidget(response.data?.product?.media),
@@ -70,6 +71,8 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
                         ? response.data?.product?.name
                         : response.data?.product?.translation?.name) ??
                     "",
+                productDescription: getProductDescription(
+                    response.data?.product?.description?.value ?? ''),
                 productVariant: response.data?.product?.variants,
                 productViewType: ProductViewType.SCREEN,
               ),
