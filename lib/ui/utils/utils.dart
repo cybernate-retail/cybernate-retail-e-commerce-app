@@ -436,3 +436,14 @@ class Utils {
     );
   }
 }
+
+String getSlugTitle(String slug) {
+  switch (slug) {
+    case 'featured-products':
+      return 'Featured Products';
+    case 'summer-picks':
+      return 'Summer Picks';
+    default:
+      return '';
+  }
+}
