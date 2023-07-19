@@ -55,7 +55,7 @@ class _ProductVariantDropDownState extends State<ProductVariantDropDown> {
         size: widget.productViewType == ProductViewType.CARD ? 18 : 24,
         color: Theme.of(context).primaryColor,
       ),
-      isExpanded: widget.productViewType == ProductViewType.CARD ? true : false,
+      isExpanded: false,
       underline: Container(),
       isDense: true,
       elevation: 8,
