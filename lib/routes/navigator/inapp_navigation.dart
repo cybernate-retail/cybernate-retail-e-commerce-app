@@ -44,7 +44,7 @@ class InAppNavigation {
       context,
       PageTransition(
         child: screen,
-        type: PageTransitionType.fade,
+        type: PageTransitionType.scale,
         curve: Curves.easeIn,
         alignment: Alignment.center,
       ),
@@ -56,7 +56,7 @@ class InAppNavigation {
       context,
       PageTransition(
         child: screen,
-        type: PageTransitionType.fade,
+        type: PageTransitionType.scale,
         curve: Curves.easeIn,
         alignment: Alignment.center,
       ),
@@ -177,12 +177,15 @@ class InAppNavigation {
     _push(context, const ContactUsChat());
   }
 
-  static void viewAllFeaturedProducts(BuildContext context,
-      BuiltList<GMenuItemWithChildrenFragment>? menuItemFragments) {
+  static void viewAllFeaturedProducts(
+      BuildContext context,
+      BuiltList<GMenuItemWithChildrenFragment>? menuItemFragments,
+      String slug) {
     _push(
       context,
       AllFeaturedProductsView(
         menuItemFragments: menuItemFragments,
+        slug: slug,
       ),
     );
   }
