@@ -66,8 +66,10 @@ class _PickDeliveryAddressWidgetState extends State<PickDeliveryAddressWidget> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Utils.horizontalSpace(2),
+              const Spacer(),
               Text(
                 "Pick location",
                 style: TextStyle(

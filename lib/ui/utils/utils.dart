@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -7,6 +8,7 @@ import 'package:cybernate_retail_mobile/src/components/fragments/models/AddressD
 import 'package:cybernate_retail_mobile/ui/assets_db/assets_db.dart';
 import 'package:cybernate_retail_mobile/ui/constants/ui_constants.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:uuid/uuid.dart';
@@ -265,9 +267,10 @@ class Utils {
             errorWidget: (context, error, stackTrace) => Center(
                 child: Container(
               margin: const EdgeInsets.all(8.0),
-              child: const Icon(
-                Icons.error,
-                color: Colors.red,
+              child: Icon(
+                Icons.image_not_supported,
+                size: 30.0,
+                color: Colors.grey.withOpacity(0.5),
               ),
             )),
             progressIndicatorBuilder: ((context, url, progress) {
@@ -361,6 +364,38 @@ class Utils {
     );
   }
 
+  static Widget discountBannerProduct({double? discount}) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0, right: 16.0),
+      child: SizedBox(
+        height: 45,
+        width: 45,
+        child: discount != null
+            ? Stack(
+                children: [
+                  SvgPicture.asset(
+                    AssetsDb.discountIconProduct,
+                    fit: BoxFit.fitHeight,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "$discount% off",
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                ],
+              )
+            : Container(),
+      ),
+    );
+  }
+
   static double? calculateDiscount(
       double? actualPrice, double? discountedPrice) {
     if (actualPrice == null || discountedPrice == null) {
@@ -445,5 +480,15 @@ String getSlugTitle(String slug) {
       return 'Summer Picks';
     default:
       return '';
+  }
+}
+
+String getProductDescription(String value) {
+  try {
+    final json = jsonDecode(value);
+    json['blocks'];
+    return json['blocks'][0]['data']['text'];
+  } catch (e) {
+    return '';
   }
 }

@@ -1,4 +1,6 @@
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
+import 'package:cybernate_retail_mobile/mobx_stores/profile/profile.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/MainMenu.data.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/MainMenu.req.gql.dart';
 import 'package:cybernate_retail_mobile/src/components/queries/models/MainMenu.var.gql.dart';
@@ -14,6 +16,7 @@ import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +27,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final client = GetIt.I<TypedLink>();
+  late CartStore cartStore;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    cartStore = Provider.of<CartStore>(context);
+    cartStore.getCartItemsLocal();
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {

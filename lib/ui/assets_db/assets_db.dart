@@ -53,6 +53,7 @@ class AssetsDb {
   static String get wishlistIcon => "assets/icons/heart.svg";
   static String get homeIcon => "assets/icons/home.svg";
   static String get discountIcon => "assets/icons/discount.svg";
+  static String get discountIconProduct => "assets/icons/discount_icon.svg";
   static String get bellIcon => "assets/icons/bell.svg";
   static String get arrowRightIcon => "assets/icons/angle-right.svg";
   static String get customerSupportIcon => "assets/icons/customer-support.svg";

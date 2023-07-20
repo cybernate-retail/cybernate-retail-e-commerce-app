@@ -1,4 +1,5 @@
 import 'package:cybernate_retail_mobile/data_repository/database_encryption/encryption/secure_sharedprefs/secure_sharedprefs_helper.dart';
+import 'package:cybernate_retail_mobile/data_repository/localdb/cart/cart_datasource.dart';
 import 'package:cybernate_retail_mobile/data_repository/localdb/profile/profile_datasource.dart';
 import 'package:cybernate_retail_mobile/data_repository/remote_repository.dart';
 import 'package:cybernate_retail_mobile/data_repository/remotedb/address/address_datasource.dart';
@@ -43,11 +44,13 @@ Future<void> setupLocator() async {
 
   getIt.registerSingleton(ProfileDataSource(await getIt.getAsync<Database>()));
 
+  getIt.registerSingleton(CartDataSource(await getIt.getAsync<Database>()));
+
   getIt.registerSingleton(Repository(
-    getIt<SharedPreferenceHelper>(),
-    getIt<SecureSharedPreferencesHelper>(),
-    getIt<ProfileDataSource>(),
-  ));
+      getIt<SharedPreferenceHelper>(),
+      getIt<SecureSharedPreferencesHelper>(),
+      getIt<ProfileDataSource>(),
+      getIt<CartDataSource>()));
 
   //------------------------Remote---------------------------------------------//
   getIt.registerSingleton(ProductDataSource(await getIt.getAsync<TypedLink>()));

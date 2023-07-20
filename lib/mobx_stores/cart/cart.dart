@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:cybernate_retail_mobile/data_repository/remote_repository.dart';
 import 'package:cybernate_retail_mobile/data_repository/repository.dart';
 import 'package:cybernate_retail_mobile/global_constants/global_constants.dart';
+import 'package:cybernate_retail_mobile/models/cart_items_local.dart';
 import 'package:cybernate_retail_mobile/models/payment_gateway.dart';
 import 'package:cybernate_retail_mobile/models/schema.schema.gql.dart';
 import 'package:cybernate_retail_mobile/routes/navigator/inapp_navigation.dart';
@@ -26,6 +27,9 @@ abstract class _CartStore with Store {
     this._repository,
     this._remoteRepository,
   );
+
+  @observable
+  List<CartItemsLocalModel> cartDataLocalList = [];
 
   @observable
   ObservableMap<String, int> _variantsAddedToCart =
@@ -57,6 +61,15 @@ abstract class _CartStore with Store {
       return _variantsAddedToCart[variantId] ?? 0;
     }
     return 0;
+  }
+
+  @action
+  getCartItemsLocal() async {
+    cartDataLocalList = await _repository.getCartData();
+    for (var cartItemData in cartDataLocalList) {
+      updateVariantMap(
+          cartItemData.variantId, cartItemData.quantity, cartItemData.price);
+    }
   }
 
   @action
@@ -104,6 +117,8 @@ abstract class _CartStore with Store {
     if (cartToken == null) {
       int temp = _variantsAddedToCart[variantId] ?? 0;
       updateVariantMap(variantId, temp + quantity, price);
+      cartDataLocalList.add(CartItemsLocalModel(
+          quantity: temp + quantity, variantId: variantId, price: price));
     } else {
       final response = _remoteRepository.checkoutAddProductLine(
           token: cartToken!, variantId: variantId);
@@ -112,12 +127,15 @@ abstract class _CartStore with Store {
             event.data?.checkoutLinesAdd?.errors == BuiltList()) {
           int temp = _variantsAddedToCart[variantId] ?? 0;
           updateVariantMap(variantId, temp + quantity, price);
+          cartDataLocalList.add(CartItemsLocalModel(
+              quantity: temp + quantity, variantId: variantId, price: price));
           _amount =
               event.data?.checkoutLinesAdd?.checkout?.totalPrice.gross.amount ??
                   _amount;
         }
       });
     }
+    _repository.setCartData(cartDataLocalList);
   }
 
   @action
@@ -136,6 +154,9 @@ abstract class _CartStore with Store {
         if (!event.hasErrors &&
             event.data?.checkoutLinesUpdate?.errors == BuiltList()) {
           updateVariantMap(variantId, currentQuantity - 1, price);
+          updateVariantQuantity(variantId, currentQuantity - 1);
+          cartDataLocalList
+              .firstWhere((element) => element.variantId == variantId);
           _amount = event.data?.checkoutLinesUpdate?.checkout?.totalPrice.gross
                   .amount ??
               _amount;
@@ -144,6 +165,7 @@ abstract class _CartStore with Store {
     } else {
       if (currentQuantity > 0) {
         updateVariantMap(variantId, currentQuantity - 1, price);
+        updateVariantQuantity(variantId, currentQuantity - 1);
       }
     }
   }
@@ -164,6 +186,7 @@ abstract class _CartStore with Store {
         if (!event.hasErrors &&
             event.data?.checkoutLinesUpdate?.errors == BuiltList()) {
           updateVariantMap(variantId, quantity, price);
+          updateVariantQuantity(variantId, quantity);
           _amount = event.data?.checkoutLinesUpdate?.checkout?.totalPrice.gross
                   .amount ??
               _amount;
@@ -171,6 +194,7 @@ abstract class _CartStore with Store {
       });
     } else {
       updateVariantMap(variantId, quantity, price);
+      updateVariantQuantity(variantId, quantity);
     }
   }
 
@@ -253,6 +277,8 @@ abstract class _CartStore with Store {
     cartToken = null;
     _paymentGateway = null;
     _variantsAddedToCart = ObservableMap<String, int>();
+    cartDataLocalList = [];
+    _repository.setCartData(cartDataLocalList);
   }
 
   void updateVariantMap(String variantId, int quantity, double? price) {
@@ -266,5 +292,25 @@ abstract class _CartStore with Store {
     } else {
       _variantsAddedToCart[variantId] = quantity;
     }
+  }
+
+  void updateVariantQuantity(String variantId, int newQuantity) {
+    List<CartItemsLocalModel> cartData = cartDataLocalList;
+    for (int i = 0; i < cartData.length; i++) {
+      if (cartData[i].variantId == variantId) {
+        if (newQuantity > 0) {
+          cartData[i] = CartItemsLocalModel(
+            quantity: newQuantity,
+            variantId: cartData[i].variantId,
+            price: cartData[i].price,
+          );
+        } else {
+          cartData.removeAt(i);
+        }
+        break;
+      }
+    }
+    cartDataLocalList = cartData;
+    _repository.setCartData(cartDataLocalList);
   }
 }

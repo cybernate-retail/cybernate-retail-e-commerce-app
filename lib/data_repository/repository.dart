@@ -1,6 +1,8 @@
 import 'package:cybernate_retail_mobile/data_repository/database_encryption/encryption/secure_sharedprefs/secure_sharedprefs_helper.dart';
+import 'package:cybernate_retail_mobile/data_repository/localdb/cart/cart_datasource.dart';
 import 'package:cybernate_retail_mobile/data_repository/localdb/profile/profile_datasource.dart';
 import 'package:cybernate_retail_mobile/data_repository/shared_prefs/sharedpref_helper.dart';
+import 'package:cybernate_retail_mobile/models/cart_items_local.dart';
 import 'package:cybernate_retail_mobile/models/profile.dart';
 import 'package:cybernate_retail_mobile/models/tokens.dart';
 
@@ -8,11 +10,9 @@ class Repository {
   final SharedPreferenceHelper _sharedPreferenceHelper;
   final SecureSharedPreferencesHelper _secureSharedPreferencesHelper;
   final ProfileDataSource _profileDataSource;
-  Repository(
-    this._sharedPreferenceHelper,
-    this._secureSharedPreferencesHelper,
-    this._profileDataSource,
-  );
+  final CartDataSource _cartDataSource;
+  Repository(this._sharedPreferenceHelper, this._secureSharedPreferencesHelper,
+      this._profileDataSource, this._cartDataSource);
 
   //Introduction screen functions
 
@@ -59,6 +59,14 @@ class Repository {
 
   Future<dynamic> setProfileData(ProfileModel profileModel) {
     return _profileDataSource.setProfileData(profileModel);
+  }
+
+  Future<List<CartItemsLocalModel>> getCartData() {
+    return _cartDataSource.getCartData();
+  }
+
+  Future<dynamic> setCartData(List<CartItemsLocalModel> cartItemsData) {
+    return _cartDataSource.setCartData(cartItemsData);
   }
 
   //LoggedIN -----------------------------------
