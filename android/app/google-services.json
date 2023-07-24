@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1036674628740",
+    "project_id": "cybernate-retail-mobile",
+    "storage_bucket": "cybernate-retail-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036674628740:android:e7b487fa2c7aa5379f96d1",
+        "android_client_info": {
+          "package_name": "com.erstnot.cybernate_retail_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036674628740-ad3q3ad9kkjsdde1ri5qnqp31kqnt30l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyff85JIHjW7u_tdMIqZ0UHjzr4T_PSis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036674628740-ad3q3ad9kkjsdde1ri5qnqp31kqnt30l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

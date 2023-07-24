@@ -7,6 +7,7 @@ import 'package:cybernate_retail_mobile/dependency_injection/services.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/address/address.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/cart/cart.dart';
 import 'package:cybernate_retail_mobile/mobx_stores/search/search.dart';
+import 'package:cybernate_retail_mobile/services/push_notification_service.dart';
 import 'package:cybernate_retail_mobile/ui/common_widgets/connectivity/connectivity_widget.dart';
 import 'package:cybernate_retail_mobile/ui/global_theme/apptheme.dart';
 import 'package:cybernate_retail_mobile/routes/routes.dart';
@@ -19,6 +20,8 @@ import 'package:cybernate_retail_mobile/mobx_stores/theme/theme.dart';
 import 'package:cybernate_retail_mobile/ui/screens/addUrl/addUrl.dart';
 import 'package:cybernate_retail_mobile/ui/screens/no_network/no_network.dart';
 import 'package:cybernate_retail_mobile/ui/screens/splash/splash.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +40,12 @@ Future<void> main() async {
   //     },
   //   );
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
+  firebaseCloudMessagingListeners();
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
   await setupLocator();
   runApp(MyApp());
   // }, (exception, stackTrace) async {

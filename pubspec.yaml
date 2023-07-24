@@ -43,7 +43,9 @@ dependencies:
   rflutter_alert: ^2.0.4
   shimmer: ^2.0.0
   permission_handler: ^10.2.0
+  firebase_core: ^2.15.0
   firebase_crashlytics: ^3.0.6
+  firebase_messaging: ^14.6.5
   flutter_native_splash: ^2.2.15
   flutter_launcher_icons: ^0.11.0
   sentry_flutter: ^6.16.1
