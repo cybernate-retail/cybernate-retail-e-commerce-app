@@ -2,6 +2,7 @@ import 'package:cybernate_retail_mobile/ui/icons/ui_icons.dart';
 import 'package:cybernate_retail_mobile/ui/screens/signup/forms/signup_form_constants.dart';
 import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
@@ -21,6 +22,7 @@ class SignupFormNameField extends StatelessWidget {
       onChanged: (value) {
         onChanged();
       },
+      inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]"))],
       cursorColor: Colors.black,
       textAlign: TextAlign.justify,
       textCapitalization: TextCapitalization.sentences,

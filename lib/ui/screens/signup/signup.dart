@@ -40,7 +40,8 @@ class _SignupScreenInputState extends State<SignupScreen> {
   // ignore: unused_field
   SMITrigger? _trigFailure;
   SMITrigger? _trigSuccess;
-  final _userNameKey = GlobalKey<FormBuilderState>();
+  final _userNameKey = GlobalKey<FormState>();
+  final _userPhoneKey = GlobalKey<FormState>();
   bool keyboardVisible = false;
   final TextEditingController _nameTextEditingController =
       TextEditingController();
@@ -98,22 +99,27 @@ class _SignupScreenInputState extends State<SignupScreen> {
   Widget _profileInputForm() {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.8,
-      child: FormBuilder(
-          key: _userNameKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Column(
-            children: [
-              SignupFormNameField(
-                textEditingController: _nameTextEditingController,
-                onChanged: onFormInputChange,
-              ),
-              Utils.verticalSpace(1),
-              SignupFormPhoneField(
-                textEditingController: _phoneTextEditingController,
-                onChanged: onFormInputChange,
-              ),
-            ],
-          )),
+      child: Column(
+        children: [
+          Form(
+            key: _userNameKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: SignupFormNameField(
+              textEditingController: _nameTextEditingController,
+              onChanged: onFormInputChange,
+            ),
+          ),
+          Utils.verticalSpace(1),
+          Form(
+            key: _userPhoneKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: SignupFormPhoneField(
+              textEditingController: _phoneTextEditingController,
+              onChanged: onFormInputChange,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -200,24 +206,26 @@ class _SignupScreenInputState extends State<SignupScreen> {
   }
 
   onContinueButtonPressed() async {
-    if (_userNameKey.currentState!.validate()) {
+    if (_userNameKey.currentState!.validate() &&
+        _userPhoneKey.currentState!.validate()) {
       _isHandsUp?.change(false);
       setState(() {
         _submitState = SubmitState.STARTED;
       });
       _userNameKey.currentState!.save();
-      String username = _userNameKey
-          .currentState!.value[ProfileFormConstants.name]
-          .toString();
+      // String username = _userNameKey
+      //     .currentState!.value[ProfileFormConstants.name]
+      //     .toString();
 
-      String phone = _userNameKey
-          .currentState!.value[ProfileFormConstants.phone]
-          .toString();
-      phone = ProfileFormConstants.countryCode + phone;
+      // String phone = _userNameKey
+      //     .currentState!.value[ProfileFormConstants.phone]
+      //     .toString();
+      String phone =
+          ProfileFormConstants.countryCode + _phoneTextEditingController.text;
       final accountCreateReq = GRegisterWithPhoneReq(
         (b) => b
           ..vars.input.email = phone
-          ..vars.input.firstName = username
+          ..vars.input.firstName = _nameTextEditingController.text
           ..vars.input.channel = GlobalConstants.defaultChannel
           ..vars.input.redirectUrl = GlobalConstants.appUrl,
       );
@@ -225,9 +233,9 @@ class _SignupScreenInputState extends State<SignupScreen> {
       _client.request(accountCreateReq).listen((event) async {
         if (event.data?.accountRegisterWithPhone?.errors.isEmpty ?? false) {
           _trigSuccess?.fire();
-          await onSignupComplete(username, phone);
+          await onSignupComplete(_nameTextEditingController.text, phone);
         } else {
-          await onSignupError(event, username, phone);
+          await onSignupError(event, _nameTextEditingController.text, phone);
         }
       });
     } else {
