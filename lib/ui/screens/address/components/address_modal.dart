@@ -101,9 +101,9 @@ class _PickDeliveryAddressWidgetState extends State<PickDeliveryAddressWidget> {
                     onTap: () {
                       onAddressTap(currentAddress);
                     },
-                    onDelete: () {
-                      onDeleteTap(currentAddress);
-                    },
+                    // onDelete: () {
+                    //   onDeleteTap(currentAddress);
+                    // },
                   ),
                 );
               },

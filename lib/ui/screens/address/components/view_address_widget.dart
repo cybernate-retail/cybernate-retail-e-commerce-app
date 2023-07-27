@@ -63,20 +63,20 @@ class ViewAddressWidget extends StatelessWidget {
       ),
       isThreeLine: true,
       visualDensity: const VisualDensity(vertical: 4),
-      trailing: SizedBox(
-        width: 50,
-        child: Center(
-          child: IconButton(
-            onPressed: () {
-              onDelete();
-            },
-            icon: const Icon(
-              Icons.delete_outline,
-              size: 20,
-            ),
-          ),
-        ),
-      ),
+      // trailing: SizedBox(
+      //   width: 50,
+      //   child: Center(
+      //     child: IconButton(
+      //       onPressed: () {
+      //         onDelete();
+      //       },
+      //       icon: const Icon(
+      //         Icons.delete_outline,
+      //         size: 20,
+      //       ),
+      //     ),
+      //   ),
+      // ),
       shape: RoundedRectangleBorder(
         side: BorderSide(
           color: Theme.of(context).colorScheme.tertiaryContainer,
