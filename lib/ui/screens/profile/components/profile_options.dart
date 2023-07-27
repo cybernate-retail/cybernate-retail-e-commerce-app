@@ -25,15 +25,15 @@ class ProfileOptionsWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Utils.verticalSpace(1),
-          _option(
-            context,
-            AssetsDb.wishlistIcon,
-            "Wishlist",
-            onPressed: () {
-              // InAppNavigation.wishlist(context);
-            },
-          ),
+          // Utils.verticalSpace(1),
+          // _option(
+          //   context,
+          //   AssetsDb.wishlistIcon,
+          //   "Wishlist",
+          //   onPressed: () {
+          //     // InAppNavigation.wishlist(context);
+          //   },
+          // ),
           Utils.verticalSpace(1),
           _option(
             context,
