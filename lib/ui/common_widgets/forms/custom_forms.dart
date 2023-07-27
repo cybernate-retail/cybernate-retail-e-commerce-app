@@ -44,15 +44,11 @@ class CustomFormFields {
     );
   }
 
-  static Widget formTextField(
-    BuildContext context,
-    String textFieldKey,
-    Widget prefixIcon,
-    String labelText,
-    dynamic validator, {
-    textEditingController,
-    onChanged = Utils.emptyFunction,
-  }) {
+  static Widget formTextField(BuildContext context, String textFieldKey,
+      Widget prefixIcon, String labelText, dynamic validator,
+      {textEditingController,
+      onChanged = Utils.emptyFunction,
+      List<TextInputFormatter>? inputFormatters}) {
     return FormBuilderTextField(
       name: textFieldKey,
       onChanged: (value) {
@@ -61,6 +57,7 @@ class CustomFormFields {
       controller: textEditingController,
       cursorColor: cursorColor,
       textAlign: textAlign,
+      inputFormatters: inputFormatters,
       textCapitalization: TextCapitalization.sentences,
       decoration: inputDecoration(context, prefixIcon, labelText),
       validator: validator,

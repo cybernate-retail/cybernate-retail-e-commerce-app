@@ -15,6 +15,7 @@ import 'package:cybernate_retail_mobile/ui/utils/utils.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -260,15 +261,17 @@ class _AddAddressState extends State<AddAddress> {
 
   _familyNameField() {
     return CustomFormFields.formTextField(
-      context,
-      AddressFormKeys.fullname,
-      UiIcons.person(
-        size: 20,
-        color: Theme.of(context).colorScheme.tertiary,
-      ),
-      "Full Name*",
-      CustomFormFieldValidators.nameFieldValidator(),
-    );
+        context,
+        AddressFormKeys.fullname,
+        UiIcons.person(
+          size: 20,
+          color: Theme.of(context).colorScheme.tertiary,
+        ),
+        "Full Name*",
+        CustomFormFieldValidators.nameFieldValidator(),
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]"))
+        ]);
   }
 
   _houseNoField() {
