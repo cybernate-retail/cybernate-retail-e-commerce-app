@@ -74,4 +74,4 @@ This project is licensed under the [MIT License](link_to_license), granting the 
 
 We express our gratitude to the dedicated developers, contributors, and supporters whose efforts have led to the creation and enhancement of this high-performing app.
 
-
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/erstnot)
