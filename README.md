@@ -1,6 +1,6 @@
 # Cybernate Retail a E-Commerce Flutter App
 
-
+![App Screenshot](image.png)
 
 Welcome to our open-source E-Commerce Flutter app! This app is dedicated to delivering a seamless and lightning-fast shopping experience for food enthusiasts, offering a comprehensive platform to explore, purchase, and manage a variety of food products.
 
